@@ -1,0 +1,12 @@
+<package>
+  <description brief="reemc_tutorials">
+      Basic tutorials to get familiar with the REEM-C robot in a simulated environment.
+  </description>
+  <author> Luca Marchionni</author>
+  <license>BSD</license>
+  <review status="unreviewed" notes=""/>
+  <url>http://ros.org/wiki/reemc_tutorials</url>
+
+</package>
+
+
