@@ -7,6 +7,12 @@
   <review status="unreviewed" notes=""/>
   <url>http://ros.org/wiki/reemc_tutorials</url>
 
+  <depend package="joint_state_publisher"/>
+  <depend package="robot_state_publisher"/>
+  <depend package="roscpp"/>
+  <depend package="robot_mechanism_controllers"/>
+  <depend package="sensor_msgs"/>
+  <depend package="reemc_gazebo"/>
 </package>
 
 

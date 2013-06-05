@@ -1,0 +1,3 @@
+<launch>
+  <node name="right_ft_sensor" pkg="rxtools" type="rxplot" args="-b 10 -t Right-F/T /reemc/sole_right_ft_data/force/x,/reemc/sole_right_ft_data/force/y,/reemc/sole_right_ft_data/force/z /reemc/sole_right_ft_data/torque/x,/reemc/sole_right_ft_data/torque/y,/reemc/sole_right_ft_data/torque/z" />
+</launch>
