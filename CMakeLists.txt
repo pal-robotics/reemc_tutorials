@@ -17,3 +17,6 @@ set(EXECUTABLE_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/bin)
 set(LIBRARY_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/lib)
 
 rosbuild_add_executable(reach_pose src/reach_pose.cpp)
+rosbuild_add_executable(asr_client src/asr_client.cpp)
+rosbuild_add_executable(tts_client src/tts_client.cpp)
+

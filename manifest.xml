@@ -13,6 +13,10 @@
   <depend package="robot_mechanism_controllers"/>
   <depend package="sensor_msgs"/>
   <depend package="reemc_gazebo"/>
+  <depend package="pal_interaction_msgs"/>
+  <depend package="text_to_speech"/>
+
+
 </package>
 
 
