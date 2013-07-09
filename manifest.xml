@@ -6,13 +6,19 @@
   <license>BSD</license>
   <review status="unreviewed" notes=""/>
   <url>http://ros.org/wiki/reemc_tutorials</url>
-
   <depend package="joint_state_publisher"/>
   <depend package="robot_state_publisher"/>
+  <depend package="pal_detection_msgs"/>
   <depend package="roscpp"/>
+  <depend package="opencv2"/>
+  <depend package="cv_bridge"/>
   <depend package="robot_mechanism_controllers"/>
   <depend package="sensor_msgs"/>
   <depend package="reemc_gazebo"/>
+  <depend package="pal_interaction_msgs"/>
+  <depend package="text_to_speech"/>
+  <depend package="pal_face_node"/>
+  <depend package="pal_face_database"/>
 </package>
 
 
