@@ -12,8 +12,7 @@ bin=`dirname $0`;
 
 ip=`ifconfig tun0 | grep "inet addr" | awk -F: '{print $2}' | awk '{print $1}'`
 echo "listening from $ip";
-log="/dev/null";
-log="/var/log/jack.log";
+
 log="/tmp/jack.log";
 
 #nohup /opt/jack/bin/jackd -S -R -d alsa -d pal_robotics_48 -C -P -S >& /dev/null &
