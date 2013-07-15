@@ -2,7 +2,9 @@
 
 set -i
 
-clientname="reemh3m";
+if [[ $# -ne 1 ]]; then
+	echo "use $0 <robothostname>";
+fi
 
 if [[ $1 != "" ]]; then
 	clientname=$1;

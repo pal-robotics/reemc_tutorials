@@ -25,5 +25,5 @@ else
 	echo "$jackasoundrc file does not exists, broadcasting is not the default, you can explicitly use the jack device to do so.";
 fi
 
-nohup  ${jackbindir}jackd -R -d net -a $ip  >& $log &
+nohup  ${jackbindir}jackd  -d net -a $ip  >& $log &
 
