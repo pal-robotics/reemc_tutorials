@@ -19,8 +19,13 @@ set(LIBRARY_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/lib)
 rosbuild_add_executable(reach_pose src/reach_pose.cpp)
 rosbuild_add_executable(asr_client src/asr_client.cpp)
 rosbuild_add_executable(tts_client src/tts_client.cpp)
+
 rosbuild_add_executable(fullbody_person_2d_detection src/fullbody_person_2d_detection.cpp)
+rosbuild_link_boost(fullbody_person_2d_detection signals)
+
 rosbuild_add_executable(face_detection src/face_detection.cpp)
+rosbuild_add_boost_directories()
+rosbuild_link_boost(face_detection signals)
 rosbuild_add_executable(face_enrollment src/face_enrollment.cpp)
 rosbuild_add_executable(face_recognition src/face_recognition.cpp)
 
