@@ -69,7 +69,7 @@
 
 
 /**
- * @brief callback callback function for the debug image published by the /face_node ROS node in which
+ * @brief callback callback function for the debug image published by the /pal_face ROS node in which
  *        face detections are already painted.
  * @param imageMsg pointer to the image message
  */
@@ -101,15 +101,15 @@ int main(int argc, char** argv)
   }   
 
 
-  // Subscribe to the debug image published by the node /face_node in which all face detections are painted
+  // Subscribe to the debug image published by the node /pal_face in which all face detections are painted
   image_transport::ImageTransport it(nh);
-  image_transport::Subscriber imageSub = it.subscribe("/face_node/debug", 1, imageCallback);
+  image_transport::Subscriber imageSub = it.subscribe("/pal_face/debug", 1, imageCallback);
 
 
   // Set an empty face database for the test which will be stored in the test path
   std::string databaseTestPath = ros::package::getPath("reemc_tutorials") + "/etc/test_database";
-  // Use the ROS service in /face_node to set the database
-  ros::ServiceClient setDatabaseClient = nh.serviceClient<pal_face_node::SetDatabase>("/face_node/set_database");
+  // Use the ROS service in /pal_face to set the database
+  ros::ServiceClient setDatabaseClient = nh.serviceClient<pal_face_node::SetDatabase>("/pal_face/set_database");
   pal_face_node::SetDatabase setDatabaseSrv;
   setDatabaseSrv.request.databasePath = databaseTestPath;
   //empty the database
@@ -118,7 +118,7 @@ int main(int argc, char** argv)
     ROS_INFO_STREAM("Face database succesffully created at: " << databaseTestPath);
   else
   {
-    ROS_ERROR_STREAM("Failure calling service /face_node/set_database. Is /face_node running?");
+    ROS_ERROR_STREAM("Failure calling service /pal_face/set_database. Is /pal_face running?");
     return EXIT_FAILURE;
   }
 
@@ -130,7 +130,7 @@ int main(int argc, char** argv)
 
 
   // Start enrollment process with the appropriate ROS service
-  ros::ServiceClient startEnrollmentClient = nh.serviceClient<pal_face_node::StartEnrollment>("/face_node/start_enrollment");
+  ros::ServiceClient startEnrollmentClient = nh.serviceClient<pal_face_node::StartEnrollment>("/pal_face/start_enrollment");
   pal_face_node::StartEnrollment startEnrollmentSrv;
   startEnrollmentSrv.request.name = name;
   if (startEnrollmentClient.call(startEnrollmentSrv))
@@ -153,7 +153,7 @@ int main(int argc, char** argv)
   ROS_INFO("Key pressed. Proceeding to complete the enrollment...");
 
   // Stop enrollment
-  ros::ServiceClient stopEnrollmentClient = nh.serviceClient<pal_face_node::StopEnrollment>("/face_node/stop_enrollment");
+  ros::ServiceClient stopEnrollmentClient = nh.serviceClient<pal_face_node::StopEnrollment>("/pal_face/stop_enrollment");
   pal_face_node::StopEnrollment stopEnrollmentSrv;
   if ( stopEnrollmentClient.call(stopEnrollmentSrv) )
   {

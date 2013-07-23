@@ -35,10 +35,10 @@
 /** @file
  *
  * @brief example on how to get face detections published by the
- *        are published by the /face_node ROS node.
+ *        are published by the /pal_face ROS node.
  *
  *        This example will subscribe to the image topic /stereo/left/image and the detections
- *        topic /face_node/faces. Then, it shows with rectangles the image regions in which
+ *        topic /pal_face/faces. Then, it shows with rectangles the image regions in which
  *        faces have been detected.
  *
  * @author Jordi Pages.
@@ -111,7 +111,7 @@ int main(int argc, char** argv)
   message_filters::Subscriber<sensor_msgs::Image> imageSub(nh, "/stereo/left/image", 1);
 
   // Define a subscriber to the topic with the person detections
-  message_filters::Subscriber<pal_detection_msgs::FaceDetections> detectionsSub(nh, "/face_node/faces", 1);
+  message_filters::Subscriber<pal_detection_msgs::FaceDetections> detectionsSub(nh, "/pal_face/faces", 1);
 
   // Create a synchronizer to obtain pairs of images and person detections
   message_filters::TimeSynchronizer<sensor_msgs::Image,
