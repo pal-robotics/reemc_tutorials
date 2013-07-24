@@ -10,5 +10,7 @@ if [[ -e $alsasoundrc ]]; then
         cp $alsasoundrc $asoundrc && chmod +w $asoundrc 
 fi
 
+killall jackd
+sleep 1
 killall -9 jackd
 
