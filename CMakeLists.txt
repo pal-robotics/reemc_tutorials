@@ -36,3 +36,7 @@ rosbuild_link_boost(face_detection signals)
 rosbuild_add_executable(face_enrollment src/face_enrollment.cpp)
 rosbuild_add_executable(face_recognition src/face_recognition.cpp)
 
+rosbuild_add_executable(textured_object_detection src/textured_object_detection.cpp)
+rosbuild_link_boost(textured_object_detection signals)
+
+

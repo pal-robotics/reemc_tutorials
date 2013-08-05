@@ -20,6 +20,7 @@
   <depend package="pal_camera_client"/>
   <depend package="pal_face_node"/>
   <depend package="pal_face_database"/>
+  <depend package="pal_texture_detector"/>
 </package>
 
 
