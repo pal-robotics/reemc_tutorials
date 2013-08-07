@@ -257,7 +257,7 @@ bool ReachPose::run(const std::string& pose, const ros::Duration& duration)
       ros::Duration(2.0).sleep();
     }
   }
-  ROS_INFO("Done!");
+  ROS_INFO_STREAM("Finished with state " << move_joint_groups_[0]->getState().toString());
 
   return true;
 }
