@@ -22,6 +22,7 @@
   <depend package="pal_face_database"/>
   <depend package="pr2_controllers_msgs"/>
   <depend package="pal_texture_detector"/>
+  <depend package="arm_navigation_msgs"/>
 </package>
 
 
