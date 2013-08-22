@@ -1,0 +1,118 @@
+
+    lower_body:
+      torso_1_joint:     0.0
+      torso_2_joint:     0.15
+      arm_right_1_joint:  &lower_body_arm_1 -0.2
+      arm_right_2_joint:  0.0
+      arm_right_3_joint:  0.0
+      arm_right_4_joint:  &lower_body_arm_4 1.0
+      arm_right_5_joint:  0.0
+      arm_right_6_joint:  0.0
+      arm_right_7_joint:  0.0
+      arm_left_1_joint:  *lower_body_arm_1
+      arm_left_2_joint:   0.0
+      arm_left_3_joint:   0.0
+      arm_left_4_joint:  *lower_body_arm_4
+      arm_left_5_joint:   0.0
+      arm_left_6_joint:   0.0
+      arm_left_7_joint:   0.0
+      leg_right_3_joint: &lower_body_leg_3 -0.5
+      leg_right_4_joint: &lower_body_leg_4 1.1
+      leg_right_5_joint: &lower_body_leg_5 -0.6
+      leg_left_3_joint:  *lower_body_leg_3
+      leg_left_4_joint:  *lower_body_leg_4
+      leg_left_5_joint:  *lower_body_leg_5
+
+    lower_body2:
+      torso_1_joint:     0.0
+      torso_2_joint:     0.25
+      arm_right_1_joint:  &lower_body2_arm_1 0.1
+      arm_right_2_joint:  &lower_body2_arm_2 0.3
+      arm_right_3_joint:  0.0
+      arm_right_4_joint:  &lower_body2_arm_4 1.0
+      arm_right_5_joint:  0.0
+      arm_right_6_joint:  0.0
+      arm_right_7_joint:  0.0
+      arm_left_1_joint:  *lower_body2_arm_1
+      arm_left_2_joint:  *lower_body2_arm_2
+      arm_left_3_joint:   0.0
+      arm_left_4_joint:  *lower_body2_arm_4
+      arm_left_5_joint:   0.0
+      arm_left_6_joint:   0.0
+      arm_left_7_joint:   0.0
+      leg_right_3_joint: &lower_body2_leg_3 -1.0
+      leg_right_4_joint: &lower_body2_leg_4 1.6
+      leg_right_5_joint: &lower_body2_leg_5 -0.7
+      leg_left_3_joint:  *lower_body2_leg_3
+      leg_left_4_joint:  *lower_body2_leg_4
+      leg_left_5_joint:  *lower_body2_leg_5
+
+    pre_sit:
+      torso_1_joint:      0.0
+      torso_2_joint:      0.0
+      head_1_joint:       0.0
+      head_2_joint:       0.0
+      arm_right_1_joint:  &pre_sit_arm_1 0.4
+      arm_right_2_joint:  0.0
+      arm_right_3_joint:  0.0
+      arm_right_4_joint:  0.0
+      arm_right_5_joint:  0.0
+      arm_right_6_joint:  0.0
+      arm_right_7_joint:  0.0
+      arm_left_1_joint:  *pre_sit_arm_1
+      arm_left_2_joint:   0.0
+      arm_left_3_joint:   0.0
+      arm_left_4_joint:   0.0
+      arm_left_5_joint:   0.0
+      arm_left_6_joint:   0.0
+      arm_left_7_joint:   0.0
+      leg_right_1_joint:  0.0
+      leg_right_2_joint:  0.0
+      leg_right_3_joint: &medium_squat_leg_3 -0.6
+      leg_right_4_joint: &medium_squat_leg_4 1.2
+      leg_right_5_joint: &medium_squat_leg_5 0.3
+      leg_left_1_joint:  0.0
+      leg_left_2_joint:  0.0
+      leg_left_3_joint:  *medium_squat_leg_3
+      leg_left_4_joint:  *medium_squat_leg_4
+      leg_left_5_joint:  *medium_squat_leg_5
+
+    hop_down:
+      torso_1_joint:     0.0
+      torso_2_joint:     -0.15
+      head_1_joint:      0.0
+      head_2_joint:      0.25
+      arm_right_1_joint: *hands_front_arm_1
+      arm_right_2_joint: *hands_front_arm_2
+      arm_right_3_joint: *hands_front_arm_3
+      arm_right_4_joint: *hands_front_arm_4
+      arm_left_1_joint:  *hands_front_arm_1
+      arm_left_2_joint:  *hands_front_arm_2
+      arm_left_3_joint:  *hands_front_arm_3
+      arm_left_4_joint:  *hands_front_arm_4
+      leg_right_3_joint: *medium_squat_leg_3
+      leg_right_4_joint: *medium_squat_leg_4
+      leg_right_5_joint: *medium_squat_leg_5
+      leg_left_3_joint:  *medium_squat_leg_3
+      leg_left_4_joint:  *medium_squat_leg_4
+      leg_left_5_joint:  *medium_squat_leg_5
+
+    chair_sit:
+      torso_1_joint:     0.0
+      torso_2_joint:     0.3
+      head_1_joint:      0.0
+      head_2_joint:      0.25
+      arm_right_1_joint: &chair_sit_arm_1 0.2
+      arm_right_2_joint: *hands_front_arm_2
+      arm_right_3_joint: *hands_front_arm_3
+      arm_right_4_joint: &chair_sit_arm_4 1.0
+      arm_left_1_joint:  *chair_sit_arm_1
+      arm_left_2_joint:  *hands_front_arm_2
+      arm_left_3_joint:  *hands_front_arm_3
+      arm_left_4_joint:  *chair_sit_arm_4
+      leg_right_3_joint: &chair_sit_leg_3 -0.9
+      leg_right_4_joint: &chair_sit_leg_4 1.2
+      leg_right_5_joint: &chair_sit_leg_5 0.0
+      leg_left_3_joint:  *chair_sit_leg_3
+      leg_left_4_joint:  *chair_sit_leg_4
+      leg_left_5_joint:  *chair_sit_leg_5
