@@ -40,3 +40,6 @@ rosbuild_add_executable(textured_object_detection src/textured_object_detection.
 rosbuild_link_boost(textured_object_detection signals)
 
 rosbuild_add_executable(move_left_arm_joint_goal src/move_left_arm_joint_goal.cpp)
+
+rosbuild_add_executable(walking_client_topic src/walk_client_example_action.cpp)
+rosbuild_add_executable(walking_client_service src/walk_client_example_service.cpp)
