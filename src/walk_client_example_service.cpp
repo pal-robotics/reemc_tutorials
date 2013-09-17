@@ -1,50 +1,43 @@
 #include <ros/ros.h>
-#include <sstream>
+#include <controller_manager_msgs/SwitchController.h>
 #include <walking/WalkSteps.h>
 
 const std::string WALK_STEPS_SERVICE = "/walking_controller/walk_steps";
+const int nsteps = 5;
+const double step_length = 0.15;
+const double step_time = 1.0;
 
 int main(int argc, char **argv)
 {
 
-  int nsteps = 0;
-  double step_length = 0.0;
-  double step_time = 0.0;
-
   ros::init(argc, argv, "walking_client_example");
   ros::NodeHandle n;
 
-  std::ostringstream usage;
-  usage << "Usage: " << argv[0];
+  ros::ServiceClient client = n.serviceClient<controller_manager_msgs::SwitchController>("/controller_manager/switch_controller", true);
 
-  if (4 != argc)
+  controller_manager_msgs::SwitchController srv_start;
+  srv_start.request.start_controllers.resize(1, "walking_controller");
+  srv_start.request.stop_controllers.clear();
+  srv_start.request.strictness = controller_manager_msgs::SwitchControllerRequest::STRICT;
+  if (client.call(srv_start))
   {
-    std::cout << usage.str() <<" [nsteps] [step_lenght] [step_time]\n";
-    return EXIT_FAILURE;
+    ROS_INFO("Succesfully started walking controller");
+  }
+  else
+  {
+    ROS_ERROR("Failed to start walking controller");
+    return 1;
   }
 
-  if (4 == argc)
-  {
-    try
-    {
-      nsteps = boost::lexical_cast<int>(argv[1]);
-      step_length = boost::lexical_cast<double>(argv[2]);
-      step_time = boost::lexical_cast<double>(argv[3]);
-    }
-    catch(boost::bad_lexical_cast &)
-    {
-      std::cout << usage.str() << std::endl;
-      return EXIT_FAILURE;
-    }
-  }
+  ros::Duration(5.0).sleep();
 
-  ros::ServiceClient client = n.serviceClient<walking::WalkSteps>(WALK_STEPS_SERVICE);
+  ros::ServiceClient walking_client = n.serviceClient<walking::WalkSteps>(WALK_STEPS_SERVICE);
   walking::WalkSteps srv;
   srv.request.nsteps = nsteps;
   srv.request.step_length = step_length;
   srv.request.step_time = step_time;
 
-  if (client.call(srv))
+  if (walking_client.call(srv))
   {
     ROS_INFO("Succesfully called service WalkSteps");
   }
@@ -53,6 +46,36 @@ int main(int argc, char **argv)
     ROS_ERROR("Failed to call service WalkSteps");
     return 1;
   }
+
+  ros::Duration(step_time*nsteps + 5.0).sleep();
+  srv.request.step_length = -step_length;
+
+  if (walking_client.call(srv))
+  {
+    ROS_INFO("Succesfully called service WalkSteps");
+  }
+  else
+  {
+    ROS_ERROR("Failed to call service WalkSteps");
+    return 1;
+  }
+  ros::Duration(step_time*nsteps + 10.0).sleep();
+
+  controller_manager_msgs::SwitchController srv_stop;
+  srv_stop.request.stop_controllers.resize(1, "walking_controller");
+  srv_stop.request.start_controllers.clear();
+  srv_stop.request.strictness = controller_manager_msgs::SwitchControllerRequest::STRICT;
+  if (client.call(srv_stop))
+  {
+    ROS_INFO("Succesfully stopped walking controller");
+  }
+  else
+  {
+    ROS_ERROR("Failed to stop walking controller");
+    return 1;
+  }
+
+  ros::Duration(5.0).sleep();
 
   return 0;
 }

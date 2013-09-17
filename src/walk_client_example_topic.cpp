@@ -9,6 +9,7 @@ int main(int argc, char **argv)
 
   ros::init(argc, argv, "walking_client_example");
   ros::NodeHandle n;
+
   ros::ServiceClient client = n.serviceClient<controller_manager_msgs::SwitchController>("/controller_manager/switch_controller", true);
 
   controller_manager_msgs::SwitchController srv_start;
