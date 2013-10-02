@@ -1,0 +1,139 @@
+#!/bin/bash
+
+# Load robot poses
+rosparam load `rospack find reemc_tutorials`/config/reemc_poses.yaml
+
+# Home pose
+echo 'Going to home pose...'
+rosrun reemc_tutorials reach_pose home
+
+# Head
+echo 'Testing head joints...'
+rosrun move_joint move_joint head_1_joint 1.3 3.0
+sleep 3
+rosrun move_joint move_joint head_1_joint -1.3 6.0
+sleep 6
+rosrun move_joint move_joint head_1_joint 0.0 3.0
+sleep 3
+
+rosrun move_joint move_joint head_2_joint 0.3 1.0
+sleep 1
+rosrun move_joint move_joint head_2_joint -0.25 2.0
+sleep 2
+rosrun move_joint move_joint head_2_joint 0.0 1.0
+sleep 1
+
+# Left arm
+echo 'Testing left arm joints...'
+rosrun move_joint move_joint arm_left_4_joint 1.57 4.0
+sleep 4
+
+rosrun move_joint move_joint arm_left_2_joint 1.309 4.0
+sleep 4
+
+rosrun move_joint move_joint arm_left_1_joint 1.5708 4.0
+sleep 4
+
+rosrun move_joint move_joint arm_left_3_joint -1.57 4.0
+sleep 4
+
+rosrun move_joint move_joint arm_left_5_joint 1.57 4.0
+sleep 4
+
+rosrun move_joint move_joint arm_left_6_joint 1.57 4.0
+sleep 4
+rosrun move_joint move_joint arm_left_6_joint 0.0 4.0
+sleep 4
+
+rosrun move_joint move_joint arm_left_7_joint -1.57 4.0
+sleep 4
+rosrun move_joint move_joint arm_left_7_joint 0.0 4.0
+sleep 4
+
+# Left hand
+echo 'Testing left hand joints...'
+rosrun move_joint move_joint hand_left_thumb_joint 1.57 2.0
+sleep 2
+rosrun move_joint move_joint hand_left_thumb_joint 0.0 2.0
+sleep 2
+
+rosrun move_joint move_joint hand_left_index_joint 4.0 3.0
+sleep 3
+rosrun move_joint move_joint hand_left_index_joint 0.0 3.0
+sleep 3
+
+rosrun move_joint move_joint hand_left_middle_joint 4.0 3.0
+sleep 3
+rosrun move_joint move_joint hand_left_middle_joint 0.0 3.0
+sleep 3
+
+# Right arm
+echo 'Testing right arm joints...'
+rosrun move_joint move_joint arm_right_4_joint 1.57 4.0
+sleep 4
+
+rosrun move_joint move_joint arm_right_2_joint 1.309 4.0
+sleep 4
+
+rosrun move_joint move_joint arm_right_1_joint 1.5708 4.0
+sleep 4
+
+rosrun move_joint move_joint arm_right_3_joint -1.57 4.0
+sleep 4
+
+rosrun move_joint move_joint arm_right_5_joint 1.57 4.0
+sleep 4
+
+rosrun move_joint move_joint arm_right_6_joint 1.57 4.0
+sleep 4
+rosrun move_joint move_joint arm_right_6_joint 0.0 4.0
+sleep 4
+
+rosrun move_joint move_joint arm_right_7_joint -1.57 4.0
+sleep 4
+rosrun move_joint move_joint arm_right_7_joint 0.0 4.0
+sleep 4
+
+# Right hand
+echo 'Testing right hand joints...'
+rosrun move_joint move_joint hand_right_thumb_joint 1.57 2.0
+sleep 2
+rosrun move_joint move_joint hand_right_thumb_joint 0.0 2.0
+sleep 2
+
+rosrun move_joint move_joint hand_right_index_joint 4.0 3.0
+sleep 3
+rosrun move_joint move_joint hand_right_index_joint 0.0 3.0
+sleep 3
+
+rosrun move_joint move_joint hand_right_middle_joint 4.0 3.0
+sleep 3
+rosrun move_joint move_joint hand_right_middle_joint 0.0 3.0
+sleep 3
+
+# Home pose
+echo 'Going to home pose...'
+rosrun reemc_tutorials reach_pose home
+
+# Torso
+echo 'Testing torso joints...'
+
+rosrun move_joint move_joint arm_left_2_joint 0.2 2.0  # Clear arm from torso
+rosrun move_joint move_joint arm_right_2_joint 0.2 2.0 # Clear arm from torso
+sleep 2
+
+rosrun move_joint move_joint torso_1_joint 0.3 3.0
+sleep 3
+rosrun move_joint move_joint torso_1_joint -0.3 6.0
+sleep 6
+rosrun move_joint move_joint torso_1_joint 0.0 3.0
+sleep 3
+
+rosrun move_joint move_joint torso_2_joint 0.2 3.0
+sleep 3
+rosrun move_joint move_joint torso_2_joint -0.15 6.0
+sleep 6
+rosrun move_joint move_joint torso_2_joint 0.0 3.0
+sleep 3
+
+echo 'Done testing upper body joints!'

@@ -1,0 +1,58 @@
+#!/bin/bash
+
+# Load robot poses
+rosparam load `rospack find reemc_tutorials`/config/reemc_poses.yaml
+
+# Home pose
+echo 'Going to home pose...'
+rosrun reemc_tutorials reach_pose home
+echo 'Going to small_squat pose...'
+rosrun reemc_tutorials reach_pose small_squat
+
+# Left leg
+echo 'Testing left leg joints...'
+rosrun move_joint move_joint leg_left_2_joint 0.2 3.0
+sleep 3
+
+rosrun move_joint move_joint leg_left_1_joint 0.2 3.0
+sleep 3
+
+rosrun move_joint move_joint leg_left_3_joint -0.7 3.0
+sleep 3
+
+rosrun move_joint move_joint leg_left_4_joint 1.2 3.0
+sleep 3
+
+rosrun move_joint move_joint leg_left_5_joint -0.3 3.0
+sleep 3
+
+rosrun move_joint move_joint leg_left_6_joint -0.3 3.0
+sleep 3
+
+# Right leg
+echo 'Testing right leg joints...'
+rosrun move_joint move_joint leg_right_2_joint -0.2 3.0
+sleep 3
+
+rosrun move_joint move_joint leg_right_1_joint -0.2 3.0
+sleep 3
+
+rosrun move_joint move_joint leg_right_3_joint -0.7 3.0
+sleep 3
+
+rosrun move_joint move_joint leg_right_4_joint 1.2 3.0
+sleep 3
+
+rosrun move_joint move_joint leg_right_5_joint -0.3 3.0
+sleep 3
+
+rosrun move_joint move_joint leg_right_6_joint 0.3 3.0
+sleep 3
+
+# Home pose
+echo 'Going to small_squat pose...'
+rosrun reemc_tutorials reach_pose small_squat
+echo 'Going to home pose...'
+rosrun reemc_tutorials reach_pose home
+
+echo 'Done testing lower body joints!'
