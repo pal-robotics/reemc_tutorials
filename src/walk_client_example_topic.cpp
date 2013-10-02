@@ -7,24 +7,8 @@ const std::string WALK_CMD_VEL_TOPIC = "/walking_controller/cmd_vel";
 int main(int argc, char **argv)
 {
 
-  ros::init(argc, argv, "walking_client_example");
+  ros::init(argc, argv, "walking_client_topic");
   ros::NodeHandle n;
-
-  ros::ServiceClient client = n.serviceClient<controller_manager_msgs::SwitchController>("/controller_manager/switch_controller", true);
-
-  controller_manager_msgs::SwitchController srv_start;
-  srv_start.request.start_controllers.resize(1, "walking_controller");
-  srv_start.request.stop_controllers.clear();
-  srv_start.request.strictness = controller_manager_msgs::SwitchControllerRequest::STRICT;
-  if (client.call(srv_start))
-  {
-    ROS_INFO("Succesfully started walking controller");
-  }
-  else
-  {
-    ROS_ERROR("Failed to start walking controller");
-    return 1;
-  }
 
   ros::Publisher cmd_publisher = n.advertise<geometry_msgs::Twist>(WALK_CMD_VEL_TOPIC,1 );
   sleep(5);
@@ -62,20 +46,6 @@ int main(int argc, char **argv)
   cmd_publisher.publish(cmd_vel_turn_left);
   sleep(3.0);
 
-
-  controller_manager_msgs::SwitchController srv_stop;
-  srv_stop.request.stop_controllers.resize(1, "walking_controller");
-  srv_stop.request.start_controllers.clear();
-  srv_stop.request.strictness = controller_manager_msgs::SwitchControllerRequest::STRICT;
-  if (client.call(srv_stop))
-  {
-    ROS_INFO("Succesfully stopped walking controller");
-  }
-  else
-  {
-    ROS_ERROR("Failed to stop walking controller");
-    return 1;
-  }
   return 0;
 }
 

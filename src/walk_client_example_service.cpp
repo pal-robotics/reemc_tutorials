@@ -13,25 +13,16 @@ int main(int argc, char **argv)
   ros::init(argc, argv, "walking_client_example");
   ros::NodeHandle n;
 
-  ros::ServiceClient client = n.serviceClient<controller_manager_msgs::SwitchController>("/controller_manager/switch_controller", true);
-
-  controller_manager_msgs::SwitchController srv_start;
-  srv_start.request.start_controllers.resize(1, "walking_controller");
-  srv_start.request.stop_controllers.clear();
-  srv_start.request.strictness = controller_manager_msgs::SwitchControllerRequest::STRICT;
-  if (client.call(srv_start))
-  {
-    ROS_INFO("Succesfully started walking controller");
-  }
-  else
-  {
-    ROS_ERROR("Failed to start walking controller");
-    return 1;
-  }
 
   ros::Duration(5.0).sleep();
 
   ros::ServiceClient walking_client = n.serviceClient<walking::WalkSteps>(WALK_STEPS_SERVICE);
+  if(! walking_client.waitForExistence(ros::Duration(5.0)) )
+  {
+    ROS_ERROR_STREAM("Walking service " << WALK_STEPS_SERVICE << " not available. Check if walking controller has been loaded and started.");
+    return 1;
+  }
+
   walking::WalkSteps srv;
   srv.request.nsteps = nsteps;
   srv.request.step_length = step_length;
@@ -60,22 +51,6 @@ int main(int argc, char **argv)
     return 1;
   }
   ros::Duration(step_time*nsteps + 10.0).sleep();
-
-  controller_manager_msgs::SwitchController srv_stop;
-  srv_stop.request.stop_controllers.resize(1, "walking_controller");
-  srv_stop.request.start_controllers.clear();
-  srv_stop.request.strictness = controller_manager_msgs::SwitchControllerRequest::STRICT;
-  if (client.call(srv_stop))
-  {
-    ROS_INFO("Succesfully stopped walking controller");
-  }
-  else
-  {
-    ROS_ERROR("Failed to stop walking controller");
-    return 1;
-  }
-
-  ros::Duration(5.0).sleep();
 
   return 0;
 }

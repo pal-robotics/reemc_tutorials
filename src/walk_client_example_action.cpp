@@ -17,25 +17,14 @@ int main(int argc, char **argv)
   ros::init(argc, argv, "walking_client_example");
   ros::NodeHandle n;
 
-  ros::ServiceClient client = n.serviceClient<controller_manager_msgs::SwitchController>("/controller_manager/switch_controller", true);
 
-  controller_manager_msgs::SwitchController srv_start;
-  srv_start.request.start_controllers.resize(1, "walking_controller");
-  srv_start.request.stop_controllers.clear();
-  srv_start.request.strictness = controller_manager_msgs::SwitchControllerRequest::STRICT;
-  if (client.call(srv_start))
+  WalkingClient action_client(WALK_STEPS_ACTION_NAME, true);
+  if(!action_client.waitForServer(ros::Duration(5.0) ) )
   {
-    ROS_INFO("Succesfully started walking controller");
-  }
-  else
-  {
-    ROS_ERROR("Failed to start walking controller");
+    ROS_ERROR_STREAM("Walking action server " << WALK_STEPS_ACTION_NAME << " not available. Check if walking controller has been loaded and started.");
     return 1;
   }
 
-
-  WalkingClient action_client(WALK_STEPS_ACTION_NAME, true);
-  action_client.waitForServer();
   humanoid_nav_msgs::ExecFootstepsGoal goal;
 
   // Create a list of steps
@@ -70,21 +59,6 @@ int main(int argc, char **argv)
   if (action_client.getState() == actionlib::SimpleClientGoalState::SUCCEEDED){
     ROS_INFO("The footstep list has been excecuted succesfully");
   }
-
-  controller_manager_msgs::SwitchController srv_stop;
-  srv_stop.request.stop_controllers.resize(1, "walking_controller");
-  srv_stop.request.start_controllers.clear();
-  srv_stop.request.strictness = controller_manager_msgs::SwitchControllerRequest::STRICT;
-  if (client.call(srv_stop))
-  {
-    ROS_INFO("Succesfully stopped walking controller");
-  }
-  else
-  {
-    ROS_ERROR("Failed to stop walking controller");
-    return 1;
-  }
-
 
   return 0;
 
