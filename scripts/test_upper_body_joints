@@ -1,5 +1,24 @@
 #!/bin/bash
 
+# Check preconditions with user
+TEXT_BOLD='\033[1m'
+TEXT_RESET='\e[0m'
+
+ready=''
+echo -e "Is the robot$TEXT_BOLD secured to the crane$TEXT_RESET and$TEXT_BOLD standing with its feet on the ground$TEXT_RESET? (yes/no)"
+while [[ $ready != 'yes' ]]; do
+  read ready
+
+  if [[ $ready == 'no' ]]; then
+    echo 'Aborting...'
+    exit 1
+  fi
+
+  if [[ $ready != 'yes' ]]; then
+    echo -e "Please answer$TEXT_BOLD yes$TEXT_RESET or$TEXT_BOLD no$TEXT_RESET to the above question, or ctrl+c to abort."
+  fi
+done
+
 # Load robot poses
 rosparam load `rospack find reemc_tutorials`/config/reemc_poses.yaml
 
