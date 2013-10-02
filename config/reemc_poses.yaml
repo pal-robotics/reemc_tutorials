@@ -50,12 +50,18 @@ reach_pose:
       hand_left_middle_joint:  0.0
 
     small_squat:
+      leg_right_1_joint: 0.0
+      leg_right_2_joint: 0.0
       leg_right_3_joint: &small_squat_leg_3 -0.5
       leg_right_4_joint: &small_squat_leg_4 1.0
       leg_right_5_joint: &small_squat_leg_5 -0.5
+      leg_right_6_joint: 0.0
+      leg_left_1_joint:  0.0
+      leg_left_2_joint:  0.0
       leg_left_3_joint:  *small_squat_leg_3
       leg_left_4_joint:  *small_squat_leg_4
       leg_left_5_joint:  *small_squat_leg_5
+      leg_left_6_joint:  0.0
 
     squat:
       torso_1_joint:     0.0
