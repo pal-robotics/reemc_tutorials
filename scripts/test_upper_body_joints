@@ -25,6 +25,7 @@ rosparam load `rospack find reemc_tutorials`/config/reemc_poses.yaml
 # Home pose
 echo 'Going to home pose...'
 rosrun reemc_tutorials reach_pose home
+sleep 1
 
 # Head
 echo 'Testing head joints...'
@@ -133,6 +134,7 @@ sleep 3
 # Home pose
 echo 'Going to home pose...'
 rosrun reemc_tutorials reach_pose home
+sleep 1
 
 # Torso
 echo 'Testing torso joints...'

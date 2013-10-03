@@ -27,6 +27,7 @@ echo 'Going to home pose...'
 rosrun reemc_tutorials reach_pose home
 echo 'Going to small_squat pose...'
 rosrun reemc_tutorials reach_pose small_squat
+sleep 1
 
 # Left leg
 echo 'Testing left leg joints...'
