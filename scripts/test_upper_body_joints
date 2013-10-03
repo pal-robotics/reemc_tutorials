@@ -5,7 +5,7 @@ TEXT_BOLD='\033[1m'
 TEXT_RESET='\e[0m'
 
 ready=''
-echo -e "Is the robot$TEXT_BOLD secured to the crane$TEXT_RESET and$TEXT_BOLD standing with its feet on the ground$TEXT_RESET? (yes/no)"
+echo -e "Is the robot$TEXT_BOLD secured to the crane$TEXT_RESET and$TEXT_BOLD standing with its feet on the ground$TEXT_RESET [yes/no]?"
 while [[ $ready != 'yes' ]]; do
   read ready
 
