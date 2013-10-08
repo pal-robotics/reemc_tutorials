@@ -45,11 +45,14 @@
  *
  *   $ roslaunch reemc_tutorials reemc_look_to_point_world.launch
  *
- * 2) Launch the application:
+ * 2) Launch the head controllers:
+ *   $ roslaunch reemc_controller_configuration joint_trajectory_controllers.launch
+ *
+ * 3) Launch the application:
  *
  *   $ rosrun reemc_tutorials look_to_point
  *
- * 3) Click on image pixels to make REEM-C look towards that direction
+ * 4) Click on image pixels to make REEM-C look towards that direction
  *
  */
 
@@ -155,7 +158,7 @@ void createPointHeadClient(PointHeadClientPtr& actionClient)
 {
   ROS_INFO("Creating action client to head controller ...");
 
-  actionClient.reset( new PointHeadClient("/head_traj_controller/point_head_action") );
+  actionClient.reset( new PointHeadClient("/head_controller/point_head_action") );
 
   int iterations = 0, max_iterations = 3;
   // Wait for head controller action server to come up

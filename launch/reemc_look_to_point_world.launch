@@ -1,20 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <launch>
-
-  <!-- start up empty world -->
-  <include file="$(find reemc_gazebo)/launch/run_gazebo.launch">
-    <arg name="gzworld" value="$(find reemc_tutorials)/worlds/world_wall_REEM_photo.world" />
+  <include file="$(find reemc_gazebo)/launch/reemc_gazebo.launch">
+    <arg name="world" value="world_wall_REEM_photo"/>
   </include>
-
-  <!-- load REEM-C robot in simulation -->
-  <include file="$(find reemc_gazebo)/launch/reemc_full.launch">
-    <arg name="gzpose" value="-x 0.0 -y 0.0 -z 0.0 -R 0.0 -P 0.0 -Y 0.0"/>
-  </include>
-
-  <!-- start REEM-C robot -->
-  <include file="$(find reemc_gazebo)/launch/reemc_bringup.launch"/>
-
 </launch>
-
 
