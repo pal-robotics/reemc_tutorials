@@ -3,7 +3,7 @@
 #include <humanoid_nav_msgs/ExecFootstepsAction.h>
 #include <controller_manager_msgs/SwitchController.h>
 
-const std::string WALK_STEPS_ACTION_NAME = "/footsteps_execution";
+const std::string WALK_STEPS_ACTION_NAME = "/walking_controller/footsteps_execution";
 const double HIP_SPACING = (0.145 / 2.0);
 const int nsteps = 5;
 const double step_length = 0.15;
