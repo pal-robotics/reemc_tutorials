@@ -79,8 +79,8 @@
 
 static const std::string windowName      = "REEM-C left eye";
 static const std::string cameraFrame     = "/stereo_optical_frame";
-static const std::string imageTopic      = "/reemc/stereo/left/image";
-static const std::string cameraInfoTopic = "/reemc/stereo/left/camera_info";
+static const std::string imageTopic      = "stereo/left/image";
+static const std::string cameraInfoTopic = "stereo/left/camera_info";
 
 // Intrinsic parameters of the camera
 cv::Mat cameraIntrinsics;

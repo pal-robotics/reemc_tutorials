@@ -35,10 +35,10 @@
 /** @file
  *
  * @brief example on how to get detections of the PAL Textured Object published when it is
- *        shown to REEM-C close, which are published by the /texture_detector node.
+ *        shown to REEM-C close, which are published by the texture_detector node.
  *
- *        This example will subscribe to the image topic /stereo/left/image and the
- *        topic /texture_detector/detection to get synchronized pairs.
+ *        This example will subscribe to the image topic stereo/left/image and the
+ *        topic texture_detector/detection to get synchronized pairs.
  *        Then, it will show with rectangles the image region where the PAL Textured Object
  *        is detected when so.
  *
@@ -106,7 +106,7 @@ int main(int argc, char** argv)
 
   ROS_INFO("Ok");
 
-  ros::Subscriber sub = nh.subscribe("/texture_detector/detection", 1, callback);
+  ros::Subscriber sub = nh.subscribe("texture_detector/detection", 1, callback);
 
   ROS_INFO("Put the PAL Textured Object in front of the robot camera at about 1 m ...");
 

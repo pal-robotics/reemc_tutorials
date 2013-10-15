@@ -38,7 +38,7 @@
  *        are published by the /fullbody_2d_detector node.
  *
  *        This example will subscribe to the image topic /stereo/left/image and the
- *        topic /fullbody_2d_detector/detections where the person detections in the metioned
+ *        topic fullbody_2d_detector/detections where the person detections in the metioned
  *        image are published. Then, it will show with rectangles the image regions in which
  *        persons have been detected.
  *
@@ -109,10 +109,10 @@ int main(int argc, char** argv)
   }   
 
   // Define an image topic subscriber
-  message_filters::Subscriber<sensor_msgs::Image> imageSub(nh, "/stereo/left/image", 1);
+  message_filters::Subscriber<sensor_msgs::Image> imageSub(nh, "stereo/left/image", 1);
 
   // Define a subscriber to the topic with the person detections
-  message_filters::Subscriber<pal_detection_msgs::Detections2d> detectionsSub(nh, "/fullbody_2d_detector/detections", 1);
+  message_filters::Subscriber<pal_detection_msgs::Detections2d> detectionsSub(nh, "fullbody_2d_detector/detections", 1);
 
   // Create a synchronizer to obtain pairs of images and person detections
   message_filters::TimeSynchronizer<sensor_msgs::Image,

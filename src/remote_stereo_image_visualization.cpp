@@ -100,14 +100,14 @@ int main(int argc, char** argv)
   double frequency = 5; //frequency at which images will be polled in this example
 
   // create a camera client able to provide images and calibration data on demand
-  pal::StereoCameraClient camClient("/reemc/stereo/left/image",                  //left image topic name
-                                    "/reemc/stereo/right/image",                 //right image topic name
+  pal::StereoCameraClient camClient("stereo/left/image",                  //left image topic name
+                                    "stereo/right/image",                 //right image topic name
                                     pal::StereoCameraClient::JPEG,         //image transport type. Choose between RAW (uncompressed) and JPEG
                                     pal::StereoCameraClient::APPROX_TIME,  //topics synchronization policy
                                     5.0,                                   //timeout in seconds attempting to get data from topics
                                     static_cast<float>(frequency*2),       //max rate at which images may be polled
-                                    "/reemc/stereo/left/camera_info",            //left camera info topic name
-                                    "/reemc/stereo/right/camera_info");          //right camera info topic name
+                                    "stereo/left/camera_info",            //left camera info topic name
+                                    "stereo/right/camera_info");          //right camera info topic name
 
   //print calibration data once
   sensor_msgs::CameraInfo camInfo_left, camInfo_right;
