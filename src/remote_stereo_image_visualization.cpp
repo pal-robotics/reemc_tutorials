@@ -47,6 +47,7 @@
 
 // ROS headers
 #include <ros/ros.h>
+#include <ros/topic.h>
 #include <sensor_msgs/CameraInfo.h>
 
 // OpenCV headers
@@ -82,6 +83,8 @@ void printCalibrationData(const std::string& eye, const sensor_msgs::CameraInfo&
   ROS_INFO(" ");
 }
 
+void cb(const sensor_msgs::CameraInfoConstPtr&) {;}
+
 int main(int argc, char** argv)
 {
   // Init the ROS node
@@ -99,14 +102,28 @@ int main(int argc, char** argv)
 
   double frequency = 5; //frequency at which images will be polled in this example
 
+  std::string leftCameraNs = "stereo/left";
+
+  //Due to a bug in Gazebo 1.8 the left camera of the stereo rig sometimes gets namespaced as
+  //  stereo/camera_info
+  //  stereo/image
+  //rather than
+  //  stereo/left/camera_info
+  //  stereo/left/image
+  //With the following test the situation is properly handled
+  sensor_msgs::CameraInfoConstPtr testMsgPtr =
+      ros::topic::waitForMessage<sensor_msgs::CameraInfo>(leftCameraNs + "/camera_info", ros::Duration(2.0));
+  if ( testMsgPtr.get() == NULL )
+    leftCameraNs = "stereo";
+
   // create a camera client able to provide images and calibration data on demand
-  pal::StereoCameraClient camClient("stereo/left/image",                  //left image topic name
+  pal::StereoCameraClient camClient(leftCameraNs + "/image",                  //left image topic name
                                     "stereo/right/image",                 //right image topic name
                                     pal::StereoCameraClient::JPEG,         //image transport type. Choose between RAW (uncompressed) and JPEG
                                     pal::StereoCameraClient::APPROX_TIME,  //topics synchronization policy
                                     5.0,                                   //timeout in seconds attempting to get data from topics
                                     static_cast<float>(frequency*2),       //max rate at which images may be polled
-                                    "stereo/left/camera_info",            //left camera info topic name
+                                    leftCameraNs + "/camera_info",            //left camera info topic name
                                     "stereo/right/camera_info");          //right camera info topic name
 
   //print calibration data once
