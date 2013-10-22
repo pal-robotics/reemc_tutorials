@@ -5,11 +5,29 @@
 
 const std::string WALK_STEPS_ACTION_NAME = "/walking_controller/footsteps_execution";
 const double HIP_SPACING = (0.145 / 2.0);
-const int nsteps = 5;
+const unsigned int nsteps = 5;
 const double step_length = 0.15;
 const double step_time = 1.0;
 
 typedef actionlib::SimpleActionClient<humanoid_nav_msgs::ExecFootstepsAction> WalkingClient;
+
+
+void doneCb( const actionlib::SimpleClientGoalState& state, const humanoid_nav_msgs::ExecFootstepsResultConstPtr& result)
+{
+  ROS_INFO("Finished in state [%s]", state.toString().c_str());
+}
+
+void activeCb()
+{
+  ROS_INFO("Goal just went active");
+}
+
+// Called every time feedback is received for the goal
+void feedbackCb( const humanoid_nav_msgs::ExecFootstepsFeedbackConstPtr& feedback)
+{
+  ROS_INFO_STREAM("Got Feedback : steps " << feedback->executed_footsteps.size() << " executed");
+}
+
 
 int main(int argc, char **argv)
 {
@@ -17,9 +35,8 @@ int main(int argc, char **argv)
   ros::init(argc, argv, "walking_client_example");
   ros::NodeHandle n;
 
-
   WalkingClient action_client(WALK_STEPS_ACTION_NAME, true);
-  if(!action_client.waitForServer(ros::Duration(5.0) ) )
+  if(!action_client.waitForServer(ros::Duration(10.0) ) )
   {
     ROS_ERROR_STREAM("Walking action server " << WALK_STEPS_ACTION_NAME << " not available. Check if walking controller has been loaded and started.");
     return 1;
@@ -54,7 +71,8 @@ int main(int argc, char **argv)
 
   goal.feedback_frequency = 1.0;
 
-  action_client.sendGoal(goal);
+  action_client.sendGoal(goal, doneCb, activeCb, feedbackCb);
+
   action_client.waitForResult(ros::Duration(20.0));
   if (action_client.getState() == actionlib::SimpleClientGoalState::SUCCEEDED){
     ROS_INFO("The footstep list has been excecuted succesfully");
