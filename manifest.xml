@@ -24,6 +24,8 @@
   <depend package="pal_texture_detector"/>
   <depend package="arm_navigation_msgs"/>
   <depend package="walking"/>
+  <depend package="walking_msgs"/>
+
 </package>
 
 
