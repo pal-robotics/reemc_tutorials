@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<launch>
+  <include file="$(find reemc_gazebo)/launch/reemc_gazebo.launch" />
+  <node pkg="topic_tools" type="relay" name="cmd_vel_relay" args="input_joy/cmd_vel walking_controller/cmd_vel" />
+</launch>
