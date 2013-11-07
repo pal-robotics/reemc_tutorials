@@ -25,6 +25,7 @@
   <depend package="arm_navigation_msgs"/>
   <depend package="walking"/>
   <depend package="walking_msgs"/>
+  <depend package="move_joint"/>
 
 </package>
 
