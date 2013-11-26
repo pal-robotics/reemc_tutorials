@@ -81,6 +81,7 @@ void imageCallback(const sensor_msgs::ImageConstPtr& msg)
   cv::Mat img;
   cvImgPtr->image.copyTo(img);
 
+  cv::namedWindow("face node debug", cv::WINDOW_NORMAL);
   cv::imshow("face node debug", img);
   cv::waitKey(15);
 }
@@ -107,15 +108,15 @@ int main(int argc, char** argv)
 
 
   // Set an empty face database for the test which will be stored in the test path
-  std::string databaseTestPath = ros::package::getPath("reemc_tutorials") + "/etc/test_database";
+  std::string databaseName = "tutorial_database";
   // Use the ROS service in pal_face to set the database
   ros::ServiceClient setDatabaseClient = nh.serviceClient<pal_face_node::SetDatabase>("pal_face/set_database");
   pal_face_node::SetDatabase setDatabaseSrv;
-  setDatabaseSrv.request.databasePath = databaseTestPath;
+  setDatabaseSrv.request.databaseName = databaseName;
   //empty the database
   setDatabaseSrv.request.purgeAll     = true;
   if (setDatabaseClient.call(setDatabaseSrv))
-    ROS_INFO_STREAM("Face database succesffully created at: " << databaseTestPath);
+    ROS_INFO_STREAM("Face database succesffully created at: " << databaseName);
   else
   {
     ROS_ERROR_STREAM("Failure calling service pal_face/set_database. Is pal_face running?");
@@ -163,7 +164,7 @@ int main(int argc, char** argv)
   }
   else
   {
-    ROS_ERROR_STREAM("Failure when stoping the person enrollment");
+    ROS_ERROR_STREAM("Failure when stoping the person enrollment: " << stopEnrollmentSrv.response.error_msg);
     return EXIT_FAILURE;
   }
 
