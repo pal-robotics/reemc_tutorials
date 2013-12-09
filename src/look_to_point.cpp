@@ -132,11 +132,12 @@ void onMouse( int event, int u, int v, int, void* )
   goal.pointing_axis.x = 0.0;
   goal.pointing_axis.y = 0.0;
   goal.pointing_axis.z = 1.0;
-  goal.min_duration = ros::Duration(0.5);
-  goal.max_velocity = 1.0;
+  goal.min_duration = ros::Duration(1.0);
+  goal.max_velocity = 0.25;
   goal.target = pointStamped;
 
   pointHeadClient->sendGoal(goal);
+  ros::Duration(0.5).sleep();
 }
 
 // ROS callback function for topic containing intrinsic parameters of a camera
