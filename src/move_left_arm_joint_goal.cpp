@@ -1,7 +1,7 @@
 /*
  * Software License Agreement (Modified BSD License)
  *
- *  Copyright (c) 2012, PAL Robotics, S.L.
+ *  Copyright (c) 2013, PAL Robotics, S.L.
  *  All rights reserved.
  *
  *  Redistribution and use in source and binary forms, with or without
@@ -32,93 +32,48 @@
  *  POSSIBILITY OF SUCH DAMAGE.
  */
 
-// NOTE: The contents of this file are an adaptation of a similar tutorial of the pr2_arm_navigation_tutorials package:
-// http://ros.org/wiki/pr2_arm_navigation_tutorials
+// NOTE: The contents of this file are an adaptation of a similar tutorial on the moveit wiki:
+// http://moveit.ros.org/wiki/MoveGroup_Interface
 
 #include <ros/ros.h>
 #include <actionlib/client/simple_action_client.h>
-#include <arm_navigation_msgs/MoveArmAction.h>
+#include <moveit/move_group_interface/move_group.h>
 
 int main(int argc, char **argv)
 {
-  // Init the ROS node
-  ros::init (argc, argv, "move_left_arm_joint_goal_test");
-
-  // Precondition: Valid clock
-  ros::NodeHandle nh;
-  if (!ros::Time::waitForValid(ros::WallDuration(5.0))) // NOTE: Important when using simulated clock
-  {
-    ROS_FATAL("Timed-out waiting for valid time.");
-    return EXIT_FAILURE;
-  }
-
-  // Action client for sending motion planing requests
-  actionlib::SimpleActionClient<arm_navigation_msgs::MoveArmAction> move_arm("move_left_arm", true);
-
-  // Wait for the action client to be connected to the server
-  ROS_INFO("Connecting to server...");
-  if (!move_arm.waitForServer(ros::Duration(5.0)))
-  {
-    ROS_ERROR("Timed-out waiting for the move_arm action server.");
-    return EXIT_FAILURE;
-  }
+  ros::init(argc, argv, "move_left_arm_joint_goal_test", ros::init_options::AnonymousName);
+  // start a ROS spinning thread
+  ros::AsyncSpinner spinner(1);
+  spinner.start();
+  // connect to a running instance of the move_group node
+  move_group_interface::MoveGroup group("left_arm");
   ROS_INFO("Connected to server.");
+  // set joint goal
+  std::map< std::string, double > goal;
+  goal["arm_left_1_joint"] = 1.7;
+  goal["arm_left_2_joint"] = -0.1;
+  goal["arm_left_3_joint"] = -1.7;
+  goal["arm_left_4_joint"] =  1.5708;
+  goal["arm_left_5_joint"] =  0.0;
+  goal["arm_left_6_joint"] =  0.0;
+  goal["arm_left_7_joint"] =  0.0;
 
-  // Prepare motion plan request with joint-space goal
-  arm_navigation_msgs::MoveArmGoal goal;
-  std::vector<std::string> names(7);
-  names[0] = "arm_left_1_joint";
-  names[1] = "arm_left_2_joint";
-  names[2] = "arm_left_3_joint";
-  names[3] = "arm_left_4_joint";
-  names[4] = "arm_left_5_joint";
-  names[5] = "arm_left_6_joint";
-  names[6] = "arm_left_7_joint";
+  group.setJointValueTarget(goal);
+  // set parameters for planning and execution
+  group.setPlanningTime(5.0);
+  group.setGoalJointTolerance(0.05);
+  group.setGoalPositionTolerance(0.0);
+  //group.setPlannerId("ompl_interface_ros/OMPLPlanner");
+  //goal.motion_plan_request.num_planning_attempts = 1; // can we specify something equivalent to this?
 
-  goal.motion_plan_request.group_name = "left_arm";
-  goal.motion_plan_request.num_planning_attempts = 1;
-  goal.motion_plan_request.allowed_planning_time = ros::Duration(5.0);
+  // plan the motion and then move the group to the sampled target
+  bool success = group.move();
 
-  goal.motion_plan_request.planner_id= std::string("");
-  goal.planner_service_name = std::string("ompl_planning/plan_kinematic_path");
-  goal.motion_plan_request.goal_constraints.joint_constraints.resize(names.size());
-
-  for (unsigned int i = 0 ; i < goal.motion_plan_request.goal_constraints.joint_constraints.size(); ++i)
-  {
-    goal.motion_plan_request.goal_constraints.joint_constraints[i].joint_name = names[i];
-    goal.motion_plan_request.goal_constraints.joint_constraints[i].position = 0.0;
-    goal.motion_plan_request.goal_constraints.joint_constraints[i].tolerance_below = 0.05;
-    goal.motion_plan_request.goal_constraints.joint_constraints[i].tolerance_above = 0.05;
-  }
-
-  goal.motion_plan_request.goal_constraints.joint_constraints[0].position =  1.7;
-  goal.motion_plan_request.goal_constraints.joint_constraints[1].position = -0.1;
-  goal.motion_plan_request.goal_constraints.joint_constraints[2].position = -1.7;
-  goal.motion_plan_request.goal_constraints.joint_constraints[3].position =  1.5708;
-  goal.motion_plan_request.goal_constraints.joint_constraints[4].position =  0.0;
-  goal.motion_plan_request.goal_constraints.joint_constraints[5].position =  0.0;
-  goal.motion_plan_request.goal_constraints.joint_constraints[6].position =  0.0;
-
-  // Send motion plan request
-  if (nh.ok())
-  {
-    bool finished_within_time = false;
-    move_arm.sendGoal(goal);
-    finished_within_time = move_arm.waitForResult(ros::Duration(15.0));
-    if (!finished_within_time)
-    {
-      move_arm.cancelGoal();
-      ROS_INFO("Timed out achieving joint-space goal.");
-    }
-    else
-    {
-      actionlib::SimpleClientGoalState state = move_arm.getState();
-      bool success = (state == actionlib::SimpleClientGoalState::SUCCEEDED);
-      if(success)
-        ROS_INFO("Action finished: %s",state.toString().c_str());
-      else
-        ROS_INFO("Action failed: %s",state.toString().c_str());
-    }
-  }
+  if(success)
+    ROS_INFO("Action succeeded.");
+  else
+    ROS_INFO("Action failed.");
+  group.stop();
   ros::shutdown();
+  return EXIT_SUCCESS;
 }

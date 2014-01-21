@@ -2,31 +2,35 @@
   <description brief="reemc_tutorials">
       Basic tutorials to get familiar with the REEM-C robot in a simulated environment.
   </description>
-  <author> Luca Marchionni</author>
+  <author>Luca Marchionni</author>
   <license>BSD</license>
   <review status="unreviewed" notes=""/>
   <url>http://ros.org/wiki/reemc_tutorials</url>
+  <depend package="roscpp"/>
+  <depend package="reemc_gazebo"/>
+
+  <!-- move_left_arm -->
   <depend package="joint_state_publisher"/>
   <depend package="robot_state_publisher"/>
-  <depend package="pal_detection_msgs"/>
-  <depend package="roscpp"/>
+  <depend package="moveit_msgs"/>
+  <depend package="moveit_ros_planning_interface"/>
+
+  <!-- look_to_point -->
+  <depend package="pr2_controllers_msgs"/>
   <depend package="opencv2"/>
   <depend package="cv_bridge"/>
-  <depend package="robot_mechanism_controllers"/>
   <depend package="sensor_msgs"/>
-  <depend package="reemc_gazebo"/>
+<!--
   <depend package="pal_interaction_msgs"/>
+  <depend package="pal_detection_msgs"/>
+  <depend package="robot_mechanism_controllers"/>
   <depend package="text_to_speech"/>
+  <depend package="pal_texture_detector"/>
   <depend package="pal_camera_client"/>
   <depend package="pal_face_node"/>
   <depend package="pal_face_database"/>
-  <depend package="pr2_controllers_msgs"/>
-  <depend package="pal_texture_detector"/>
-  <depend package="arm_navigation_msgs"/>
   <depend package="walking"/>
   <depend package="walking_msgs"/>
+-->
   <depend package="move_joint"/>
-
 </package>
-
-
