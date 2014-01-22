@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<launch>
+  <include file="$(find reemc_gazebo)/launch/reemc_gazebo.launch">
+    <arg name="world" value="world_wall_REEM_photo"/>
+  </include>
+</launch>
+

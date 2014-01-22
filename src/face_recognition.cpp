@@ -34,7 +34,7 @@
 
 /** @file
  *
- * @brief example on how to get notifications of recognized faces from the ROS node /pal_face
+ * @brief example on how to get notifications of recognized faces from the ROS node pal_face
  *
  *        In order to get recognized persons first run face_enrollment in order to enroll persons
  *        in the test face database.
@@ -73,6 +73,7 @@ void imageCallback(const sensor_msgs::ImageConstPtr& msg)
   cv::Mat img;
   cvImgPtr->image.copyTo(img);
 
+  cv::namedWindow("face node debug", cv::WINDOW_NORMAL);
   cv::imshow("face node debug", img);
   cv::waitKey(15);
 }
@@ -93,30 +94,30 @@ int main(int argc, char** argv)
   }   
 
 
-  // Subscribe to the debug image published by the node /pal_face in which all face detections are painted
+  // Subscribe to the debug image published by the node pal_face in which all face detections are painted
   image_transport::ImageTransport it(nh);
-  image_transport::Subscriber imageSub = it.subscribe("/pal_face/debug", 1, imageCallback);
+  image_transport::Subscriber imageSub = it.subscribe("pal_face/debug", 1, imageCallback);
 
 
   // Set an empty face database for the test which will be stored in the test path
-  std::string databaseTestPath = ros::package::getPath("reemc_tutorials") + "/etc/test_database";
+  std::string databaseName = "tutorial_database";
 
-  // Use the ROS service in /pal_face to set the database
-  ros::ServiceClient setDatabaseClient = nh.serviceClient<pal_face_node::SetDatabase>("/pal_face/set_database");
+  // Use the ROS service in pal_face to set the database
+  ros::ServiceClient setDatabaseClient = nh.serviceClient<pal_face_node::SetDatabase>("pal_face/set_database");
 
   pal_face_node::SetDatabase setDatabaseSrv;
-  setDatabaseSrv.request.databasePath = databaseTestPath;
+  setDatabaseSrv.request.databaseName = databaseName;
   if (setDatabaseClient.call(setDatabaseSrv))
-    ROS_INFO_STREAM("Face database succesffully created at: " << databaseTestPath);
+    ROS_INFO_STREAM("Face database succesffully created at: " << databaseName);
   else
   {
-    ROS_ERROR_STREAM("Failure while creating face database at: " << databaseTestPath);
+    ROS_ERROR_STREAM("Failure while creating face database at: " << databaseName);
     return EXIT_FAILURE;
   }
 
 
-  // Enable face recognition in the /pal_face
-  ros::ServiceClient recognitionClient = nh.serviceClient<pal_face_node::Recognizer>("/pal_face/recognizer");
+  // Enable face recognition in the pal_face
+  ros::ServiceClient recognitionClient = nh.serviceClient<pal_face_node::Recognizer>("pal_face/recognizer");
   pal_face_node::Recognizer recognizerSrv;
   recognizerSrv.request.enabled = true;
   // Choose the minimum recognition confidence to publish recognized faces

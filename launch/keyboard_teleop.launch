@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<launch>
+  <remap from="/cmd_vel" to="walking_controller/cmd_vel" />
+  <include file="$(find turtlebot_teleop)/keyboard_teleop.launch" />
+</launch>

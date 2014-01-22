@@ -1,0 +1,78 @@
+#!/bin/bash
+
+# Check preconditions with user
+TEXT_BOLD='\033[1m'
+TEXT_RESET='\e[0m'
+
+ready=''
+echo -e "Is the robot$TEXT_BOLD secured to the crane$TEXT_RESET and$TEXT_BOLD lifted so its feet do not touch the ground$TEXT_RESET [yes/no]?"
+while [[ $ready != 'yes' ]]; do
+  read ready
+
+  if [[ $ready == 'no' ]]; then
+    echo 'Aborting...'
+    exit 1
+  fi
+
+  if [[ $ready != 'yes' ]]; then
+    echo -e "Please answer$TEXT_BOLD yes$TEXT_RESET or$TEXT_BOLD no$TEXT_RESET to the above question, or ctrl+c to abort."
+  fi
+done
+
+# Load robot poses
+rosparam load `rospack find reemc_tutorials`/config/reemc_poses.yaml
+
+# Home pose
+echo 'Going to home pose...'
+rosrun reemc_tutorials reach_pose home
+echo 'Going to small_squat pose...'
+rosrun reemc_tutorials reach_pose small_squat
+sleep 1
+
+# Left leg
+echo 'Testing left leg joints...'
+rosrun move_joint move_joint leg_left_2_joint 0.2 3.0
+sleep 3
+
+rosrun move_joint move_joint leg_left_1_joint 0.2 3.0
+sleep 3
+
+rosrun move_joint move_joint leg_left_3_joint -0.7 3.0
+sleep 3
+
+rosrun move_joint move_joint leg_left_4_joint 1.2 3.0
+sleep 3
+
+rosrun move_joint move_joint leg_left_5_joint -0.3 3.0
+sleep 3
+
+rosrun move_joint move_joint leg_left_6_joint -0.3 3.0
+sleep 3
+
+# Right leg
+echo 'Testing right leg joints...'
+rosrun move_joint move_joint leg_right_2_joint -0.2 3.0
+sleep 3
+
+rosrun move_joint move_joint leg_right_1_joint -0.2 3.0
+sleep 3
+
+rosrun move_joint move_joint leg_right_3_joint -0.7 3.0
+sleep 3
+
+rosrun move_joint move_joint leg_right_4_joint 1.2 3.0
+sleep 3
+
+rosrun move_joint move_joint leg_right_5_joint -0.3 3.0
+sleep 3
+
+rosrun move_joint move_joint leg_right_6_joint 0.3 3.0
+sleep 3
+
+# Home pose
+echo 'Going to small_squat pose...'
+rosrun reemc_tutorials reach_pose small_squat
+echo 'Going to home pose...'
+rosrun reemc_tutorials reach_pose home
+
+echo 'Done testing lower body joints!'

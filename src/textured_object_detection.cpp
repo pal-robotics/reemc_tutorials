@@ -34,24 +34,22 @@
 
 /** @file
  *
- * @brief example on how to get detections of fullbody standing persons in 2D images that
- *        are published by the /fullbody_2d_detector node.
+ * @brief example on how to get detections of the PAL Textured Object published when it is
+ *        shown to REEM-C close, which are published by the texture_detector node.
  *
- *        This example will subscribe to the image topic /stereo/left/image and the
- *        topic fullbody_2d_detector/detections where the person detections in the metioned
- *        image are published. Then, it will show with rectangles the image regions in which
- *        persons have been detected.
+ *        This example will subscribe to the image topic stereo/left/image and the
+ *        topic texture_detector/detection to get synchronized pairs.
+ *        Then, it will show with rectangles the image region where the PAL Textured Object
+ *        is detected when so.
  *
  * @author Jordi Pages.
  */
 
 // PAL headers
-#include <pal_detection_msgs/Detections2d.h>
+#include <pal_detection_msgs/TexturedObjectDetection.h>
 
 // ROS headers
 #include <ros/ros.h>
-#include <message_filters/subscriber.h>
-#include <message_filters/time_synchronizer.h>
 #include <sensor_msgs/Image.h>
 #include <cv_bridge/cv_bridge.h>
 
@@ -61,46 +59,44 @@
 
 
 /**
- * @brief callback callback function when a pair of synchronized image and person detections
+ * @brief callback callback function when a pair of synchronized image and object detection
  *        is found
  * @param imageMsg pointer to the image message
  * @param detectionsMsg poiner to the detections message
  */
-void callback(const sensor_msgs::ImageConstPtr& imageMsg,
-              const pal_detection_msgs::Detections2dConstPtr& detectionsMsg)
+void callback(const pal_detection_msgs::TexturedObjectDetectionConstPtr& detectionMsg)
 {
   // Get an OpenCV image from the image message
   cv_bridge::CvImageConstPtr cvImgPtr;
-  cvImgPtr = cv_bridge::toCvShare(imageMsg); 
+  cvImgPtr = cv_bridge::toCvCopy(detectionMsg->img, detectionMsg->img.encoding);
   cv::Mat img;
   cvImgPtr->image.copyTo(img);
 
-  // Paint every detection on the image
-  for (unsigned int i = 0; i < detectionsMsg->detections.size(); ++i)
-  {
-    //paint every detection as a rectangle
-    cv::Rect roi;
-    roi.x      = detectionsMsg->detections[i].x;
-    roi.y      = detectionsMsg->detections[i].y;
-    roi.width  = detectionsMsg->detections[i].width;
-    roi.height = detectionsMsg->detections[i].height;
-    cv::rectangle(img, roi, CV_RGB(0,255,255), 2);
-  }
+  std::vector< cv::Point > points;
+  for (unsigned int i = 0; i < 4; ++i)
+    points.push_back( cv::Point(detectionMsg->roi.x[i], detectionMsg->roi.y[i]) );
+
+  ROS_INFO("Object detected!");
+
+  cv::line(img, points[0], points[1], CV_RGB(0,255,0), 2);
+  cv::line(img, points[1], points[2], CV_RGB(0,255,0), 2);
+  cv::line(img, points[2], points[3], CV_RGB(0,255,0), 2);
+  cv::line(img, points[0], points[3], CV_RGB(0,255,0), 2);
 
   // Show the image with the person detections
-  cv::imshow("full body detections", img);
-  cv::waitKey(15);
+  cv::imshow("Object detection", img);
+  cv::waitKey(50);
 
 }
 
 int main(int argc, char** argv)
 {
   // Init the ROS node
-  ros::init(argc, argv, "fullbody_person_2d_detection");
+  ros::init(argc, argv, "textured_object_detection");
 
-  ROS_INFO("Starting fullbody_person_2d_detection application ...");
+  ROS_INFO("Starting textured_object_detection application ...");
 
-  // Precondition: Valid clock
+  // Precondition: Valid clock  
   ros::NodeHandle nh;
   if (!ros::Time::waitForValid(ros::WallDuration(5.0))) // NOTE: Important when using simulated clock
   {
@@ -108,18 +104,11 @@ int main(int argc, char** argv)
     return EXIT_FAILURE;
   }   
 
-  // Define an image topic subscriber
-  message_filters::Subscriber<sensor_msgs::Image> imageSub(nh, "stereo/left/image", 1);
+  ROS_INFO("Ok");
 
-  // Define a subscriber to the topic with the person detections
-  message_filters::Subscriber<pal_detection_msgs::Detections2d> detectionsSub(nh, "fullbody_2d_detector/detections", 1);
+  ros::Subscriber sub = nh.subscribe("texture_detector/detection", 1, callback);
 
-  // Create a synchronizer to obtain pairs of images and person detections
-  message_filters::TimeSynchronizer<sensor_msgs::Image,
-                                    pal_detection_msgs::Detections2d> topicSynchronizer(imageSub, detectionsSub, 20);
-
-  // Register a callback that will be called for every pair of synchronized image and detection messages
-  topicSynchronizer.registerCallback(boost::bind(&callback, _1, _2));
+  ROS_INFO("Put the PAL Textured Object in front of the robot camera at about 1 m ...");
 
   // Let ROS attend callbacks
   ros::spin();
