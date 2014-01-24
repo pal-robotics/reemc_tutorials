@@ -23,23 +23,23 @@ rosbuild_add_executable(asr_walking_exercise src/asr_walking_exercise.cpp)
 rosbuild_add_executable(tts_client src/tts_client.cpp)
 
 rosbuild_add_executable(look_to_point src/look_to_point.cpp)
-#rosbuild_add_executable(remote_monocular_image_visualization src/remote_monocular_image_visualization.cpp)
-#target_link_libraries(remote_monocular_image_visualization  pal_camera_client)
-#rosbuild_add_executable(remote_stereo_image_visualization src/remote_stereo_image_visualization.cpp)
-#target_link_libraries(remote_stereo_image_visualization  pal_camera_client)
+rosbuild_add_executable(remote_monocular_image_visualization src/remote_monocular_image_visualization.cpp)
+target_link_libraries(remote_monocular_image_visualization  pal_camera_client)
+rosbuild_add_executable(remote_stereo_image_visualization src/remote_stereo_image_visualization.cpp)
+target_link_libraries(remote_stereo_image_visualization  pal_camera_client)
 
-#rosbuild_add_executable(fullbody_person_2d_detection src/fullbody_person_2d_detection.cpp)
-#rosbuild_link_boost(fullbody_person_2d_detection signals)
+rosbuild_add_executable(fullbody_person_2d_detection src/fullbody_person_2d_detection.cpp)
+rosbuild_link_boost(fullbody_person_2d_detection signals)
 
-#rosbuild_add_executable(face_detection src/face_detection.cpp)
-#rosbuild_add_boost_directories()
-#rosbuild_link_boost(face_detection signals)
+rosbuild_add_executable(face_detection src/face_detection.cpp)
+rosbuild_add_boost_directories()
+rosbuild_link_boost(face_detection signals)
 
-#rosbuild_add_executable(face_enrollment src/face_enrollment.cpp)
-#rosbuild_add_executable(face_recognition src/face_recognition.cpp)
+rosbuild_add_executable(face_enrollment src/face_enrollment.cpp)
+rosbuild_add_executable(face_recognition src/face_recognition.cpp)
 
-#rosbuild_add_executable(textured_object_detection src/textured_object_detection.cpp)
-#rosbuild_link_boost(textured_object_detection signals)
+rosbuild_add_executable(textured_object_detection src/textured_object_detection.cpp)
+rosbuild_link_boost(textured_object_detection signals)
 
 rosbuild_add_executable(move_left_arm_joint_goal src/move_left_arm_joint_goal.cpp)
 

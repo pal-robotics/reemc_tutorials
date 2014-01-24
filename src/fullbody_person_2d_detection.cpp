@@ -121,6 +121,8 @@ int main(int argc, char** argv)
   // Register a callback that will be called for every pair of synchronized image and detection messages
   topicSynchronizer.registerCallback(boost::bind(&callback, _1, _2));
 
+  ROS_INFO("Waiting for fullbody detections ...");
+
   // Let ROS attend callbacks
   ros::spin();
 
