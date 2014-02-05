@@ -1,7 +1,7 @@
 /*
  * Software License Agreement (Modified BSD License)
  *
- *  Copyright (c) 2013, PAL Robotics, S.L.
+ *  Copyright (c) 2014, PAL Robotics, S.L.
  *  All rights reserved.
  *
  *  Redistribution and use in source and binary forms, with or without
@@ -37,31 +37,49 @@
 /**
  * @file
  *
- * @brief example on how to subscribe to an image topic and how to make the robot look towards a given direction
+ * @brief example on how to subscribe to an image topic and how to make the robot look towards a textured object
  *
- * How to test this application:
+ *
+ * How to test this application in simulation:
  *
  * 1) Launch a simulation of REEM-C
  *
- *   $ roslaunch reemc_tutorials reemc_look_to_point_world.launch
+ *   $ roslaunch reemc_tutorials reemc_look_to_object_world.launch
  *
- * 2) Launch the head controllers:
+ * 2) Open a new terminal and launch the head controllers:
  *   $ roslaunch reemc_controller_configuration joint_trajectory_controllers.launch
  *
- * 3) Launch the application:
+ * 3) Run in another terminal the object detector:
  *
- *   $ rosrun reemc_tutorials look_to_point
+ *   $ roslaunch pal_texture_detector_node texture_detector.launch
  *
- * 4) Click on image pixels to make REEM-C look towards that direction
+ * 4) In a new terminal launch the application:
+ *
+ *   $ rosrun reemc_tutorials look_to_object
+ *
+ * 5) Select the object in gazebo and move it or turn it and see how REEM-C keeps looking at it
+ *
+ *
+ * How to test this application with the actual robot:
+ *
+ * 1) In a terminal run
+ *
+ *   1.1) $ ssh -X pal@reemc-1m
+ *   1.2) $ textureDetectorStart.sh
+ *
+ * 2) In a new terminal run
+ *
+ *   4.1) $ ssh -X pal@reemc-1m
+ *   4.2) $ roslaunch reemc_controller_configuration joint_trajectory_controllers.launch
+ *
+ * 3) rosrun reemc_tutorials look_to_object
+ *
+ * 5) Move the PAL textured object in front of REEM-C so that it trakcs the object with the gaze
  *
  */
 
-// C++ standard headers
-#include <exception>
-#include <string>
-
-// Boost headers
-#include <boost/shared_ptr.hpp>
+// PAL heades
+#include <pal_detection_msgs/TexturedObjectDetection.h>
 
 // ROS headers
 #include <ros/ros.h>
@@ -75,12 +93,22 @@
 #include <opencv2/highgui/highgui.hpp>
 #include <cv_bridge/cv_bridge.h>
 
+// Boost headers
+#include <boost/shared_ptr.hpp>
+
+// C++ standard headers
+#include <exception>
+#include <string>
+
+
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-static const std::string windowName      = "REEM-C right eye";
-static const std::string cameraFrame     = "/stereo_optical_frame";
-static const std::string imageTopic      = "stereo/right/image";
-static const std::string cameraInfoTopic = "stereo/right/camera_info";
+static const std::string windowName         = "object detection";
+static const std::string cameraFrame        = "/stereo_optical_frame";
+static const std::string cameraInfoTopic    = "stereo/right/camera_info";
+static const std::string detectorImageTopic = "texture_detector/debug";
+static const std::string detectionTopic     = "texture_detector/detection";
+
 
 // Intrinsic parameters of the camera
 cv::Mat cameraIntrinsics;
@@ -95,7 +123,7 @@ PointHeadClientPtr pointHeadClient;
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 // ROS call back for every new image received
-void imageCallback(const sensor_msgs::ImageConstPtr& imgMsg)
+void detectionImageCallback(const sensor_msgs::ImageConstPtr& imgMsg)
 {
   cv_bridge::CvImagePtr cvImgPtr;
 
@@ -104,13 +132,20 @@ void imageCallback(const sensor_msgs::ImageConstPtr& imgMsg)
   cv::waitKey(15);
 }
 
-// OpenCV callback function for mouse events on a window
-void onMouse( int event, int u, int v, int, void* )
-{
-  if ( event != cv::EVENT_LBUTTONDOWN )
-      return;
 
-  ROS_INFO_STREAM("Pixel selected (" << u << ", " << v << ") Making REEM-C look to that direction");
+// ROS call back for every object detection
+void detectionCallback(const pal_detection_msgs::TexturedObjectDetectionConstPtr& msg)
+{
+  //compute the centroid of the detection roi in the image
+  int u = 0, v = 0;
+  for (unsigned int i = 0; i < msg->roi.x.size(); ++i)
+  {
+    u += msg->roi.x[i];
+    v += msg->roi.y[i];
+  }
+
+  u = u / msg->roi.x.size();
+  v = v / msg->roi.y.size();
 
   geometry_msgs::PointStamped pointStamped;
 
@@ -123,7 +158,7 @@ void onMouse( int event, int u, int v, int, void* )
   double Z = 1.0; //define an arbitrary distance
   pointStamped.point.x = x * Z;
   pointStamped.point.y = y * Z;
-  pointStamped.point.z = Z;   
+  pointStamped.point.z = Z;
 
   //build the action goal
   pr2_controllers_msgs::PointHeadGoal goal;
@@ -150,8 +185,6 @@ void getCameraIntrinsics(const sensor_msgs::CameraInfoConstPtr& msg)
   cameraIntrinsics.at<double>(0, 2) = msg->K[2]; //cx
   cameraIntrinsics.at<double>(1, 2) = msg->K[5]; //cy
   cameraIntrinsics.at<double>(2, 2) = 1;
-
-  intrinsicsReceived = true;
 }
 
 // Create a ROS action client to move REEM-C's head
@@ -191,20 +224,11 @@ int main(int argc, char** argv)
     return EXIT_FAILURE;
   }
 
-  // Get the camera intrinsic parameters from the appropriate ROS topic
-  intrinsicsReceived = false;
-  ros::Subscriber cameraInfoSub = nh.subscribe(cameraInfoTopic, 1, getCameraIntrinsics);
-
   ROS_INFO("Waiting for camera intrinsics ... ");
 
-  while ( ros::ok() && !intrinsicsReceived )
-  {
-    ros::spinOnce();
-    ros::Duration(0.2).sleep();
-  }
-
-  // Unsubscribe the callback associated with this Subscriber
-  cameraInfoSub.shutdown();
+  // Get the camera intrinsic parameters from the appropriate ROS topic
+  sensor_msgs::CameraInfoConstPtr camInfoMsg = ros::topic::waitForMessage<sensor_msgs::CameraInfo>(cameraInfoTopic, nh);
+  getCameraIntrinsics(camInfoMsg);
 
   // Create a point head action client to move the REEM-C's head
   createPointHeadClient( pointHeadClient );
@@ -212,14 +236,14 @@ int main(int argc, char** argv)
   // Create the window to show REEM-C's camera images
   cv::namedWindow(windowName, cv::WINDOW_AUTOSIZE);
 
-  // Set mouse handler for the window
-  cv::setMouseCallback(windowName, onMouse);
-
   // Define ROS topic from where REEM-C publishes images
   image_transport::ImageTransport it(nh);
 
-  ROS_INFO_STREAM("Subscribing to " << imageTopic << " ...");
-  image_transport::Subscriber sub = it.subscribe(imageTopic, 1, imageCallback);
+  ROS_INFO_STREAM("Subscribing to " << detectorImageTopic << " ...");
+  image_transport::Subscriber sub = it.subscribe(detectorImageTopic, 1, detectionImageCallback);
+
+  ROS_INFO_STREAM("Subscribing to " << detectionTopic << " ...");
+  ros::Subscriber detectionSub = nh.subscribe(detectionTopic, 1, detectionCallback);
 
   //enter a loop that processes ROS callbacks. Press CTRL+C to exit the loop
   ros::spin();
