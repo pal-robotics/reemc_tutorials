@@ -10,7 +10,7 @@ import pal_detection_msgs.msg
 #from pal_detection_msgs.msg import FaceDetections
 import sensor_msgs.msg 
 import geometry_msgs.msg 
-import pr2_controllers_msgs.msg
+import control_msgs.msg
 
 
 
@@ -49,7 +49,7 @@ class LookToPointState(smach.State):
                                     data_class=sensor_msgs.msg.CameraInfo, 
                                     callback=self.camera_info_callback)
         self.client = actionlib.SimpleActionClient('/head_traj_controller/point_head_action',
-                                                   pr2_controllers_msgs.msg.PointHeadAction)
+                                                   control_msgs.msg.PointHeadAction)
 
 
     #Obtain the camera instrinsic parameters        
@@ -88,7 +88,7 @@ class LookToPointState(smach.State):
         
         
         #build the action goal
-        goal = pr2_controllers_msgs.msg.PointHeadGoal()     
+        goal = control_msgs.msg.PointHeadGoal()     
       #the goal consists in making the Z axis of the cameraFrame to point towards the pointStamped
         goal.pointing_frame = "/stereo_optical_frame"
         goal.pointing_axis.x = 0.0

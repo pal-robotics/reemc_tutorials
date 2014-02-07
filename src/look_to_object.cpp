@@ -87,7 +87,7 @@
 #include <actionlib/client/simple_action_client.h>
 #include <sensor_msgs/CameraInfo.h>
 #include <geometry_msgs/PointStamped.h>
-#include <pr2_controllers_msgs/PointHeadAction.h>
+#include <control_msgs/PointHeadAction.h>
 
 // OpenCV headers
 #include <opencv2/highgui/highgui.hpp>
@@ -115,7 +115,7 @@ cv::Mat cameraIntrinsics;
 bool intrinsicsReceived;
 
 // Our Action interface type for moving REEM-C's head, provided as a typedef for convenience
-typedef actionlib::SimpleActionClient<pr2_controllers_msgs::PointHeadAction> PointHeadClient;
+typedef actionlib::SimpleActionClient<control_msgs::PointHeadAction> PointHeadClient;
 typedef boost::shared_ptr<PointHeadClient> PointHeadClientPtr;
 
 PointHeadClientPtr pointHeadClient;
@@ -161,7 +161,7 @@ void detectionCallback(const pal_detection_msgs::TexturedObjectDetectionConstPtr
   pointStamped.point.z = Z;
 
   //build the action goal
-  pr2_controllers_msgs::PointHeadGoal goal;
+  control_msgs::PointHeadGoal goal;
   //the goal consists in making the Z axis of the cameraFrame to point towards the pointStamped
   goal.pointing_frame = cameraFrame;
   goal.pointing_axis.x = 0.0;
