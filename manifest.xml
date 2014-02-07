@@ -16,7 +16,7 @@
   <depend package="moveit_ros_planning_interface"/>
 
   <!-- look_to_point -->
-  <depend package="pr2_controllers_msgs"/>
+  <depend package="control_msgs"/>
   <depend package="opencv2"/>
   <depend package="cv_bridge"/>
   <depend package="sensor_msgs"/>
