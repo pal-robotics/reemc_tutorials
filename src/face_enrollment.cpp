@@ -48,9 +48,9 @@
  */
 
 // PAL headers
-#include <pal_face_node/SetDatabase.h>
-#include <pal_face_node/StartEnrollment.h>
-#include <pal_face_node/StopEnrollment.h>
+#include <pal_detection_msgs/SetDatabase.h>
+#include <pal_detection_msgs/StartEnrollment.h>
+#include <pal_detection_msgs/StopEnrollment.h>
 #include <pal_face_database/database.h>
 
 // ROS headers
@@ -110,8 +110,8 @@ int main(int argc, char** argv)
   // Set an empty face database for the test which will be stored in the test path
   std::string databaseName = "tutorial_database";
   // Use the ROS service in pal_face to set the database
-  ros::ServiceClient setDatabaseClient = nh.serviceClient<pal_face_node::SetDatabase>("pal_face/set_database");
-  pal_face_node::SetDatabase setDatabaseSrv;
+  ros::ServiceClient setDatabaseClient = nh.serviceClient<pal_detection_msgs::SetDatabase>("pal_face/set_database");
+  pal_detection_msgs::SetDatabase setDatabaseSrv;
   setDatabaseSrv.request.databaseName = databaseName;
   //empty the database
   setDatabaseSrv.request.purgeAll     = true;
@@ -131,8 +131,8 @@ int main(int argc, char** argv)
 
 
   // Start enrollment process with the appropriate ROS service
-  ros::ServiceClient startEnrollmentClient = nh.serviceClient<pal_face_node::StartEnrollment>("pal_face/start_enrollment");
-  pal_face_node::StartEnrollment startEnrollmentSrv;
+  ros::ServiceClient startEnrollmentClient = nh.serviceClient<pal_detection_msgs::StartEnrollment>("pal_face/start_enrollment");
+  pal_detection_msgs::StartEnrollment startEnrollmentSrv;
   startEnrollmentSrv.request.name = name;
   if (startEnrollmentClient.call(startEnrollmentSrv))
     ROS_INFO_STREAM("Face enrollment for person " << name << " has started. Gathering faces until a key is pressed in the image window ...");
@@ -154,8 +154,8 @@ int main(int argc, char** argv)
   ROS_INFO("Key pressed. Proceeding to complete the enrollment...");
 
   // Stop enrollment
-  ros::ServiceClient stopEnrollmentClient = nh.serviceClient<pal_face_node::StopEnrollment>("pal_face/stop_enrollment");
-  pal_face_node::StopEnrollment stopEnrollmentSrv;
+  ros::ServiceClient stopEnrollmentClient = nh.serviceClient<pal_detection_msgs::StopEnrollment>("pal_face/stop_enrollment");
+  pal_detection_msgs::StopEnrollment stopEnrollmentSrv;
   if ( stopEnrollmentClient.call(stopEnrollmentSrv) )
   {
     ROS_INFO_STREAM("Face enrollment for person " << name <<

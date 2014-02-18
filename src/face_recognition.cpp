@@ -44,8 +44,8 @@
 
 // PAL headers
 #include <pal_face_database/database.h>
-#include <pal_face_node/SetDatabase.h>
-#include <pal_face_node/Recognizer.h>
+#include <pal_detection_msgs/SetDatabase.h>
+#include <pal_detection_msgs/Recognizer.h>
 
 // ROS headers
 #include <ros/ros.h>
@@ -103,9 +103,9 @@ int main(int argc, char** argv)
   std::string databaseName = "tutorial_database";
 
   // Use the ROS service in pal_face to set the database
-  ros::ServiceClient setDatabaseClient = nh.serviceClient<pal_face_node::SetDatabase>("pal_face/set_database");
+  ros::ServiceClient setDatabaseClient = nh.serviceClient<pal_detection_msgs::SetDatabase>("pal_face/set_database");
 
-  pal_face_node::SetDatabase setDatabaseSrv;
+  pal_detection_msgs::SetDatabase setDatabaseSrv;
   setDatabaseSrv.request.databaseName = databaseName;
   if (setDatabaseClient.call(setDatabaseSrv))
     ROS_INFO_STREAM("Face database succesffully created at: " << databaseName);
@@ -117,8 +117,8 @@ int main(int argc, char** argv)
 
 
   // Enable face recognition in the pal_face
-  ros::ServiceClient recognitionClient = nh.serviceClient<pal_face_node::Recognizer>("pal_face/recognizer");
-  pal_face_node::Recognizer recognizerSrv;
+  ros::ServiceClient recognitionClient = nh.serviceClient<pal_detection_msgs::Recognizer>("pal_face/recognizer");
+  pal_detection_msgs::Recognizer recognizerSrv;
   recognizerSrv.request.enabled = true;
   // Choose the minimum recognition confidence to publish recognized faces
   recognizerSrv.request.minConfidence = 80;
