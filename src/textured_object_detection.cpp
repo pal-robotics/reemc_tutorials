@@ -72,16 +72,19 @@ void callback(const pal_detection_msgs::TexturedObjectDetectionConstPtr& detecti
   cv::Mat img;
   cvImgPtr->image.copyTo(img);
 
-  std::vector< cv::Point > points;
-  for (unsigned int i = 0; i < 4; ++i)
-    points.push_back( cv::Point(detectionMsg->roi.x[i], detectionMsg->roi.y[i]) );
+  if ( !detectionMsg->roi.x.empty() )
+  {
+    std::vector< cv::Point > points;
+    for (unsigned int i = 0; i < 4; ++i)
+      points.push_back( cv::Point(detectionMsg->roi.x[i], detectionMsg->roi.y[i]) );
 
-  ROS_INFO("Object detected!");
+    ROS_INFO("Object detected!");
 
-  cv::line(img, points[0], points[1], CV_RGB(0,255,0), 2);
-  cv::line(img, points[1], points[2], CV_RGB(0,255,0), 2);
-  cv::line(img, points[2], points[3], CV_RGB(0,255,0), 2);
-  cv::line(img, points[0], points[3], CV_RGB(0,255,0), 2);
+    cv::line(img, points[0], points[1], CV_RGB(0,255,0), 2);
+    cv::line(img, points[1], points[2], CV_RGB(0,255,0), 2);
+    cv::line(img, points[2], points[3], CV_RGB(0,255,0), 2);
+    cv::line(img, points[0], points[3], CV_RGB(0,255,0), 2);
+  }
 
   // Show the image with the person detections
   cv::imshow("Object detection", img);
