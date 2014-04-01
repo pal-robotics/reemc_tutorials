@@ -7,6 +7,7 @@ Panels:
         - /Robot1
         - /Robot1/RobotModel1
         - /Sensors1
+        - /Sensors1/Imu1
         - /Planning1/Global1
         - /Planning1/Local1
       Splitter Ratio: 0.550955
@@ -596,7 +597,7 @@ Visualization Manager:
           Class: rviz_imu_plugin/Imu
           Enabled: true
           Name: Imu
-          Topic: ""
+          Topic: /base_imu
           Value: true
       Enabled: true
       Name: Sensors
@@ -699,21 +700,13 @@ Visualization Manager:
               Value: true
             Grid: true
             Localization:
-              Particles: true
+              "": true
               Value: true
             Mapping:
               "": true
               Value: true
             Planning:
-              Global:
-                Costmap: true
-                Plan: true
-                Value: true
-              Goal: true
-              Local:
-                Costmap: true
-                Plan: true
-                Value: true
+              "": true
               Value: true
             Robot:
               Footprint: true
@@ -721,14 +714,7 @@ Visualization Manager:
               TF: true
               Value: true
             Sensors:
-              Base IR: true
-              Base laser: true
-              Base sonars: true
-              IR Cloud: true
-              Imu: true
-              Sonar Cloud: true
-              Torso laser: true
-              Torso sonars: true
+              "": true
               Value: true
             Value: true
           Zoom Factor: 1
@@ -748,21 +734,13 @@ Visualization Manager:
               Value: true
             Grid: true
             Localization:
-              Particles: true
+              "": true
               Value: true
             Mapping:
               "": true
               Value: true
             Planning:
-              Global:
-                Costmap: true
-                Plan: true
-                Value: true
-              Goal: true
-              Local:
-                Costmap: true
-                Plan: true
-                Value: true
+              "": true
               Value: true
             Robot:
               Footprint: true
@@ -770,14 +748,7 @@ Visualization Manager:
               TF: true
               Value: true
             Sensors:
-              Base IR: true
-              Base laser: true
-              Base sonars: true
-              IR Cloud: true
-              Imu: true
-              Sonar Cloud: true
-              Torso laser: true
-              Torso sonars: true
+              "": true
               Value: true
             Value: true
           Zoom Factor: 1
@@ -797,21 +768,13 @@ Visualization Manager:
               Value: true
             Grid: true
             Localization:
-              Particles: true
+              "": true
               Value: true
             Mapping:
               "": true
               Value: true
             Planning:
-              Global:
-                Costmap: true
-                Plan: true
-                Value: true
-              Goal: true
-              Local:
-                Costmap: true
-                Plan: true
-                Value: true
+              "": true
               Value: true
             Robot:
               Footprint: true
@@ -819,14 +782,7 @@ Visualization Manager:
               TF: true
               Value: true
             Sensors:
-              Base IR: true
-              Base laser: true
-              Base sonars: true
-              IR Cloud: true
-              Imu: true
-              Sonar Cloud: true
-              Torso laser: true
-              Torso sonars: true
+              "": true
               Value: true
             Value: true
           Zoom Factor: 1
@@ -890,5 +846,5 @@ Window Geometry:
   Views:
     collapsed: false
   Width: 1278
-  X: 193
-  Y: 41
+  X: 58
+  Y: 25
