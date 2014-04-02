@@ -136,43 +136,47 @@ void detectionImageCallback(const sensor_msgs::ImageConstPtr& imgMsg)
 // ROS call back for every object detection
 void detectionCallback(const pal_detection_msgs::TexturedObjectDetectionConstPtr& msg)
 {
-  //compute the centroid of the detection roi in the image
-  int u = 0, v = 0;
-  for (unsigned int i = 0; i < msg->roi.x.size(); ++i)
+  //first check if the object has been detected
+  if ( !msg->roi.x.empty() )
   {
-    u += msg->roi.x[i];
-    v += msg->roi.y[i];
+    //compute the centroid of the detection roi in the image
+    int u = 0, v = 0;
+    for (unsigned int i = 0; i < msg->roi.x.size(); ++i)
+    {
+      u += msg->roi.x[i];
+      v += msg->roi.y[i];
+    }
+
+    u = u / msg->roi.x.size();
+    v = v / msg->roi.y.size();
+
+    geometry_msgs::PointStamped pointStamped;
+
+    pointStamped.header.frame_id = cameraFrame;
+    pointStamped.header.stamp    = ros::Time::now();
+
+    //compute normalized coordinates of the selected pixel
+    double x = ( u  - cameraIntrinsics.at<double>(0,2) )/ cameraIntrinsics.at<double>(0,0);
+    double y = ( v  - cameraIntrinsics.at<double>(1,2) )/ cameraIntrinsics.at<double>(1,1);
+    double Z = 1.0; //define an arbitrary distance
+    pointStamped.point.x = x * Z;
+    pointStamped.point.y = y * Z;
+    pointStamped.point.z = Z;
+
+    //build the action goal
+    control_msgs::PointHeadGoal goal;
+    //the goal consists in making the Z axis of the cameraFrame to point towards the pointStamped
+    goal.pointing_frame = cameraFrame;
+    goal.pointing_axis.x = 0.0;
+    goal.pointing_axis.y = 0.0;
+    goal.pointing_axis.z = 1.0;
+    goal.min_duration = ros::Duration(1.0);
+    goal.max_velocity = 0.25;
+    goal.target = pointStamped;
+
+    pointHeadClient->sendGoal(goal);
+    ros::Duration(0.5).sleep();
   }
-
-  u = u / msg->roi.x.size();
-  v = v / msg->roi.y.size();
-
-  geometry_msgs::PointStamped pointStamped;
-
-  pointStamped.header.frame_id = cameraFrame;
-  pointStamped.header.stamp    = ros::Time::now();
-
-  //compute normalized coordinates of the selected pixel
-  double x = ( u  - cameraIntrinsics.at<double>(0,2) )/ cameraIntrinsics.at<double>(0,0);
-  double y = ( v  - cameraIntrinsics.at<double>(1,2) )/ cameraIntrinsics.at<double>(1,1);
-  double Z = 1.0; //define an arbitrary distance
-  pointStamped.point.x = x * Z;
-  pointStamped.point.y = y * Z;
-  pointStamped.point.z = Z;
-
-  //build the action goal
-  control_msgs::PointHeadGoal goal;
-  //the goal consists in making the Z axis of the cameraFrame to point towards the pointStamped
-  goal.pointing_frame = cameraFrame;
-  goal.pointing_axis.x = 0.0;
-  goal.pointing_axis.y = 0.0;
-  goal.pointing_axis.z = 1.0;
-  goal.min_duration = ros::Duration(1.0);
-  goal.max_velocity = 0.25;
-  goal.target = pointStamped;
-
-  pointHeadClient->sendGoal(goal);
-  ros::Duration(0.5).sleep();
 }
 
 // ROS callback function for topic containing intrinsic parameters of a camera
@@ -238,9 +242,11 @@ int main(int argc, char** argv)
 
   // Define ROS topic from where REEM-C publishes images
   image_transport::ImageTransport it(nh);
+  image_transport::TransportHints transportHint("compressed");
 
   ROS_INFO_STREAM("Subscribing to " << detectorImageTopic << " ...");
-  image_transport::Subscriber sub = it.subscribe(detectorImageTopic, 1, detectionImageCallback);
+  image_transport::Subscriber sub = it.subscribe(detectorImageTopic, 1,
+                                                 detectionImageCallback, transportHint);
 
   ROS_INFO_STREAM("Subscribing to " << detectionTopic << " ...");
   ros::Subscriber detectionSub = nh.subscribe(detectionTopic, 1, detectionCallback);
