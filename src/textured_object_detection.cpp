@@ -65,12 +65,10 @@
  * @param detectionsMsg poiner to the detections message
  */
 void callback(const pal_detection_msgs::TexturedObjectDetectionConstPtr& detectionMsg)
-{
-  // Get an OpenCV image from the image message
-  cv_bridge::CvImageConstPtr cvImgPtr;
-  cvImgPtr = cv_bridge::toCvCopy(detectionMsg->img, detectionMsg->img.encoding);
+{  
+  // Get an OpenCV image from the compressed image included in the message
   cv::Mat img;
-  cvImgPtr->image.copyTo(img);
+  img = cv::imdecode(cv::Mat(detectionMsg->img.data), CV_LOAD_IMAGE_UNCHANGED);
 
   if ( !detectionMsg->roi.x.empty() )
   {
