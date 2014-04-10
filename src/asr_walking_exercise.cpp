@@ -1,7 +1,7 @@
 #include "ros/ros.h"
 #include <pal_interaction_msgs/recognizerService.h>
 #include <pal_interaction_msgs/asrresult.h>
-#include <text_to_speech/SoundAction.h>
+#include <pal_interaction_msgs/SoundAction.h>
 #include <actionlib/client/simple_action_client.h>
 #include <boost/bind.hpp>
 

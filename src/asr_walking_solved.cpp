@@ -1,7 +1,7 @@
 #include "ros/ros.h"
 #include <pal_interaction_msgs/recognizerService.h>
 #include <pal_interaction_msgs/asrresult.h>
-#include <text_to_speech/SoundAction.h>
+#include <pal_interaction_msgs/SoundAction.h>
 #include <actionlib/client/simple_action_client.h>
 #include <boost/bind.hpp>
 
@@ -17,7 +17,7 @@ void say(const std::string &text, const std::string &langauge)
   /* create a goal with the text to be said in the specified language */
   /* Send the goal */
 
-  actionlib::SimpleActionClient<text_to_speech::SoundAction> ac(ACTION_NAME, true);
+  actionlib::SimpleActionClient<pal_interaction_msgs::SoundAction> ac(ACTION_NAME, true);
 
   ac.waitForServer(ros::Duration(10,0));
 
@@ -27,7 +27,7 @@ void say(const std::string &text, const std::string &langauge)
     exit(1);
   }
 
-  text_to_speech::SoundGoal goal;
+  pal_interaction_msgs::SoundGoal goal;
   goal.text = text;
   goal.wait_before_speaking = ros::Duration(0,0);
   ac.sendGoal(goal);

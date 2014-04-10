@@ -26,7 +26,6 @@
 <!--
   <depend package="robot_mechanism_controllers"/>
 -->
-  <depend package="text_to_speech"/>
 
   <depend package="pal_texture_detector"/>
   <depend package="pal_camera_client"/>

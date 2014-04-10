@@ -1,7 +1,7 @@
 #include <ros/ros.h>
 #include <actionlib/client/simple_action_client.h>
 #include <actionlib/client/terminal_state.h>
-#include <text_to_speech/SoundAction.h>
+#include <pal_interaction_msgs/SoundAction.h>
 #include <cstdlib>
 
 int main (int argc, char **argv)
@@ -25,7 +25,7 @@ int main (int argc, char **argv)
 
   // create the action client
   // true causes the client to spin its own thread
-  actionlib::SimpleActionClient<text_to_speech::SoundAction> ac(actionName, true);
+  actionlib::SimpleActionClient<pal_interaction_msgs::SoundAction> ac(actionName, true);
 
   if (!ac.isServerConnected())
   {
@@ -41,7 +41,7 @@ int main (int argc, char **argv)
 
   ROS_INFO("Action server started, sending goal.");
   // send a goal to the action
-  text_to_speech::SoundGoal goal;
+  pal_interaction_msgs::SoundGoal goal;
   goal.text = argv[1];
   goal.wait_before_speaking = ros::Duration(time_to_wait*1000,0);
   ac.sendGoal(goal);
