@@ -51,8 +51,7 @@
 #include <ros/ros.h>
 #include <message_filters/subscriber.h>
 #include <message_filters/time_synchronizer.h>
-#include <sensor_msgs/Image.h>
-#include <cv_bridge/cv_bridge.h>
+#include <sensor_msgs/CompressedImage.h>
 
 // OpenCV headers
 #include <opencv2/core/core.hpp>
@@ -65,14 +64,12 @@
  * @param imageMsg pointer to the image message
  * @param detectionsMsg poiner to the detections message
  */
-void callback(const sensor_msgs::ImageConstPtr& imageMsg,
+void callback(const sensor_msgs::CompressedImageConstPtr& imageMsg,
               const pal_detection_msgs::FaceDetectionsConstPtr& detectionsMsg)
 {
   // Get an OpenCV image from the image message
-  cv_bridge::CvImageConstPtr cvImgPtr;
-  cvImgPtr = cv_bridge::toCvShare(imageMsg); 
   cv::Mat img;
-  cvImgPtr->image.copyTo(img);
+  img = cv::imdecode(cv::Mat(imageMsg->data), CV_LOAD_IMAGE_UNCHANGED);
 
   // Paint every detection on the image
   for (unsigned int i = 0; i < detectionsMsg->faces.size(); ++i)
@@ -108,13 +105,13 @@ int main(int argc, char** argv)
   }   
 
   // Define an image topic subscriber
-  message_filters::Subscriber<sensor_msgs::Image> imageSub(nh, "stereo/left/image", 1);
+  message_filters::Subscriber<sensor_msgs::CompressedImage> imageSub(nh, "stereo/left/image/compressed", 1);
 
   // Define a subscriber to the topic with the person detections
   message_filters::Subscriber<pal_detection_msgs::FaceDetections> detectionsSub(nh, "pal_face/faces", 1);
 
   // Create a synchronizer to obtain pairs of images and person detections
-  message_filters::TimeSynchronizer<sensor_msgs::Image,
+  message_filters::TimeSynchronizer<sensor_msgs::CompressedImage,
                                     pal_detection_msgs::FaceDetections> topicSynchronizer(imageSub, detectionsSub, 20);
 
   // Register a callback that will be called for every pair of synchronized image and detection messages

@@ -43,7 +43,6 @@
  */
 
 // PAL headers
-#include <pal_face_database/database.h>
 #include <pal_detection_msgs/SetDatabase.h>
 #include <pal_detection_msgs/Recognizer.h>
 
@@ -96,7 +95,10 @@ int main(int argc, char** argv)
 
   // Subscribe to the debug image published by the node pal_face in which all face detections are painted
   image_transport::ImageTransport it(nh);
-  image_transport::Subscriber imageSub = it.subscribe("pal_face/debug", 1, imageCallback);
+  // use compressed image transport to prevent delays
+  image_transport::TransportHints transportHint("compressed");
+  image_transport::Subscriber imageSub = it.subscribe("pal_face/debug", 1,
+                                                      imageCallback, transportHint);
 
 
   // Set an empty face database for the test which will be stored in the test path

@@ -664,7 +664,7 @@ Visualization Manager:
           Name: Left eye
           Overlay Alpha: 0.5
           Queue Size: 2
-          Transport Hint: raw
+          Transport Hint: compressed
           Value: true
           Visibility:
             Cameras:
@@ -712,7 +712,7 @@ Visualization Manager:
           Name: Right eye
           Overlay Alpha: 0.5
           Queue Size: 2
-          Transport Hint: raw
+          Transport Hint: compressed
           Value: true
           Visibility:
             Cameras:
@@ -760,7 +760,7 @@ Visualization Manager:
           Name: Back
           Overlay Alpha: 0.5
           Queue Size: 2
-          Transport Hint: raw
+          Transport Hint: compressed
           Value: true
           Visibility:
             Cameras:

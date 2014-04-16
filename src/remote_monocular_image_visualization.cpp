@@ -101,11 +101,11 @@ int main(int argc, char** argv)
   double frequency = 5; //frequency at which images will be polled in this example
 
   // create a camera client able to provide images and calibration data on demand
-  pal::CameraClient camClient("back_camera/image",              //image topic name
+  pal::CameraClient camClient("back_camera/image",             //image topic name
                               pal::CameraClient::JPEG,         //image transport type. Choose between RAW (uncompressed) and JPEG
                               1.0,                             //timeout in seconds attempting to get an image
                               static_cast<float>(frequency*2), //max rate at which images may be polled
-                              "back_camera/camera_info");       //camera calibration topic name
+                              "back_camera/camera_info");      //camera calibration topic name
 
   //print calibration data once
   sensor_msgs::CameraInfo camInfo;

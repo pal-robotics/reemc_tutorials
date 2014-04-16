@@ -51,12 +51,11 @@
 #include <pal_detection_msgs/SetDatabase.h>
 #include <pal_detection_msgs/StartEnrollment.h>
 #include <pal_detection_msgs/StopEnrollment.h>
-#include <pal_face_database/database.h>
 
 // ROS headers
 #include <ros/ros.h>
 #include <ros/package.h>
-#include <sensor_msgs/Image.h>
+#include <sensor_msgs/CompressedImage.h>
 #include <cv_bridge/cv_bridge.h>
 #include <image_transport/image_transport.h>
 
@@ -104,8 +103,10 @@ int main(int argc, char** argv)
 
   // Subscribe to the debug image published by the node pal_face in which all face detections are painted
   image_transport::ImageTransport it(nh);
-  image_transport::Subscriber imageSub = it.subscribe("pal_face/debug", 1, imageCallback);
-
+  // use compressed image transport to prevent delays
+  image_transport::TransportHints transportHint("compressed");
+  image_transport::Subscriber imageSub = it.subscribe("pal_face/debug", 1,
+                                                      imageCallback, transportHint);
 
   // Set an empty face database for the test which will be stored in the test path
   std::string databaseName = "tutorial_database";

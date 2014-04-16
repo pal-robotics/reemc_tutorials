@@ -4,8 +4,8 @@ Panels:
     Name: Displays
     Property Tree Widget:
       Expanded:
-        - /Robot1
-        - /Robot1/RobotModel1
+        - /REEM-C1
+        - /REEM-C1/RobotModel1
         - /Sensors1
         - /Sensors1/Imu1
         - /Planning1/Global1
@@ -435,7 +435,7 @@ Visualization Manager:
           Update Interval: 0
           Value: false
       Enabled: true
-      Name: Robot
+      Name: REEM-C
     - Class: rviz/Group
       Displays:
         - Alpha: 1
@@ -691,7 +691,7 @@ Visualization Manager:
           Name: Left eye
           Overlay Alpha: 0.5
           Queue Size: 2
-          Transport Hint: raw
+          Transport Hint: compressed
           Value: false
           Visibility:
             Cameras:
@@ -700,18 +700,16 @@ Visualization Manager:
               Value: true
             Grid: true
             Localization:
-              "": true
+              Particles: true
               Value: true
             Mapping:
-              "": true
+              Map: true
               Value: true
             Planning:
               "": true
               Value: true
             Robot:
-              Footprint: true
-              RobotModel: true
-              TF: true
+              "": true
               Value: true
             Sensors:
               "": true
@@ -725,7 +723,7 @@ Visualization Manager:
           Name: Right eye
           Overlay Alpha: 0.5
           Queue Size: 2
-          Transport Hint: raw
+          Transport Hint: compressed
           Value: false
           Visibility:
             Cameras:
@@ -734,18 +732,16 @@ Visualization Manager:
               Value: true
             Grid: true
             Localization:
-              "": true
+              Particles: true
               Value: true
             Mapping:
-              "": true
+              Map: true
               Value: true
             Planning:
               "": true
               Value: true
             Robot:
-              Footprint: true
-              RobotModel: true
-              TF: true
+              "": true
               Value: true
             Sensors:
               "": true
@@ -759,7 +755,7 @@ Visualization Manager:
           Name: Back
           Overlay Alpha: 0.5
           Queue Size: 2
-          Transport Hint: raw
+          Transport Hint: compressed
           Value: false
           Visibility:
             Cameras:
@@ -768,18 +764,16 @@ Visualization Manager:
               Value: true
             Grid: true
             Localization:
-              "": true
+              Particles: true
               Value: true
             Mapping:
-              "": true
+              Map: true
               Value: true
             Planning:
               "": true
               Value: true
             Robot:
-              Footprint: true
-              RobotModel: true
-              TF: true
+              "": true
               Value: true
             Sensors:
               "": true

@@ -1,160 +1,94 @@
 #!/bin/bash
 
+# Load helper variables and functions
+source `echo $(dirname $(readlink -f ${BASH_SOURCE[0]}))`/test_joints_helpers.bash
+
 # Check preconditions with user
-TEXT_BOLD='\033[1m'
-TEXT_RESET='\e[0m'
+YES_NO_MSG="Is the robot ${TXT_BF}secured to the crane${TXT_RESET} and "\
+"${TXT_BF}standing with its feet on the ground?${TXT_RESET}"
+_yes_no_question $YES_NO_MSG
 
-ready=''
-echo -e "Is the robot$TEXT_BOLD secured to the crane$TEXT_RESET and$TEXT_BOLD standing with its feet on the ground$TEXT_RESET [yes/no]?"
-while [[ $ready != 'yes' ]]; do
-  read ready
-
-  if [[ $ready == 'no' ]]; then
-    echo 'Aborting...'
-    exit 1
-  fi
-
-  if [[ $ready != 'yes' ]]; then
-    echo -e "Please answer$TEXT_BOLD yes$TEXT_RESET or$TEXT_BOLD no$TEXT_RESET to the above question, or ctrl+c to abort."
-  fi
-done
-
-# Load robot poses
-rosparam load `rospack find reemc_tutorials`/config/reemc_poses.yaml
+# Start measuring time
+START_TIME=$(date +%s.%N)
 
 # Home pose
-echo 'Going to home pose...'
-rosrun reemc_tutorials reach_pose home
-sleep 1
+echo -e "${TXT_CYAN}Going to home pose...${TXT_RESET}"
+_go_home
+_play_motion "{motion_name: 'home_legs', skip_planning: true}"
+echo "Done!"
 
 # Head
-echo 'Testing head joints...'
-rosrun move_joint move_joint head_1_joint 0.5 2.0
-sleep 3
-rosrun move_joint move_joint head_1_joint -0.5 4.0
-sleep 6
-rosrun move_joint move_joint head_1_joint 0.0 2.0
-sleep 3
+echo -e "${TXT_CYAN}Testing head joints...${TXT_RESET}"
+_move_joint head_1_joint 0.5
+_move_joint head_1_joint -0.5
+_move_joint head_1_joint 0.0
 
-rosrun move_joint move_joint head_2_joint 0.3 1.0
-sleep 1
-rosrun move_joint move_joint head_2_joint -0.25 2.0
-sleep 2
-rosrun move_joint move_joint head_2_joint 0.0 1.0
-sleep 1
+_move_joint head_2_joint 0.3
+_move_joint head_2_joint -0.25
+_move_joint head_2_joint 0.0
 
 # Left arm
-echo 'Testing left arm joints...'
-rosrun move_joint move_joint arm_left_4_joint 1.57 4.0
-sleep 4
-
-rosrun move_joint move_joint arm_left_2_joint 1.309 4.0
-sleep 4
-
-rosrun move_joint move_joint arm_left_1_joint 1.5708 4.0
-sleep 4
-
-rosrun move_joint move_joint arm_left_3_joint -1.57 4.0
-sleep 4
-
-rosrun move_joint move_joint arm_left_5_joint 1.57 4.0
-sleep 4
-
-rosrun move_joint move_joint arm_left_6_joint 1.57 4.0
-sleep 4
-rosrun move_joint move_joint arm_left_6_joint 0.0 4.0
-sleep 4
-
-rosrun move_joint move_joint arm_left_7_joint -1.57 4.0
-sleep 4
-rosrun move_joint move_joint arm_left_7_joint 0.0 4.0
-sleep 4
+echo -e "${TXT_CYAN}Testing left arm joints...${TXT_RESET}"
+_move_joint arm_left_4_joint 1.57
+_move_joint arm_left_2_joint 1.31
+_move_joint arm_left_1_joint 1.57
+_move_joint arm_left_3_joint -1.57
+_move_joint arm_left_5_joint 1.57
+_move_joint arm_left_6_joint 1.57
+_move_joint arm_left_6_joint 0.0
+_move_joint arm_left_7_joint -1.57
+_move_joint arm_left_7_joint 0.0
 
 # Left hand
-echo 'Testing left hand joints...'
-rosrun move_joint move_joint hand_left_thumb_joint 1.57 2.0
-sleep 2
-rosrun move_joint move_joint hand_left_thumb_joint 0.0 2.0
-sleep 2
+echo -e "${TXT_CYAN}Testing left hand joints...${TXT_RESET}"
+_move_joint hand_left_thumb_joint 1.57
+_move_joint hand_left_thumb_joint 0.0
+_move_joint hand_left_index_joint 4.0  2.5
+_move_joint hand_left_index_joint 0.0  2.5
+_move_joint hand_left_middle_joint 4.0 2.5
+_move_joint hand_left_middle_joint 0.0 2.5
 
-rosrun move_joint move_joint hand_left_index_joint 4.0 3.0
-sleep 3
-rosrun move_joint move_joint hand_left_index_joint 0.0 3.0
-sleep 3
-
-rosrun move_joint move_joint hand_left_middle_joint 4.0 3.0
-sleep 3
-rosrun move_joint move_joint hand_left_middle_joint 0.0 3.0
-sleep 3
+_go_home
 
 # Right arm
-echo 'Testing right arm joints...'
-rosrun move_joint move_joint arm_right_4_joint 1.57 4.0
-sleep 4
-
-rosrun move_joint move_joint arm_right_2_joint 1.309 4.0
-sleep 4
-
-rosrun move_joint move_joint arm_right_1_joint 1.5708 4.0
-sleep 4
-
-rosrun move_joint move_joint arm_right_3_joint -1.57 4.0
-sleep 4
-
-rosrun move_joint move_joint arm_right_5_joint 1.57 4.0
-sleep 4
-
-rosrun move_joint move_joint arm_right_6_joint 1.57 4.0
-sleep 4
-rosrun move_joint move_joint arm_right_6_joint 0.0 4.0
-sleep 4
-
-rosrun move_joint move_joint arm_right_7_joint -1.57 4.0
-sleep 4
-rosrun move_joint move_joint arm_right_7_joint 0.0 4.0
-sleep 4
+echo -e "${TXT_CYAN}Testing right arm joints...${TXT_RESET}"
+_move_joint arm_right_4_joint 1.57
+_move_joint arm_right_2_joint 1.31
+_move_joint arm_right_1_joint 1.57
+_move_joint arm_right_3_joint -1.57
+_move_joint arm_right_5_joint 1.57
+_move_joint arm_right_6_joint 1.57
+_move_joint arm_right_6_joint 0.0
+_move_joint arm_right_7_joint -1.57
+_move_joint arm_right_7_joint 0.0
 
 # Right hand
-echo 'Testing right hand joints...'
-rosrun move_joint move_joint hand_right_thumb_joint 1.57 2.0
-sleep 2
-rosrun move_joint move_joint hand_right_thumb_joint 0.0 2.0
-sleep 2
-
-rosrun move_joint move_joint hand_right_index_joint 4.0 3.0
-sleep 3
-rosrun move_joint move_joint hand_right_index_joint 0.0 3.0
-sleep 3
-
-rosrun move_joint move_joint hand_right_middle_joint 4.0 3.0
-sleep 3
-rosrun move_joint move_joint hand_right_middle_joint 0.0 3.0
-sleep 3
-
-# Home pose
-echo 'Going to home pose...'
-rosrun reemc_tutorials reach_pose home
-sleep 1
+echo -e "${TXT_CYAN}Testing right hand joints...${TXT_RESET}"
+_move_joint hand_right_thumb_joint 1.57
+_move_joint hand_right_thumb_joint 0.0
+_move_joint hand_right_index_joint 4.0  2.5
+_move_joint hand_right_index_joint 0.0  2.5
+_move_joint hand_right_middle_joint 4.0 2.5
+_move_joint hand_right_middle_joint 0.0 2.5
 
 # Torso
-echo 'Testing torso joints...'
+echo -e "${TXT_CYAN}Clearing arms from torso...${TXT_RESET}"
+_play_motion "{motion_name: 'interact'}"
+echo "Done!"
 
-rosrun move_joint move_joint arm_left_2_joint 0.2 2.0  # Clear arm from torso
-rosrun move_joint move_joint arm_right_2_joint 0.2 2.0 # Clear arm from torso
-sleep 2
+echo -e "${TXT_CYAN}Testing torso joints...${TXT_RESET}"
+_move_joint torso_1_joint 0.3   2.0
+_move_joint torso_1_joint -0.3  4.0
+_move_joint torso_1_joint 0.0   2.0
+_move_joint torso_2_joint 0.2   2.0
+_move_joint torso_2_joint -0.15 3.5
+_move_joint torso_2_joint 0.0   1.5
 
-rosrun move_joint move_joint torso_1_joint 0.3 3.0
-sleep 3
-rosrun move_joint move_joint torso_1_joint -0.3 6.0
-sleep 6
-rosrun move_joint move_joint torso_1_joint 0.0 3.0
-sleep 3
+# Home pose
+echo -e "${TXT_CYAN}Going to home pose...${TXT_RESET}"
+_go_home
+echo "Done!"
 
-rosrun move_joint move_joint torso_2_joint 0.2 3.0
-sleep 3
-rosrun move_joint move_joint torso_2_joint -0.15 6.0
-sleep 6
-rosrun move_joint move_joint torso_2_joint 0.0 3.0
-sleep 3
-
-echo 'Done testing upper body joints!'
+END_TIME=$(date +%s.%N)
+DUR_STR=$(_duration_str $START_TIME $END_TIME)
+echo -e "${TXT_GREEN}Upper body joints test finished successfully in ${DUR_STR}.${TXT_RESET}"

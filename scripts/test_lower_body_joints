@@ -1,78 +1,54 @@
 #!/bin/bash
 
+# Load helper variables and functions
+source `echo $(dirname $(readlink -f ${BASH_SOURCE[0]}))`/test_joints_helpers.bash
+
 # Check preconditions with user
-TEXT_BOLD='\033[1m'
-TEXT_RESET='\e[0m'
+YES_NO_MSG="Is the robot ${TXT_BF}secured to the crane${TXT_RESET} and ${TXT_BF}lifted so its feet do not touch the ground?${TXT_RESET}"
+_yes_no_question $YES_NO_MSG
 
-ready=''
-echo -e "Is the robot$TEXT_BOLD secured to the crane$TEXT_RESET and$TEXT_BOLD lifted so its feet do not touch the ground$TEXT_RESET [yes/no]?"
-while [[ $ready != 'yes' ]]; do
-  read ready
+# Start measuring time
+START_TIME=$(date +%s.%N)
 
-  if [[ $ready == 'no' ]]; then
-    echo 'Aborting...'
-    exit 1
-  fi
-
-  if [[ $ready != 'yes' ]]; then
-    echo -e "Please answer$TEXT_BOLD yes$TEXT_RESET or$TEXT_BOLD no$TEXT_RESET to the above question, or ctrl+c to abort."
-  fi
-done
-
-# Load robot poses
-rosparam load `rospack find reemc_tutorials`/config/reemc_poses.yaml
-
-# Home pose
-echo 'Going to home pose...'
-rosrun reemc_tutorials reach_pose home
-echo 'Going to small_squat pose...'
-rosrun reemc_tutorials reach_pose small_squat
-sleep 1
+# Initial pose
+echo -e "${TXT_CYAN}Going to the initial pose...${TXT_RESET}"
+_play_motion "{motion_name: 'interact'}"
+_play_motion "{motion_name: 'home_legs', skip_planning: true}"
+echo "Done!"
 
 # Left leg
-echo 'Testing left leg joints...'
-rosrun move_joint move_joint leg_left_2_joint 0.2 3.0
-sleep 3
-
-rosrun move_joint move_joint leg_left_1_joint 0.2 3.0
-sleep 3
-
-rosrun move_joint move_joint leg_left_3_joint -0.7 3.0
-sleep 3
-
-rosrun move_joint move_joint leg_left_4_joint 1.2 3.0
-sleep 3
-
-rosrun move_joint move_joint leg_left_5_joint -0.3 3.0
-sleep 3
-
-rosrun move_joint move_joint leg_left_6_joint -0.3 3.0
-sleep 3
+echo -e "${TXT_CYAN}Testing left leg joints...${TXT_RESET}"
+_move_joint leg_left_4_joint  1.5708
+_move_joint leg_left_3_joint -1.5708
+_move_joint leg_left_1_joint  0.4 1.5
+_move_joint leg_left_1_joint  0.0 1.5
+_move_joint leg_left_2_joint  0.4 1.5
+_move_joint leg_left_2_joint  0.0 1.5
+_move_joint leg_left_5_joint -0.7854
+_move_joint leg_left_5_joint  0.0
+_move_joint leg_left_6_joint -0.4 1.5
+_move_joint leg_left_6_joint  0.0 1.5
+_play_motion "{motion_name: 'home_legs', skip_planning: true}"
 
 # Right leg
-echo 'Testing right leg joints...'
-rosrun move_joint move_joint leg_right_2_joint -0.2 3.0
-sleep 3
-
-rosrun move_joint move_joint leg_right_1_joint -0.2 3.0
-sleep 3
-
-rosrun move_joint move_joint leg_right_3_joint -0.7 3.0
-sleep 3
-
-rosrun move_joint move_joint leg_right_4_joint 1.2 3.0
-sleep 3
-
-rosrun move_joint move_joint leg_right_5_joint -0.3 3.0
-sleep 3
-
-rosrun move_joint move_joint leg_right_6_joint 0.3 3.0
-sleep 3
+echo -e "${TXT_CYAN}Testing right leg joints...${TXT_RESET}"
+_move_joint leg_right_4_joint  1.5708
+_move_joint leg_right_3_joint -1.5708
+_move_joint leg_right_1_joint -0.4 1.5
+_move_joint leg_right_1_joint  0.0 1.5
+_move_joint leg_right_2_joint -0.4 1.5
+_move_joint leg_right_2_joint  0.0 1.5
+_move_joint leg_right_5_joint -0.7854
+_move_joint leg_right_5_joint  0.0
+_move_joint leg_right_6_joint  0.4 1.5
+_move_joint leg_right_6_joint  0.0 1.5
 
 # Home pose
-echo 'Going to small_squat pose...'
-rosrun reemc_tutorials reach_pose small_squat
-echo 'Going to home pose...'
-rosrun reemc_tutorials reach_pose home
+echo -e "${TXT_CYAN}Going to home pose...${TXT_RESET}"
+_play_motion "{motion_name: 'home_legs', skip_planning: true}"
+_go_home
+echo "Done!"
 
-echo 'Done testing lower body joints!'
+END_TIME=$(date +%s.%N)
+DUR_STR=$(_duration_str $START_TIME $END_TIME)
+echo -e "${TXT_GREEN}Lower body joints test finished successfully in ${DUR_STR}.${TXT_RESET}"

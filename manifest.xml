@@ -7,7 +7,6 @@
   <review status="unreviewed" notes=""/>
   <url>http://ros.org/wiki/reemc_tutorials</url>
   <depend package="roscpp"/>
-  <depend package="reemc_gazebo"/>
 
   <!-- move_left_arm -->
   <depend package="joint_state_publisher"/>
@@ -27,13 +26,10 @@
   <depend package="robot_mechanism_controllers"/>
 -->
 
-  <depend package="pal_texture_detector"/>
   <depend package="pal_camera_client"/>
-  <depend package="pal_face_node"/>
-  <depend package="pal_face_database"/>
-<!--
-  <depend package="walking"/>
+
+  <!-- walking -->
   <depend package="walking_msgs"/>
   <depend package="move_joint"/>
--->
+
 </package>

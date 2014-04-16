@@ -1,7 +1,7 @@
 /*
  * Software License Agreement (Modified BSD License)
  *
- *  Copyright (c) 2013, PAL Robotics, S.L.
+ *  Copyright (c) 2014, PAL Robotics, S.L.
  *  All rights reserved.
  *
  *  Redistribution and use in source and binary forms, with or without
@@ -32,48 +32,54 @@
  *  POSSIBILITY OF SUCH DAMAGE.
  */
 
-// NOTE: The contents of this file are an adaptation of a similar tutorial on the moveit wiki:
-// http://moveit.ros.org/wiki/MoveGroup_Interface
-
 #include <ros/ros.h>
 #include <actionlib/client/simple_action_client.h>
-#include <moveit/move_group_interface/move_group.h>
+#include <play_motion_msgs/PlayMotionAction.h>
 
 int main(int argc, char **argv)
 {
-  ros::init(argc, argv, "move_left_arm_joint_goal_test", ros::init_options::AnonymousName);
-  // start a ROS spinning thread
-  ros::AsyncSpinner spinner(1);
-  spinner.start();
-  // connect to a running instance of the move_group node
-  move_group_interface::MoveGroup group("left_arm");
+  ros::init(argc, argv, "move_left_arm_with_planning", ros::init_options::AnonymousName);
+  ros::NodeHandle nh;
+  if (!ros::Time::waitForValid(ros::WallDuration(5.0))) // NOTE: Important when using simulated clock
+  {
+    ROS_FATAL("Timed-out waiting for valid time.");
+    return EXIT_FAILURE;
+  }
+
+  actionlib::SimpleActionClient<play_motion_msgs::PlayMotionAction> pmClient("/play_motion", true);
+  ROS_INFO("Connecting to server...");
+
+  if(!pmClient.waitForServer(ros::Duration(10.0)))
+  {
+    ROS_ERROR_STREAM("Timed-out waiting for the play_motion server.");
+    return EXIT_FAILURE;
+  }
   ROS_INFO("Connected to server.");
-  // set joint goal
-  std::map< std::string, double > goal;
-  goal["arm_left_1_joint"] = 1.7;
-  goal["arm_left_2_joint"] = -0.1;
-  goal["arm_left_3_joint"] = -1.7;
-  goal["arm_left_4_joint"] =  1.5708;
-  goal["arm_left_5_joint"] =  0.0;
-  goal["arm_left_6_joint"] =  0.0;
-  goal["arm_left_7_joint"] =  0.0;
 
-  group.setJointValueTarget(goal);
-  // set parameters for planning and execution
-  group.setPlanningTime(5.0);
-  group.setGoalJointTolerance(0.05);
-  group.setGoalPositionTolerance(0.0);
-  //group.setPlannerId("ompl_interface_ros/OMPLPlanner");
-  //goal.motion_plan_request.num_planning_attempts = 1; // can we specify something equivalent to this?
+  play_motion_msgs::PlayMotionGoal goal;
+  goal.motion_name = "raise_left_hand";
+  goal.skip_planning = false;
 
-  // plan the motion and then move the group to the sampled target
-  bool success = group.move();
+  if(nh.ok())
+  {
+    pmClient.sendGoal(goal);
+    bool finished_within_time = pmClient.waitForResult(ros::Duration(15.0));
+    if (!finished_within_time)
+    {
+      pmClient.cancelGoal();
+      ROS_INFO("Timed out achieving joint-space goal.");
+    }
+    else
+    {
+      actionlib::SimpleClientGoalState state = pmClient.getState();
+      bool success = (state == actionlib::SimpleClientGoalState::SUCCEEDED);
+      if(success)
+        ROS_INFO("Action finished: %s",state.toString().c_str());
+      else
+        ROS_INFO("Action failed: %s",state.toString().c_str());
+     }
+  }
 
-  if(success)
-    ROS_INFO("Action succeeded.");
-  else
-    ROS_INFO("Action failed.");
-  group.stop();
   ros::shutdown();
   return EXIT_SUCCESS;
 }

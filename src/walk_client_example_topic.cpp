@@ -2,7 +2,7 @@
 #include <controller_manager_msgs/SwitchController.h>
 #include <geometry_msgs/Twist.h>
 
-const std::string WALK_CMD_VEL_TOPIC = "/walking_controller/cmd_vel";
+const std::string WALK_CMD_VEL_TOPIC = "/joy_vel";
 
 int main(int argc, char **argv)
 {

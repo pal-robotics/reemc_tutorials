@@ -182,10 +182,10 @@ int main(int argc, char** argv)
   ros::init(argc, argv, "look_to_point");
 
   ROS_INFO("Starting look_to_point application ...");
-
+ 
   // Precondition: Valid clock
   ros::NodeHandle nh;
-  if (!ros::Time::waitForValid(ros::WallDuration(5.0))) // NOTE: Important when using simulated clock
+  if (!ros::Time::waitForValid(ros::WallDuration(10.0))) // NOTE: Important when using simulated clock
   {
     ROS_FATAL("Timed-out waiting for valid time.");
     return EXIT_FAILURE;
@@ -217,9 +217,12 @@ int main(int argc, char** argv)
 
   // Define ROS topic from where REEM-C publishes images
   image_transport::ImageTransport it(nh);
+  // use compressed image transport to use less network bandwidth
+  image_transport::TransportHints transportHint("compressed");
 
   ROS_INFO_STREAM("Subscribing to " << imageTopic << " ...");
-  image_transport::Subscriber sub = it.subscribe(imageTopic, 1, imageCallback);
+  image_transport::Subscriber sub = it.subscribe(imageTopic, 1,
+                                                 imageCallback, transportHint);
 
   //enter a loop that processes ROS callbacks. Press CTRL+C to exit the loop
   ros::spin();
