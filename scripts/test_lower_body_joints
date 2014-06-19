@@ -18,8 +18,9 @@ echo "Done!"
 
 # Left leg
 echo -e "${TXT_CYAN}Testing left leg joints...${TXT_RESET}"
-_move_joint leg_left_4_joint  1.5708
+_move_joint leg_left_4_joint  0.7854
 _move_joint leg_left_3_joint -1.5708
+_move_joint leg_left_4_joint  1.5708
 _move_joint leg_left_1_joint  0.4 1.5
 _move_joint leg_left_1_joint  0.0 1.5
 _move_joint leg_left_2_joint  0.4 1.5
@@ -32,8 +33,9 @@ _play_motion "{motion_name: 'home_legs', skip_planning: true}"
 
 # Right leg
 echo -e "${TXT_CYAN}Testing right leg joints...${TXT_RESET}"
-_move_joint leg_right_4_joint  1.5708
+_move_joint leg_right_4_joint  0.7854
 _move_joint leg_right_3_joint -1.5708
+_move_joint leg_right_4_joint  1.5708
 _move_joint leg_right_1_joint -0.4 1.5
 _move_joint leg_right_1_joint  0.0 1.5
 _move_joint leg_right_2_joint -0.4 1.5
