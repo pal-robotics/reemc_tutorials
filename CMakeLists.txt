@@ -1,52 +1,98 @@
-cmake_minimum_required(VERSION 2.4.6)
-include($ENV{ROS_ROOT}/core/rosbuild/rosbuild.cmake)
+cmake_minimum_required(VERSION 2.8.3)
+project(reemc_tutorials)
 
-# Set the build type.  Options are:
-#  Coverage       : w/ debug symbols, w/o optimization, w/ code-coverage
-#  Debug          : w/ debug symbols, w/o optimization
-#  Release        : w/o debug symbols, w/ optimization
-#  RelWithDebInfo : w/ debug symbols, w/ optimization
-#  MinSizeRel     : w/o debug symbols, w/ optimization, stripped binaries
-#set(ROS_BUILD_TYPE RelWithDebInfo)
+find_package(catkin REQUIRED COMPONENTS
+  actionlib
+  control_msgs
+  controller_manager_msgs
+  cv_bridge
+  geometry_msgs
+  humanoid_nav_msgs
+  image_transport
+  message_filters
+  pal_camera_client
+  pal_detection_msgs
+  pal_interaction_msgs
+  play_motion_msgs
+  roscpp
+  sensor_msgs
+  walking_msgs
+)
 
-rosbuild_init()
+find_package(Boost REQUIRED)
+find_package(OpenCV REQUIRED)
 
-#set the default path for built executables to the "bin" directory
-set(EXECUTABLE_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/bin)
-#set the default path for built libraries to the "lib" directory
-set(LIBRARY_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/lib)
+catkin_package()
 
-rosbuild_add_executable(reach_pose src/reach_pose.cpp)
-rosbuild_add_executable(asr_client src/asr_client.cpp)
-rosbuild_add_executable(asr_walking src/asr_walking.cpp)
-rosbuild_add_executable(asr_walking_exercise src/asr_walking_exercise.cpp)
-rosbuild_add_executable(tts_client src/tts_client.cpp)
+###########
+## Build ##
+###########
 
-rosbuild_add_executable(look_to_point src/look_to_point.cpp)
-rosbuild_add_executable(remote_monocular_image_visualization src/remote_monocular_image_visualization.cpp)
-target_link_libraries(remote_monocular_image_visualization  pal_camera_client)
-rosbuild_add_executable(remote_stereo_image_visualization src/remote_stereo_image_visualization.cpp)
-target_link_libraries(remote_stereo_image_visualization  pal_camera_client)
-rosbuild_add_executable(look_to_object src/look_to_object.cpp)
+include_directories(
+  ${Boost_INCLUDE_DIRS}
+  ${OpenCV_INCLUDE_DIRS}
+  ${catkin_INCLUDE_DIRS}
+)
 
-rosbuild_add_executable(fullbody_person_2d_detection src/fullbody_person_2d_detection.cpp)
-rosbuild_link_boost(fullbody_person_2d_detection signals)
+set(targets
+  add_textured_object
+  asr_client
+  asr_walking
+  asr_walking_exercise
+  asr_walking_solved
+  face_detection
+  face_enrollment
+  face_recognition
+  fullbody_person_2d_detection
+  look_to_object
+  look_to_point
+  move_left_arm_without_planning
+  move_left_arm_with_planning
+  reach_pose
+  remote_monocular_image_visualization
+  remote_stereo_image_visualization
+  textured_object_detection
+  tts_client
+  walk_client_example_action
+  walk_client_example_service
+  walk_client_example_topic
+)
 
-rosbuild_add_executable(face_detection src/face_detection.cpp)
-rosbuild_add_boost_directories()
-rosbuild_link_boost(face_detection signals)
+foreach(target ${targets})
+  add_executable(${target} src/${target}.cpp)
+  target_link_libraries(${target} ${catkin_LIBRARIES} ${OpenCV_LIBS})
+endforeach()
 
-rosbuild_add_executable(face_enrollment src/face_enrollment.cpp)
-rosbuild_add_executable(face_recognition src/face_recognition.cpp)
+#############
+## Install ##
+#############
 
-rosbuild_add_executable(textured_object_detection src/textured_object_detection.cpp)
-rosbuild_link_boost(textured_object_detection signals)
+install(
+  PROGRAMS
+    scripts/jackClientStart.sh
+    scripts/test_upper_body_joints
+    scripts/sitActionStart.sh
+    scripts/jackServerStart.sh
+    scripts/test_lower_body_joints
+    scripts/sitActionEnd.sh
+    scripts/test_joints_helpers.bash
+    scripts/look_at_detected_face.py
+    scripts/doorStepWalkOverStart.sh
+    scripts/back_to_home.py
+    scripts/jackConnect.sh
+    scripts/jackClientStop.sh
+    scripts/jackServerStop.sh
+  DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
+)
 
-rosbuild_add_executable(add_textured_object src/add_textured_object.cpp)
+install(TARGETS ${targets}
+  ARCHIVE DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
+  LIBRARY DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
+  RUNTIME DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
+)
 
-rosbuild_add_executable(move_left_arm_with_planning src/move_left_arm_with_planning.cpp)
-rosbuild_add_executable(move_left_arm_without_planning src/move_left_arm_without_planning.cpp)
-
-rosbuild_add_executable(walking_client_action src/walk_client_example_action.cpp)
-rosbuild_add_executable(walking_client_service src/walk_client_example_service.cpp)
-rosbuild_add_executable(walking_client_topic src/walk_client_example_topic.cpp)
+foreach(dir config data launch)
+  install(DIRECTORY ${dir}
+    DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}
+  )
+endforeach()
