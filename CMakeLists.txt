@@ -34,7 +34,7 @@ include_directories(
   ${catkin_INCLUDE_DIRS}
 )
 
-set(targets
+set(progs
   add_textured_object
   asr_client
   asr_walking
@@ -58,10 +58,14 @@ set(targets
   walk_client_example_topic
 )
 
-foreach(target ${targets})
-  add_executable(${target} src/${target}.cpp)
+foreach(prog ${progs})
+  set(target reemc_tuto_${prog})
+  add_executable(${target} src/${prog}.cpp)
+  set_target_properties(${target} PROPERTIES OUTPUT_NAME ${prog})
   target_link_libraries(${target} ${catkin_LIBRARIES} ${OpenCV_LIBS})
+  list(APPEND targets ${target})
 endforeach()
+
 
 #############
 ## Install ##
