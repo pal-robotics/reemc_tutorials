@@ -3,6 +3,12 @@
 # Load helper variables and functions
 source `echo $(dirname $(readlink -f ${BASH_SOURCE[0]}))`/test_joints_helpers.bash
 
+# Determine if robot has Hey5 hands or three-finger hands. If unspecified, Hey5 hads are assumed.
+has_hey5=true
+if [[ $1 == '--full' ]]; then
+  has_hey5=false
+fi
+
 # Check preconditions with user
 YES_NO_MSG="Is the robot ${TXT_BF}secured to the crane${TXT_RESET} and "\
 "${TXT_BF}standing with its feet on the ground?${TXT_RESET}"
@@ -41,12 +47,21 @@ _move_joint arm_left_7_joint 0.0
 
 # Left hand
 echo -e "${TXT_CYAN}Testing left hand joints...${TXT_RESET}"
-_move_joint hand_left_thumb_joint 1.57
-_move_joint hand_left_thumb_joint 0.0
-_move_joint hand_left_index_joint 4.0  2.5
-_move_joint hand_left_index_joint 0.0  2.5
-_move_joint hand_left_middle_joint 4.0 2.5
-_move_joint hand_left_middle_joint 0.0 2.5
+if [[ $has_hey5 == true ]]; then
+  _move_joint hand_left_thumb_joint 6.0 2.5
+  _move_joint hand_left_thumb_joint 0.0 2.5
+  _move_joint hand_left_index_joint 6.5 2.5
+  _move_joint hand_left_index_joint 0.0 2.5
+  _move_joint hand_left_mrl_joint   9.0 3.5
+  _move_joint hand_left_mrl_joint   0.0 3.5
+else
+  _move_joint hand_left_thumb_joint 1.57
+  _move_joint hand_left_thumb_joint 0.0
+  _move_joint hand_left_index_joint 4.0  2.5
+  _move_joint hand_left_index_joint 0.0  2.5
+  _move_joint hand_left_middle_joint 4.0 2.5
+  _move_joint hand_left_middle_joint 0.0 2.5
+fi
 
 _go_home
 
@@ -64,12 +79,21 @@ _move_joint arm_right_7_joint 0.0
 
 # Right hand
 echo -e "${TXT_CYAN}Testing right hand joints...${TXT_RESET}"
-_move_joint hand_right_thumb_joint 1.57
-_move_joint hand_right_thumb_joint 0.0
-_move_joint hand_right_index_joint 4.0  2.5
-_move_joint hand_right_index_joint 0.0  2.5
-_move_joint hand_right_middle_joint 4.0 2.5
-_move_joint hand_right_middle_joint 0.0 2.5
+if [[ $has_hey5 == true ]]; then
+  _move_joint hand_right_thumb_joint 6.0 2.5
+  _move_joint hand_right_thumb_joint 0.0 2.5
+  _move_joint hand_right_index_joint 6.5 2.5
+  _move_joint hand_right_index_joint 0.0 2.5
+  _move_joint hand_right_mrl_joint   9.0 3.5
+  _move_joint hand_right_mrl_joint   0.0 3.5
+else
+  _move_joint hand_right_thumb_joint 1.57
+  _move_joint hand_right_thumb_joint 0.0
+  _move_joint hand_right_index_joint 4.0  2.5
+  _move_joint hand_right_index_joint 0.0  2.5
+  _move_joint hand_right_middle_joint 4.0 2.5
+  _move_joint hand_right_middle_joint 0.0 2.5
+fi
 
 # Torso
 echo -e "${TXT_CYAN}Clearing arms from torso...${TXT_RESET}"
