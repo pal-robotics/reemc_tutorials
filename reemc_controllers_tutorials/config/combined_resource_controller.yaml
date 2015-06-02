@@ -1,0 +1,8 @@
+combined_resource_controller:
+  type: "reemc_tutorial_controllers/CombinedResourceController"
+  joints:
+    - head_1_joint
+  left_ft_sensor: left_ft
+  right_ft_sensor: right_ft
+  base_imu_sensor: base_imu
+

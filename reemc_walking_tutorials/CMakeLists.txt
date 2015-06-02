@@ -37,13 +37,15 @@ target_link_libraries(walk_client_example_action  ${catkin_LIBRARIES})
 #############
 ## Install ##
 #############
-install(TARGETS ${targets}
+install(TARGETS walk_client_example_topic
+                walk_client_example_service
+                walk_client_example_action
   ARCHIVE DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
   LIBRARY DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
   RUNTIME DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
 )
 
-foreach(dir config data launch)
+foreach(dir config launch)
   install(DIRECTORY ${dir}
     DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}
   )
