@@ -1,0 +1,46 @@
+<?xml version="1.0"?>
+<package>
+  <name>reemc_perception_tutorials</name>
+  <version>0.0.0</version>
+  <description>ROS based tutorials for perception application on REEM-C robot</description>
+
+  <maintainer email="jordi.pages@pal-robotics.com">Jordi Pages</maintainer>
+  <license>BSD</license>
+
+  <author email="luca.marchionni@pal-robotics.com">Luca Marchionni</author>
+
+  <buildtool_depend>catkin</buildtool_depend>
+
+  <build_depend>actionlib</build_depend>
+  <build_depend>cv_bridge</build_depend>
+  <build_depend>image_transport</build_depend>
+  <build_depend>message_filters</build_depend>
+  <build_depend>opencv2</build_depend>
+  <build_depend>pal_camera_client</build_depend>
+  <build_depend>pal_detection_msgs</build_depend>
+  <build_depend>roscpp</build_depend>
+  <build_depend>sensor_msgs</build_depend>
+  <build_depend>geometry_msgs</build_depend>
+  <build_depend>control_msgs</build_depend>
+
+  <run_depend>actionlib</run_depend>
+  <run_depend>cv_bridge</run_depend>
+  <run_depend>image_transport</run_depend>
+  <run_depend>message_filters</run_depend>
+  <run_depend>opencv2</run_depend>
+  <run_depend>pal_camera_client</run_depend>
+  <run_depend>pal_detection_msgs</run_depend>
+  <run_depend>roscpp</run_depend>
+  <run_depend>rospy</run_depend>
+  <run_depend>sensor_msgs</run_depend>
+  <run_depend>smach</run_depend>
+  <run_depend>smach_ros</run_depend>
+  <run_depend>geometry_msgs</run_depend>
+  <run_depend>control_msgs</run_depend>
+
+  <!-- launch file depends -->
+  <run_depend>reemc_description</run_depend>
+  <run_depend>reemc_gazebo</run_depend>
+  <run_depend>rviz</run_depend>
+
+</package>

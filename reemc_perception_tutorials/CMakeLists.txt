@@ -1,18 +1,15 @@
 cmake_minimum_required(VERSION 2.8.3)
-project(reemc_basic_tutorials)
+project(reemc_perception_tutorials)
 
 find_package(catkin REQUIRED COMPONENTS
   actionlib
   control_msgs
-  controller_manager_msgs
   cv_bridge
   geometry_msgs
   image_transport
   message_filters
   pal_camera_client
   pal_detection_msgs
-  pal_interaction_msgs
-  play_motion_msgs
   roscpp
   sensor_msgs
 )
@@ -33,12 +30,13 @@ include_directories(
 )
 
 set(progs
-  look_to_point
-  move_left_arm_without_planning
-  move_left_arm_with_planning
-  reach_pose
-  remote_monocular_image_visualization
-  remote_stereo_image_visualization
+  add_textured_object
+  face_detection
+  face_enrollment
+  face_recognition
+  fullbody_person_2d_detection
+  look_to_object
+  textured_object_detection
 )
 
 foreach(prog ${progs})
@@ -56,10 +54,7 @@ endforeach()
 
 install(
   PROGRAMS
-    scripts/test_upper_body_joints
-    scripts/test_lower_body_joints
-    scripts/test_joints_helpers.bash
-    scripts/back_to_home.py
+    scripts/look_at_detected_face.py
   DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
 )
 
