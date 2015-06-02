@@ -15,6 +15,7 @@
   <run_depend>reemc_controllers_tutorials</run_depend>
   <run_depend>reemc_asr_tutorials</run_depend>
   <run_depend>reemc_tts_tutorials</run_depend>
+  <run_depend>reemc_vision_tutorials</run_depend>
   <run_depend>reemc_perception_tutorials</run_depend>
   <run_depend>reemc_navigation_tutorials</run_depend>
 
