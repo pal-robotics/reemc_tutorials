@@ -3,7 +3,6 @@
 #include <pal_interaction_msgs/asrresult.h>
 #include <pal_interaction_msgs/SoundAction.h>
 #include <actionlib/client/simple_action_client.h>
-#include <controller_manager_msgs/SwitchController.h>
 #include <geometry_msgs/Twist.h>
 #include <boost/bind.hpp>
 #include <boost/thread.hpp>

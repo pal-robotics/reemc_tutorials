@@ -34,10 +34,6 @@ include_directories(
 
 set(progs
   add_textured_object
-  asr_client
-  asr_walking
-  asr_walking_exercise
-  asr_walking_solved
   face_detection
   face_enrollment
   face_recognition
@@ -68,16 +64,11 @@ endforeach()
 
 install(
   PROGRAMS
-    scripts/jackClientStart.sh
     scripts/test_upper_body_joints
-    scripts/jackServerStart.sh
     scripts/test_lower_body_joints
     scripts/test_joints_helpers.bash
     scripts/look_at_detected_face.py
     scripts/back_to_home.py
-    scripts/jackConnect.sh
-    scripts/jackClientStop.sh
-    scripts/jackServerStop.sh
   DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
 )
 
