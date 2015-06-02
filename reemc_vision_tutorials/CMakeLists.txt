@@ -9,7 +9,6 @@ find_package(catkin REQUIRED COMPONENTS
   image_transport
   message_filters
   pal_camera_client
-  pal_detection_msgs
   roscpp
   sensor_msgs
 )
