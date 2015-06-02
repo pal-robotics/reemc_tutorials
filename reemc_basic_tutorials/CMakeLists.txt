@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 2.8.3)
-project(reemc_tutorials)
+project(reemc_basic_tutorials)
 
 find_package(catkin REQUIRED COMPONENTS
   actionlib
@@ -7,7 +7,6 @@ find_package(catkin REQUIRED COMPONENTS
   controller_manager_msgs
   cv_bridge
   geometry_msgs
-  humanoid_nav_msgs
   image_transport
   message_filters
   pal_camera_client
@@ -16,7 +15,6 @@ find_package(catkin REQUIRED COMPONENTS
   play_motion_msgs
   roscpp
   sensor_msgs
-  walking_msgs
 )
 
 find_package(Boost REQUIRED)
@@ -53,9 +51,6 @@ set(progs
   remote_stereo_image_visualization
   textured_object_detection
   tts_client
-  walk_client_example_action
-  walk_client_example_service
-  walk_client_example_topic
 )
 
 foreach(prog ${progs})
@@ -75,13 +70,10 @@ install(
   PROGRAMS
     scripts/jackClientStart.sh
     scripts/test_upper_body_joints
-    scripts/sitActionStart.sh
     scripts/jackServerStart.sh
     scripts/test_lower_body_joints
-    scripts/sitActionEnd.sh
     scripts/test_joints_helpers.bash
     scripts/look_at_detected_face.py
-    scripts/doorStepWalkOverStart.sh
     scripts/back_to_home.py
     scripts/jackConnect.sh
     scripts/jackClientStop.sh

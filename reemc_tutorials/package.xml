@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<package>
+  <name>reemc_tutorials</name>
+  <version>0.0.0</version>
+  <description>REEM-C tutorials metapackage</description>
+  <maintainer email="luca.marchionni@pal-robotics.com">Luca Marchionni</maintainer>
+  <license>BSD</license>
+  <author email="luca.marchionni@pal-robotics.com">Luca Marchionni</author>
+
+  <buildtool_depend>catkin</buildtool_depend>
+
+  <run_depend>reemc_basic_tutorials</run_depend>
+  <run_depend>reemc_motion_tutorials</run_depend>
+  <run_depend>reemc_walking_tutorials</run_depend>
+  <run_depend>reemc_controllers_tutorials</run_depend>
+  <run_depend>reemc_asr_tutorials</run_depend>
+  <run_depend>reemc_tts_tutorials</run_depend>
+  <run_depend>reemc_perception_tutorials</run_depend>
+  <run_depend>reemc_navigation_tutorials</run_depend>
+
+  <export>
+    <metapackage/>
+  </export>
+</package>
+
