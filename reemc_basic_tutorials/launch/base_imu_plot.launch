@@ -1,3 +1,4 @@
 <launch>
-  <node name="base_imu_sensor" pkg="rxtools" type="rxplot" args="-b 10 -t IMU /base_imu/orientation/x,/base_imu/orientation/y,/base_imu/orientation/z,/base_imu/orientation/w" />
+  <node name="base_imu_sensor" pkg="rqt_plot" type="rqt_plot" args="-b 10 -t IMU-quaternion
+  /base_imu/orientation/x /base_imu/orientation/y /base_imu/orientation/z /base_imu/orientation/w" />
 </launch>

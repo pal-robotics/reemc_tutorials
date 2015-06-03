@@ -24,11 +24,4 @@
   <run_depend>sensor_msgs</run_depend>
   <run_depend>rospy</run_depend>
 
-  <!-- launch file depends -->
-  <run_depend>reemc_description</run_depend>
-  <run_depend>reemc_gazebo</run_depend>
-  <run_depend>rqt_plot</run_depend>
-  <run_depend>rviz</run_depend>
-  <run_depend>rxtools</run_depend>
-
 </package>
