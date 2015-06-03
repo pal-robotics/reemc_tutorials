@@ -64,7 +64,7 @@ install(TARGETS ${targets}
   RUNTIME DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
 )
 
-foreach(dir config data launch)
+foreach(dir data launch)
   install(DIRECTORY ${dir}
     DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}
   )

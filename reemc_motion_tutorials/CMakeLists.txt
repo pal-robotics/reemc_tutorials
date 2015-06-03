@@ -52,7 +52,7 @@ install(TARGETS ${targets}
   RUNTIME DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
 )
 
-foreach(dir config launch)
+foreach(dir config )
   install(DIRECTORY ${dir}
     DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}
   )
