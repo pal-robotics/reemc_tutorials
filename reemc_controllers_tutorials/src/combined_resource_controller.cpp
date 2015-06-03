@@ -12,7 +12,7 @@
 using namespace hardware_interface;
 using namespace std;
 
-namespace reemc_tutorial_controllers{
+namespace reemc_controllers_tutorials{
 
   class CombinedResourceController : public controller_interface::ControllerBase
   {
@@ -279,6 +279,6 @@ namespace reemc_tutorial_controllers{
     std::vector<hardware_interface::ForceTorqueSensorHandle> ft_sensors_;
 
   };
-  PLUGINLIB_DECLARE_CLASS(reemc_tutorial_controllers, CombinedResourceController, reemc_tutorial_controllers::CombinedResourceController, controller_interface::ControllerBase);
+  PLUGINLIB_DECLARE_CLASS(reemc_controllers_tutorials, CombinedResourceController, reemc_controllers_tutorials::CombinedResourceController, controller_interface::ControllerBase);
 
 }

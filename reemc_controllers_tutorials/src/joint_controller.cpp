@@ -2,7 +2,7 @@
 #include <hardware_interface/joint_command_interface.h>
 #include <pluginlib/class_list_macros.h>
 
-namespace reemc_tutorial_controllers{
+namespace reemc_controllers_tutorials{
 
   class JointController : public controller_interface::Controller<hardware_interface::PositionJointInterface>
   {
@@ -43,6 +43,6 @@ namespace reemc_tutorial_controllers{
     std::string controlled_joint_name_;
     double cont;
   };
-  PLUGINLIB_DECLARE_CLASS(reemc_tutorial_controllers, JointController, reemc_tutorial_controllers::JointController, controller_interface::ControllerBase);
+  PLUGINLIB_DECLARE_CLASS(reemc_controllers_tutorials, JointController, reemc_controllers_tutorials::JointController, controller_interface::ControllerBase);
 
 }

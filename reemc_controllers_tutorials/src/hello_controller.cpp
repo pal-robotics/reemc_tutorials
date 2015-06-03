@@ -2,7 +2,7 @@
 #include <hardware_interface/joint_state_interface.h>
 #include <pluginlib/class_list_macros.h>
 
-namespace reemc_tutorial_controllers{
+namespace reemc_controllers_tutorials{
 
   class HelloController : public controller_interface::Controller<hardware_interface::JointStateInterface>
   {
@@ -23,6 +23,6 @@ namespace reemc_tutorial_controllers{
 
   private:
   };
-  PLUGINLIB_DECLARE_CLASS(reemc_tutorial_controllers, HelloController, reemc_tutorial_controllers::HelloController, controller_interface::ControllerBase);
+  PLUGINLIB_DECLARE_CLASS(reemc_controllers_tutorials, HelloController, reemc_controllers_tutorials::HelloController, controller_interface::ControllerBase);
 
 }

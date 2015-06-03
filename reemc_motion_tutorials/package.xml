@@ -11,21 +11,18 @@
 
   <buildtool_depend>catkin</buildtool_depend>
 
+  <build_depend>roscpp</build_depend>
   <build_depend>actionlib</build_depend>
   <build_depend>control_msgs</build_depend>
-  <build_depend>controller_manager_msgs</build_depend>
-  <build_depend>geometry_msgs</build_depend>
   <build_depend>play_motion_msgs</build_depend>
-  <build_depend>roscpp</build_depend>
   <build_depend>sensor_msgs</build_depend>
 
+  <run_depend>roscpp</run_depend>
   <run_depend>actionlib</run_depend>
   <run_depend>control_msgs</run_depend>
-  <run_depend>geometry_msgs</run_depend>
   <run_depend>play_motion_msgs</run_depend>
-  <run_depend>roscpp</run_depend>
-  <run_depend>rospy</run_depend>
   <run_depend>sensor_msgs</run_depend>
+  <run_depend>rospy</run_depend>
 
   <!-- launch file depends -->
   <run_depend>reemc_description</run_depend>

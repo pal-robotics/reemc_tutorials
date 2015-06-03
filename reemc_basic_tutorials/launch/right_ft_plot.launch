@@ -1,3 +1,0 @@
-<launch>
-  <node name="right_ft_sensor" pkg="rqt_plot" type="rqt_plot" args="-b 10 -t Right-F/T /right_ft/wrench/force/x,/right_ft/wrench/force/y,/right_ft/wrench/force/z /right_ft/wrench/torque/x,/right_ft/wrench/torque/y,/right_ft/wrench/torque/z" />
-</launch>

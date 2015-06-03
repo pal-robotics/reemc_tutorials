@@ -9,7 +9,7 @@
 #include <hardware_interface/imu_sensor_interface.h>
 #include <sensor_msgs/Imu.h>
 
-namespace reemc_tutorial_controllers{
+namespace reemc_controllers_tutorials{
 
   class ImuController : public controller_interface::Controller<hardware_interface::ImuSensorInterface>
   {
@@ -50,6 +50,6 @@ namespace reemc_tutorial_controllers{
     hardware_interface::ImuSensorHandle sensor_;
 
   };
-  PLUGINLIB_DECLARE_CLASS(reemc_tutorial_controllers, ImuController, reemc_tutorial_controllers::ImuController, controller_interface::ControllerBase);
+  PLUGINLIB_DECLARE_CLASS(reemc_controllers_tutorials, ImuController, reemc_controllers_tutorials::ImuController, controller_interface::ControllerBase);
 
 }

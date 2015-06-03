@@ -1,2 +1,2 @@
 hello_controller:
-  type: "reemc_tutorial_controllers/HelloController"
+  type: "reemc_controllers_tutorials/HelloController"

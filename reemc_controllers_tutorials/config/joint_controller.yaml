@@ -1,2 +1,2 @@
 joint_controller:
-  type: "reemc_tutorial_controllers/JointController"
+  type: "reemc_controllers_tutorials/JointController"

@@ -2,11 +2,11 @@ cmake_minimum_required(VERSION 2.8.3)
 project(reemc_motion_tutorials)
 
 find_package(catkin REQUIRED COMPONENTS
-  actionlib
-  geometry_msgs
-  play_motion_msgs
   roscpp
+  actionlib
+  play_motion_msgs
   sensor_msgs
+  control_msgs
 )
 
 find_package(Boost REQUIRED)

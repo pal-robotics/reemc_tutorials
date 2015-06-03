@@ -1,2 +1,2 @@
 force_controller:
-  type: "reemc_tutorial_controllers/ForceTorqueController"
+  type: "reemc_controllers_tutorials/ForceTorqueController"

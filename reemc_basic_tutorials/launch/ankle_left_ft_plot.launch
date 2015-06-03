@@ -1,0 +1,5 @@
+<launch>
+  <node name="ankle_left_ft_sensor" pkg="rqt_plot" type="rqt_plot" args="-b 10 -t Left-F/T
+  /left_ankle_ft/wrench/force/x,/left_ankle_ft/wrench/force/y,/left_ankle_ft/wrench/force/z
+  /left_ankle_ft/wrench/torque/x,/left_ankle_ft/wrench/torque/y,/left_ankle_ft/wrench/torque/z" />
+</launch>

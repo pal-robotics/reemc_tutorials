@@ -10,7 +10,7 @@
 #include <hardware_interface/force_torque_sensor_interface.h>
 #include <sensor_msgs/Imu.h>
 
-namespace reemc_tutorial_controllers{
+namespace reemc_controllers_tutorials{
 
 
   class ForceTorqueController : public controller_interface::Controller<hardware_interface::ForceTorqueSensorInterface>
@@ -57,6 +57,6 @@ namespace reemc_tutorial_controllers{
     std::vector<hardware_interface::ForceTorqueSensorHandle> sensors_;
 
   };
-  PLUGINLIB_DECLARE_CLASS(reemc_tutorial_controllers, ForceTorqueController, reemc_tutorial_controllers::ForceTorqueController, controller_interface::ControllerBase);
+  PLUGINLIB_DECLARE_CLASS(reemc_controllers_tutorials, ForceTorqueController, reemc_controllers_tutorials::ForceTorqueController, controller_interface::ControllerBase);
 
 }
