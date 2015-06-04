@@ -1,0 +1,111 @@
+#!/usr/bin/env python
+
+# Copyright (C) 2014, PAL Robotics S.L.
+# All rights reserved
+#
+# Redistribution and use in source and binary forms, with or without
+# modification, are permitted provided that the following conditions are met:
+# * Redistributions of source code must retain the above copyright notice,
+# this list of conditions and the following disclaimer.
+# * Redistributions in binary form must reproduce the above copyright
+# notice, this list of conditions and the following disclaimer in the
+# documentation and/or other materials provided with the distribution.
+# * Neither the name of PAL Robotics S.L. nor the names of its
+# contributors may be used to endorse or promote products derived from
+# this software without specific prior written permission.
+#
+# THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+# AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+# IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+# ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE
+# LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+# CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
+# SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
+# INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
+# CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
+# ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+# POSSIBILITY OF SUCH DAMAGE.
+
+import actionlib
+import argparse
+import rospy
+import sys
+from actionlib_msgs.msg import GoalStatus
+from control_msgs.msg import *
+from trajectory_msgs.msg import *
+
+def main(gr_ns, max_curr_frac):
+    """
+    @param gr_ns SimpleGraspingAction namespace
+    @param max_curr_frac Max current fraction to be used as effort goal
+    """
+
+    # Wait for valid time. Relevant in simulated setups while clock topic
+    # connection is established
+    wait_for_valid_time()
+
+    # Preconditions
+    if max_curr_frac < 0.0 or max_curr_frac > 1.0:
+        raise Exception("Maximum current fraction must belong to [0,1]. " +
+                        "User provided " + max_curr_frac + ".")
+
+    # Setup action client
+    gr_ac = actionlib.SimpleActionClient(gr_ns, FollowJointTrajectoryAction)
+    if not gr_ac.wait_for_server(rospy.Duration(5.0)):
+        raise Exception("SimpleGraspingAction server not found: '" + gr_ns + "'.")
+
+
+    # Extract hand side from namespace
+    if 'left' in gr_ns:
+        side = 'left'
+    else:
+        side = 'right'
+
+    # Grasping goal. Edit these values if you want to change the goal
+    # specification
+    rospy.loginfo("Starting grasping motion with " + side + " hand...")
+    goal = FollowJointTrajectoryGoal()
+    goal.trajectory.joint_names = ['hand_' + side + '_thumb_joint',
+                                   'hand_' + side + '_index_joint',
+                                   'hand_' + side + '_mrl_joint']
+    p = JointTrajectoryPoint()
+    p.positions = [4.0, 6.5, 9.1]  # Position goal: thumb, index, mrl
+    p.effort = [max_curr_frac * 0.187,
+                max_curr_frac * 0.187,
+                max_curr_frac * 0.33]  # Effort goal: thumb, index, mrl
+    p.time_from_start = rospy.Duration(4.5) # Motion duration, in seconds
+    goal.trajectory.points.append(p)
+
+    # Execute goal
+    gr_ac.send_goal(goal)
+    gr_ac.wait_for_result()
+    res = gr_ac.get_result()
+    is_success = gr_ac.get_state() == GoalStatus.SUCCEEDED and \
+                  res.error_code == FollowJointTrajectoryResult.SUCCESSFUL
+    if not is_success:
+        raise Exception("Grasping motion failed")
+    rospy.loginfo("Grasping motion complete!")
+
+def wait_for_valid_time():
+    import time
+    while rospy.Time.now().is_zero():
+        time.sleep(1.0)
+        rospy.loginfo('Waiting for valid clock...')
+    rospy.loginfo('Clock is valid!')
+
+def parse_args(args=None):
+    parser = argparse.ArgumentParser(description='Execute a simple grasping motion.')
+    parser.add_argument('max_curr_frac', type=float,
+                        help='Max current fraction to be used as effort goal.')
+    parser.add_argument('--ns', type=str, default='/right_hand_grasping_action',
+                        help='SimpleGraspingAction namespace.')
+    return parser.parse_args(args=args)
+
+if __name__ == '__main__':
+    args = parse_args(rospy.myargv()[1:])
+    rospy.init_node('simple_grasp')
+    try:
+        main(args.ns, args.max_curr_frac)
+    except Exception as e:
+        rospy.logerr(e)
+
