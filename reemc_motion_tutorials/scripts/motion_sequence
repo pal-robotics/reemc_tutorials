@@ -1,0 +1,83 @@
+#!/usr/bin/env python
+
+# Copyright (C) 2014, PAL Robotics S.L.
+# All rights reserved
+#
+# Redistribution and use in source and binary forms, with or without
+# modification, are permitted provided that the following conditions are met:
+# * Redistributions of source code must retain the above copyright notice,
+# this list of conditions and the following disclaimer.
+# * Redistributions in binary form must reproduce the above copyright
+# notice, this list of conditions and the following disclaimer in the
+# documentation and/or other materials provided with the distribution.
+# * Neither the name of PAL Robotics S.L. nor the names of its
+# contributors may be used to endorse or promote products derived from
+# this software without specific prior written permission.
+#
+# THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+# AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+# IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+# ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE
+# LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+# CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
+# SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
+# INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
+# CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
+# ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+# POSSIBILITY OF SUCH DAMAGE.
+
+import actionlib
+from actionlib_msgs.msg import GoalStatus
+from play_motion_msgs.msg import *
+import rospy
+import signal
+
+def do_sequence(pm_ac, motions):
+    """
+    @param pm_ac play_motion action client
+    @param motions list of motion names to execute
+    """
+    def cancel(signum, frame):
+      pm_ac.cancel_goal()
+      rospy.signal_shutdown("motion sequence canceled")
+    signal.signal(signal.SIGINT, cancel)
+
+    for motion in motions:
+        rospy.loginfo("Executing motion '" + motion + "'...")
+        goal = PlayMotionGoal()
+        goal.motion_name = motion
+        pm_ac.send_goal(goal)
+        pm_ac.wait_for_result()
+        res = pm_ac.get_result()
+        is_success = pm_ac.get_state() == GoalStatus.SUCCEEDED and \
+                     res.error_code == PlayMotionResult.SUCCEEDED
+        if not is_success:
+            raise Exception("Failed to execute motion '" + motion + "'.\n" +
+                            res.error_string)
+
+def wait_for_valid_time():
+    import time
+    while rospy.Time.now().is_zero():
+        time.sleep(1.0)
+        rospy.loginfo('Waiting for valid clock...')
+    rospy.loginfo('Clock is valid!')
+
+def main(pm_ns, motions):
+    """
+    @param pm_ns play_motion namespace
+    @param motions list of motion names to execute
+    """
+    wait_for_valid_time()
+
+    pm_ac = actionlib.SimpleActionClient(pm_ns, PlayMotionAction)
+    if not pm_ac.wait_for_server(rospy.Duration(5.0)):
+        raise Exception("play_motion server not found: '" + pm_ns + "'.")
+    do_sequence(pm_ac, motions)
+
+if __name__ == '__main__':
+    rospy.init_node('motion_sequence')
+    motions = rospy.get_param("~motions")
+    try:
+        main("/play_motion", motions)
+    except Exception as e:
+        rospy.logerr(e)
