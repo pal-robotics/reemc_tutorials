@@ -33,6 +33,11 @@ add_executable(walk_client_example_action src/walk_client_example_action.cpp)
 add_dependencies(walk_client_example_action humanoid_nav_msgs_generate_messages_cpp)
 target_link_libraries(walk_client_example_action  ${catkin_LIBRARIES})
 
+add_executable(walk_safety_example src/safety_example.cpp)
+target_link_libraries(walk_safety_example  ${catkin_LIBRARIES})
+
+add_executable(walk_ik_example src/ik_example.cpp)
+target_link_libraries(walk_ik_example  ${catkin_LIBRARIES})
 
 #############
 ## Install ##
@@ -40,6 +45,8 @@ target_link_libraries(walk_client_example_action  ${catkin_LIBRARIES})
 install(TARGETS walk_client_example_topic
                 walk_client_example_service
                 walk_client_example_action
+                walk_safety_example
+                walk_ik_example
   ARCHIVE DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
   LIBRARY DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
   RUNTIME DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
