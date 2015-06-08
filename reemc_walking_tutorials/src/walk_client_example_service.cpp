@@ -1,5 +1,4 @@
 #include <ros/ros.h>
-#include <controller_manager_msgs/SwitchController.h>
 #include <walking_msgs/WalkSteps.h>
 
 const std::string WALK_STEPS_SERVICE = "/walking_controller/walk_steps";
