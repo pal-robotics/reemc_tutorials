@@ -2,8 +2,8 @@
 Changelog for package reemc_basic_tutorials
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+0.0.1 (2015-06-08)
+------------------
 * Make kinematic sim aware of REEM-C variants
 * Remove unused dependencies
   - Package consists only of configuration files, so drop all build dependencies

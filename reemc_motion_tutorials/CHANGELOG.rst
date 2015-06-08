@@ -2,8 +2,8 @@
 Changelog for package reemc_motion_tutorials
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+0.0.1 (2015-06-08)
+------------------
 * Add axcli runtime dep, rqt perspective
 * Add 'simple_grasp' script
   Port script from ULNA+Hey5 project and extend it to work with both right and

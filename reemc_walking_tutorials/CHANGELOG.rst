@@ -2,8 +2,8 @@
 Changelog for package reemc_walking_tutorials
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+0.0.1 (2015-06-08)
+------------------
 * Fix safety include
 * Remove not needed include file
 * Add example for leg safety and inverse kinematics leg

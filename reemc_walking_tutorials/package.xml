@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <package>
   <name>reemc_walking_tutorials</name>
-  <version>0.0.0</version>
+  <version>0.0.1</version>
   <description>Example code for using REEM-C walking controller</description>
   <maintainer email="luca.marchionni@pal-robotics.com">Luca Marchionni</maintainer>
 

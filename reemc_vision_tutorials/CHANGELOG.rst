@@ -2,8 +2,8 @@
 Changelog for package reemc_vision_tutorials
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+0.0.1 (2015-06-08)
+------------------
 * Remove not valid folder from installation
 * Removed not needed dependencies on rviz and rxtool
 * Fix dependencies
