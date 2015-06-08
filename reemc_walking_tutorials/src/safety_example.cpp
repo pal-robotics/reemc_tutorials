@@ -7,7 +7,7 @@
 
 
 #include <ros/ros.h>
-#include <walking_controller/safety.hpp>
+#include <walking_controller/safety.h>
 #include <sensor_msgs/JointState.h>
 
 int main(int argc, char **argv)
@@ -17,6 +17,7 @@ int main(int argc, char **argv)
   ros::NodeHandle nh;
 
   sensor_msgs::JointState lower_body_joint_states;
+
   /// Setup the joint states message for only the legs
   lower_body_joint_states.name.resize(12);
   lower_body_joint_states.position.resize(12,0.0);
