@@ -19,4 +19,5 @@
   <run_depend>rviz</run_depend>
   <run_depend>sensor_msgs</run_depend>
   <run_depend>topic_tools</run_depend>
+  <run_depend>rviz_imu_plugin</run_depend>
 </package>
