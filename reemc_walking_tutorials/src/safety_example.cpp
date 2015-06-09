@@ -18,7 +18,7 @@ int main(int argc, char **argv)
 
   sensor_msgs::JointState lower_body_joint_states;
 
-  /// Setup the joint states message for only the legs
+  /// Setup joint states message for leg joints
   lower_body_joint_states.name.resize(12);
   lower_body_joint_states.position.resize(12,0.0);
   lower_body_joint_states.velocity.resize(12, 0.0);
@@ -37,11 +37,16 @@ int main(int argc, char **argv)
   lower_body_joint_states.name[10] = "leg_right_5_joint";
   lower_body_joint_states.name[11] = "leg_right_6_joint";
 
+  /// Control loop duration (10 ms) only used for velocity estimation
   ros::Duration dT(0.01);
+
+  /// Creation of BipedSafety object
   pal::BipedSafety biped_safety(&nh, &lower_body_joint_states, dT);
 
-
+  /// init time
   ros::Time time(0.0);
+
+  /// Check for safety of the starting configuration (all joints at zero)
   bool is_safe = biped_safety.is_safe(lower_body_joint_states.position, time);
 
   if(is_safe)
@@ -50,6 +55,7 @@ int main(int argc, char **argv)
     ROS_INFO_STREAM("First configuration is not safe");
 
 
+  /// Setting a joints configuration that would cause a self collision
   lower_body_joint_states.position[0] = 0.0;
   lower_body_joint_states.position[1] = -0.25;
   lower_body_joint_states.position[2] = 0.0;
@@ -64,6 +70,8 @@ int main(int argc, char **argv)
   lower_body_joint_states.position[11] = 0.0;
 
   time+=dT;
+
+  /// Check for collision
   is_safe = biped_safety.is_safe(lower_body_joint_states.position, time);
 
   if(is_safe)
@@ -71,6 +79,7 @@ int main(int argc, char **argv)
   else
     ROS_INFO_STREAM("Second configuration is not safe");
 
+  /// Setting a joint position outside joint limit
   lower_body_joint_states.position[0] = 0.0;
   lower_body_joint_states.position[1] = -0.3;
   lower_body_joint_states.position[2] = 0.0;
@@ -85,6 +94,7 @@ int main(int argc, char **argv)
   lower_body_joint_states.position[11] = 0.0;
 
   time+=dT;
+  /// Check for safety (one joint will violate its position limit)
   is_safe = biped_safety.is_safe(lower_body_joint_states.position, time);
 
   if(is_safe)
@@ -92,6 +102,7 @@ int main(int argc, char **argv)
   else
     ROS_INFO_STREAM("Third configuration is not safe");
 
+  /// Configuration that would violate speed limit for 4th left leg joint
   lower_body_joint_states.position[0] = 0.0;
   lower_body_joint_states.position[1] = 0.0;
   lower_body_joint_states.position[2] = 0.0;
@@ -105,6 +116,7 @@ int main(int argc, char **argv)
   lower_body_joint_states.position[10] = 0.0;
   lower_body_joint_states.position[11] = 0.0;
 
+  /// Check for speed limit violations
   is_safe = biped_safety.velocity_limits_respected(lower_body_joint_states.position);
   if(is_safe)
     ROS_INFO_STREAM("Fourth configuration is safe");

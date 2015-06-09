@@ -41,13 +41,13 @@ int main(int argc, char **argv)
   /// Compute inverse kinematics for right leg joints
  legs_kinematics.ik_analytic(pal::RIGHT, &rightAngles[0]);
 
- std::cout << "CoM        pos (" << hipPos[X] << ", " << hipPos[Y] << ", "  << hipPos[Z] << ")" <<
+ std::cout << "CoM        pos (" << hipPos[X] << ", " << hipPos[Y] << ", "  << hipPos[Z] << ")  ";
  std::cout << "           rpy (" << hipRPY[ROLL] <<", "<< hipRPY[PITCH] << ", " << hipRPY[YAW] << ")" << std::endl;
 
- std::cout << "Left foot  pos (" << leftFootPos[X] << ", " << leftFootPos[Y]<< ", " << leftFootPos[Z] << ")" <<
+ std::cout << "Left foot  pos (" << leftFootPos[X] << ", " << leftFootPos[Y]<< ", " << leftFootPos[Z] << ") ";
  std::cout << "           rpy (" << leftFootRPY[ROLL]<< ", " << leftFootRPY[PITCH] << ", " << leftFootRPY[YAW] << ")" <<  std::endl;
 
- std::cout << "Right foot pos (" << rightFootPos[X]    << ", " << rightFootPos[Y]      << ", " << rightFootPos[Z] << ")" <<
+ std::cout << "Right foot pos (" << rightFootPos[X]    << ", " << rightFootPos[Y]      << ", " << rightFootPos[Z] << ")";
  std::cout << "           rpy (" << rightFootRPY[ROLL] << ", " <<  rightFootRPY[PITCH] << ", " <<  rightFootRPY[YAW] << ")" <<  std::endl;
 
  std::cout << "Left leg joints  (" << leftAngles[0] << ", " <<  leftAngles[1] << ", " <<  leftAngles[2] << ", " <<
