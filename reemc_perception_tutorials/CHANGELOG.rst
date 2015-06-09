@@ -2,6 +2,9 @@
 Changelog for package reemc_perception_tutorials
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+
 0.0.1 (2015-06-08)
 ------------------
 * Remove not valid folder from installation

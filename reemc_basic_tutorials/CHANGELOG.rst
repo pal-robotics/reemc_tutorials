@@ -2,6 +2,11 @@
 Changelog for package reemc_basic_tutorials
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+* Added rviz imu plugin dependency
+* Contributors: Sammy Pfeiffer
+
 0.0.1 (2015-06-08)
 ------------------
 * Make kinematic sim aware of REEM-C variants

@@ -2,6 +2,11 @@
 Changelog for package reemc_walking_tutorials
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+* Add comments and fixing output
+* Contributors: Luca Marchionni
+
 0.0.1 (2015-06-08)
 ------------------
 * Fix safety include
