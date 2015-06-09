@@ -33,3 +33,6 @@ foreach(dir config launch)
     DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}
   )
 endforeach()
+
+install(FILES reemc_tutorial_controller_plugins.xml
+        DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION})

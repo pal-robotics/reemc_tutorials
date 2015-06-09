@@ -24,6 +24,7 @@
   <run_depend>controller_interface</run_depend>
 
   <export>
+    <controller_interface plugin="${prefix}/reemc_tutorial_controller_plugins.xml"/>
   </export>
 
 </package>
