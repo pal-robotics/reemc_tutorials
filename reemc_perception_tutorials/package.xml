@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <package>
   <name>reemc_perception_tutorials</name>
-  <version>0.0.2</version>
+  <version>0.0.3</version>
   <description>ROS based tutorials for perception application on REEM-C robot</description>
 
   <maintainer email="jordi.pages@pal-robotics.com">Jordi Pages</maintainer>
