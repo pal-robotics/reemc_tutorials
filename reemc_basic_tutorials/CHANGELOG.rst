@@ -2,6 +2,9 @@
 Changelog for package reemc_basic_tutorials
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+
 0.0.2 (2015-06-09)
 ------------------
 * Added rviz imu plugin dependency
