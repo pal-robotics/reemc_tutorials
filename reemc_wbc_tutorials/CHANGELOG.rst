@@ -2,8 +2,8 @@
 Changelog for package reemc_wbc_tutorials
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+0.0.4 (2015-06-12)
+------------------
 * Add changelog
 * Reset version of reemc wbc tutorials
 * Deleted config files
