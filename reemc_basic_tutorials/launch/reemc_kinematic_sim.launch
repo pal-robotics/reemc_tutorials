@@ -1,0 +1,11 @@
+<launch>
+  <arg name="robot" default="full_ft_hey5"/>
+
+  <include file="$(find reemc_description)/robots/upload_reemc.launch" >
+     <arg name="robot" value="$(arg robot)"/>
+  </include>
+  <param name="use_gui" value="True"/>
+  <node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher" ></node>
+  <node name="robot_state_publisher" pkg="robot_state_publisher" type="state_publisher" />
+  <node name="rviz" pkg="rviz" type="rviz" args="-d $(find reemc_basic_tutorials)/config/reemc_minimal.rviz" />
+</launch>

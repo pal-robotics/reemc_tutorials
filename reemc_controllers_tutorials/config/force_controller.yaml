@@ -1,0 +1,2 @@
+force_controller:
+  type: "reemc_controllers_tutorials/ForceTorqueController"

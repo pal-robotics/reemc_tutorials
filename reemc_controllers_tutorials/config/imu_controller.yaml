@@ -1,0 +1,2 @@
+imu_controller:
+  type: "reemc_controllers_tutorials/ImuController"

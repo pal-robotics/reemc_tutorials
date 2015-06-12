@@ -1,0 +1,29 @@
+whole_body_kinematic_controler:
+  type: wbc/WholeBodyControlKinematicController
+  
+  useFT: False  
+  dt: 0.005
+  floating_base: True
+  formulation: velocity
+  stack_configuration: humanoids_dance
+  solver: QpReductionuEqualitiesQuadprogHeapAllocation
+  
+  robot_model_chains:
+    [arm_left_tool_link,
+     arm_right_tool_link,
+     leg_left_6_link,
+     leg_right_6_link,
+     stereo_optical_frame]
+  
+  default_configuration:
+    leg_left_3_joint: -0.4
+    leg_right_3_joint: -0.4
+    leg_left_4_joint: 0.8
+    leg_right_4_joint: 0.8
+    leg_left_5_joint: -0.4
+    leg_right_5_joint: -0.4
+    arm_left_2_joint: 0.3
+    arm_right_2_joint: 0.3
+    arm_left_4_joint: 0.8
+    arm_right_4_joint: 0.8
+

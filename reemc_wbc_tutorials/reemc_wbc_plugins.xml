@@ -1,0 +1,41 @@
+<library path="lib/libreemc_wbc">
+
+  <class name="reemc_stack_both_hands_head" type="reemc_stack_both_hands_head" base_class_type="StackConfigurationKinematic">
+    <description>
+      WBC stack plugin for reemc that moves both hands and gaze
+    </description>
+  </class>
+
+  <class name="reemc_stack_both_hands_head_stabilized" type="reemc_stack_both_hands_head_stabilized" base_class_type="StackConfigurationKinematic">
+    <description>
+      WBC stack plugin for reemc that moves both hands and gaze with stabilization
+    </description>
+  </class>
+
+  <class name="humanoids_dance" type="humanoids_dance" base_class_type="StackConfigurationKinematic">
+    <description>
+      WBC stack plugin for reemc that moves both hands and gaze with stabilization
+    </description>
+  </class>
+
+  <class name="humanoids_dance_stabilized" type="humanoids_dance_stabilized" base_class_type="StackConfigurationKinematic">
+    <description>
+      WBC stack plugin for reemc that moves both hands and gaze with stabilization
+    </description>
+  </class>
+
+  <!-- Dynamics -->
+  <class name="reemc_dynamic_stack1" type="reemc_dynamic_stack1" base_class_type="StackConfigurationDynamic">
+    <description>
+      WBC stack plugin
+    </description>
+  </class>
+  
+  <class name="reemc_dynamic_reduced_test" type="reemc_dynamic_reduced_test" base_class_type="StackConfigurationDynamic">
+    <description>
+      WBC stack plugin
+    </description>
+  </class>
+
+</library>
+

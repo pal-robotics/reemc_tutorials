@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<package>
+  <name>reemc_walking_tutorials</name>
+  <version>0.0.5</version>
+  <description>Example code for using REEM-C walking controller</description>
+  <maintainer email="luca.marchionni@pal-robotics.com">Luca Marchionni</maintainer>
+
+  <license>BSD</license>
+  <author email="luca.marchionni@pal-robotics.com">Luca Marchionni</author> -->
+
+
+  <buildtool_depend>catkin</buildtool_depend>
+  <build_depend>walking_controller</build_depend>
+
+  <build_depend>walking_msgs</build_depend>
+  <run_depend>walking_controller</run_depend>
+  <run_depend>walking_msgs</run_depend>
+
+  <export>
+  </export>
+</package>

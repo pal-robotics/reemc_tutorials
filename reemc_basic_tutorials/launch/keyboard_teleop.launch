@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<launch>
+  <node pkg="key_teleop" type="key_teleop.py" name="key_teleop" output="screen"/>
+  <node pkg="topic_tools" type="relay" name="cmd_vel_relay" args="key_vel walking_controller/cmd_vel" />  
+</launch>

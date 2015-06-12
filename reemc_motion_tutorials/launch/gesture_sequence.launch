@@ -1,0 +1,6 @@
+<launch>
+  <node name="gesture_sequence" pkg="reemc_motion_tutorials" type="motion_sequence" output="screen">
+     <rosparam command="load" file="$(find reemc_motion_tutorials)/config/gesture_sequence.yaml" />
+  </node>
+</launch>
+

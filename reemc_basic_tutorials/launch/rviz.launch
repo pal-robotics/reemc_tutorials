@@ -1,0 +1,4 @@
+<launch>
+  <arg name="config" default="reemc"/>
+  <node name="reemc_rviz" pkg="rviz" type="rviz" args="-d $(find reemc_basic_tutorials)/config/$(arg config).rviz" />
+</launch>

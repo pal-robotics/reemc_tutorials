@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<package>
+  <name>reemc_basic_tutorials</name>
+  <version>0.0.6</version>
+  <description>ROS based tutorials for the REEM-C robot</description>
+
+  <maintainer email="luca.marchionni@pal-robotics.com">Luca Marchionni</maintainer>
+  <license>BSD</license>
+
+  <author email="luca.marchionni@pal-robotics.com">Luca Marchionni</author>
+
+  <buildtool_depend>catkin</buildtool_depend>
+
+  <run_depend>joint_state_publisher</run_depend>
+  <run_depend>key_teleop</run_depend>
+  <run_depend>reemc_gazebo</run_depend>
+  <run_depend>robot_state_publisher</run_depend>
+  <run_depend>rqt_plot</run_depend>
+  <run_depend>rviz</run_depend>
+  <run_depend>sensor_msgs</run_depend>
+  <run_depend>topic_tools</run_depend>
+  <run_depend>rviz_imu_plugin</run_depend>
+  <run_depend>compressed_image_transport</run_depend>
+</package>

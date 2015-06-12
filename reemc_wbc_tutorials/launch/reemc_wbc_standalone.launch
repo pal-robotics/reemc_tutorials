@@ -1,0 +1,12 @@
+<launch>
+
+  <include file="$(find reemc_description)/robots/upload_reemc.launch" />
+
+  <include file="$(find pal_dynamics)/launch/KinematicSimulatorRosControl.launch" />
+
+  <include file="$(find reemc_wbc_tutorials)/launch/reemc_wbc.launch" />
+
+  <node name="rviz" pkg="rviz" type="rviz" args="-d $(find reemc_wbc_tutorials)/config/rviz/reemc_wbc.rviz" />  
+
+</launch>
+

@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<package>
+  <name>reemc_wbc_tutorials</name>
+  <version>0.0.6</version>
+  <description>The reemc_wbc_tutorials package</description>
+
+  <maintainer email="hilario.tome@pal-robotics.com">Hilario Tomé</maintainer>
+
+  <license>BSD</license>
+
+  <buildtool_depend>catkin</buildtool_depend>
+  <build_depend>pal_wbc_controller</build_depend>
+  <build_depend>wbc_tasks</build_depend>
+  <build_depend>pluginlib</build_depend>
+  <build_depend>pal_robot_tools</build_depend>
+
+  <run_depend>pal_wbc_controller</run_depend>
+  <run_depend>wbc_tasks</run_depend>
+  <run_depend>pluginlib</run_depend>
+  <run_depend>pal_robot_tools</run_depend>
+
+  <export>
+    <pal_wbc_controller plugin="${prefix}/reemc_wbc_plugins.xml" />
+  </export>
+  
+</package>
