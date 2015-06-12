@@ -1,0 +1,4 @@
+<launch>
+  <node name="reemc_rqt" pkg="rqt_gui" type="rqt_gui"
+        args="--perspective-file $(find reemc_motion_tutorials)/config/example.perspective" />
+</launch>
