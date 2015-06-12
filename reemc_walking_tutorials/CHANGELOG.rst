@@ -2,6 +2,9 @@
 Changelog for package reemc_walking_tutorials
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+
 0.0.3 (2015-06-10)
 ------------------
 * Add license for tutorials files

@@ -4,6 +4,12 @@ Changelog for package reemc_wbc_tutorials
 
 Forthcoming
 -----------
+* Add changelog
+* Reset version of reemc wbc tutorials
+* Deleted config files
+* Added reemc_wbc_tutorials
+* Contributors: Hilario Tome
+
 * Reset version of reemc wbc tutorials
 * Deleted config files
 * Added reemc_wbc_tutorials

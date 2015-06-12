@@ -2,6 +2,11 @@
 Changelog for package reemc_tutorials
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+* Added reemc_wbc_tutorials
+* Contributors: Hilario Tome
+
 0.0.3 (2015-06-10)
 ------------------
 
