@@ -2,6 +2,11 @@
 Changelog for package reemc_motion_tutorials
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+* reemc_motion_tutorials: Add rqt example resources
+* Contributors: Adolfo Rodriguez Tsouroukdissian
+
 0.0.4 (2015-06-12)
 ------------------
 

@@ -2,6 +2,11 @@
 Changelog for package reemc_vision_tutorials
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+* add run dependency to compressed_image_transport
+* Contributors: Jordi Pages
+
 0.0.4 (2015-06-12)
 ------------------
 

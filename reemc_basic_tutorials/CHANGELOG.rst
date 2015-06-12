@@ -2,6 +2,12 @@
 Changelog for package reemc_basic_tutorials
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+* Remap key vel topic to walking cmd_vel
+* add run dependency to compressed_image_transport
+* Contributors: Jordi Pages, Luca Marchionni
+
 0.0.4 (2015-06-12)
 ------------------
 
