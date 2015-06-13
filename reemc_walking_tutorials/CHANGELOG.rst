@@ -2,6 +2,12 @@
 Changelog for package reemc_walking_tutorials
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+* 0.0.6
+* Changelogs updated
+* Contributors: Jordan Palacios
+
 0.0.6 (2015-06-13)
 ------------------
 
