@@ -2,8 +2,8 @@
 Changelog for package reemc_basic_tutorials
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+0.0.6 (2015-06-13)
+------------------
 * Update REEM-C kin sim rviz config
 * Contributors: Adolfo Rodriguez Tsouroukdissian
 
