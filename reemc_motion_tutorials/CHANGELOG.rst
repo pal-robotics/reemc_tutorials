@@ -2,8 +2,8 @@
 Changelog for package reemc_motion_tutorials
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+0.0.7 (2015-06-13)
+------------------
 * Install missing scripts
 * 0.0.6
 * Changelogs updated

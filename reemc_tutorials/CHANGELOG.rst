@@ -2,8 +2,8 @@
 Changelog for package reemc_tutorials
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+0.0.7 (2015-06-13)
+------------------
 * 0.0.6
 * Changelogs updated
 * Contributors: Jordan Palacios
