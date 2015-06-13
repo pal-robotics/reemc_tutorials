@@ -36,6 +36,8 @@ install(
     scripts/test_lower_body_joints
     scripts/test_joints_helpers.bash
     scripts/back_to_home.py
+    scripts/motion_sequence
+    scripts/simple_grasp
   DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
 )
 
