@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <package>
   <name>reemc_wbc_tutorials</name>
-  <version>0.0.7</version>
+  <version>0.0.8</version>
   <description>The reemc_wbc_tutorials package</description>
 
   <maintainer email="hilario.tome@pal-robotics.com">Hilario Tomé</maintainer>
