@@ -2,6 +2,9 @@
 Changelog for package reemc_vision_tutorials
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+
 0.0.8 (2015-06-14)
 ------------------
 

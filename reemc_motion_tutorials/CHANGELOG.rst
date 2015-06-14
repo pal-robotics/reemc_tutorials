@@ -2,6 +2,11 @@
 Changelog for package reemc_motion_tutorials
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+* Add open_both_hands after fist for fixing planning error
+* Contributors: Luca Marchionni
+
 0.0.8 (2015-06-14)
 ------------------
 * Fix joint limits for arm 6, thumb, index and mrl joints
