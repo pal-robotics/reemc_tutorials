@@ -7,6 +7,7 @@ motions:
   - right_arm_up
   - count_right_hand
   - fist_right_hand
+  - open_both_hands
   - thumbs_up_right_arm
   - open_both_hands
   - interact
