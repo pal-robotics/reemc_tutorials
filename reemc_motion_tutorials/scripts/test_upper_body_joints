@@ -40,19 +40,19 @@ _move_joint arm_left_2_joint 1.31
 _move_joint arm_left_1_joint 1.57
 _move_joint arm_left_3_joint -1.57
 _move_joint arm_left_5_joint 1.57
-_move_joint arm_left_6_joint 1.57
+_move_joint arm_left_6_joint 1.41
 _move_joint arm_left_6_joint 0.0
-_move_joint arm_left_7_joint -1.41
+_move_joint arm_left_7_joint -1.57
 _move_joint arm_left_7_joint 0.0
 
 # Left hand
 echo -e "${TXT_CYAN}Testing left hand joints...${TXT_RESET}"
 if [[ $has_hey5 == true ]]; then
-  _move_joint hand_left_thumb_joint 6.0 2.5
+  _move_joint hand_left_thumb_joint 5.5 2.5
   _move_joint hand_left_thumb_joint 0.0 2.5
-  _move_joint hand_left_index_joint 6.5 2.5
+  _move_joint hand_left_index_joint 5.0 2.5
   _move_joint hand_left_index_joint 0.0 2.5
-  _move_joint hand_left_mrl_joint   9.0 3.5
+  _move_joint hand_left_mrl_joint   6.0 3.5
   _move_joint hand_left_mrl_joint   0.0 3.5
 else
   _move_joint hand_left_thumb_joint 1.57
@@ -72,19 +72,19 @@ _move_joint arm_right_2_joint 1.31
 _move_joint arm_right_1_joint 1.57
 _move_joint arm_right_3_joint -1.57
 _move_joint arm_right_5_joint 1.57
-_move_joint arm_right_6_joint 1.57
+_move_joint arm_right_6_joint 1.41
 _move_joint arm_right_6_joint 0.0
-_move_joint arm_right_7_joint -1.41
+_move_joint arm_right_7_joint -1.57
 _move_joint arm_right_7_joint 0.0
 
 # Right hand
 echo -e "${TXT_CYAN}Testing right hand joints...${TXT_RESET}"
 if [[ $has_hey5 == true ]]; then
-  _move_joint hand_right_thumb_joint 6.0 2.5
+  _move_joint hand_right_thumb_joint 5.5 2.5
   _move_joint hand_right_thumb_joint 0.0 2.5
-  _move_joint hand_right_index_joint 6.5 2.5
+  _move_joint hand_right_index_joint 5.0 2.5
   _move_joint hand_right_index_joint 0.0 2.5
-  _move_joint hand_right_mrl_joint   9.0 3.5
+  _move_joint hand_right_mrl_joint   6.0 3.5
   _move_joint hand_right_mrl_joint   0.0 3.5
 else
   _move_joint hand_right_thumb_joint 1.57
