@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <package>
   <name>reemc_motion_tutorials</name>
-  <version>0.0.9</version>
+  <version>0.0.10</version>
   <description>Motion tutorials for the REEM-C robot</description>
 
   <maintainer email="adolfo.rodriguez@pal-robotics.com">Adolfo Rodriguez Tsouroukdissian</maintainer>

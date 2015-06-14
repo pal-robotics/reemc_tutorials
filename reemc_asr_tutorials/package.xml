@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <package>
   <name>reemc_asr_tutorials</name>
-  <version>0.0.9</version>
+  <version>0.0.10</version>
   <description>ROS based tutorials for REEM-C Automatic Speech Recognition application</description>
 
   <maintainer email="jordi.adell@pal-robotics.com">Jordi Adell</maintainer>

@@ -2,8 +2,8 @@
 Changelog for package reemc_motion_tutorials
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+0.0.10 (2015-06-14)
+-------------------
 * Modify plotted variables for right hand
 * Contributors: Luca Marchionni
 
