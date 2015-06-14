@@ -55,7 +55,7 @@
                 }, 
                 "topics": {
                   "type": "repr", 
-                  "repr": "[u'/right_arm_controller/state/desired/positions[3]', u'/right_arm_controller/state/desired/positions[2]', u'/right_arm_controller/state/desired/positions[1]', u'/right_arm_controller/state/desired/positions[0]', u'/right_arm_controller/state/actual/positions[3]', u'/right_arm_controller/state/actual/positions[2]', u'/right_arm_controller/state/actual/positions[0]', u'/right_arm_controller/state/actual/positions[1]']"
+                  "repr": "[u'/right_hand_controller/state/desired/positions[2]', u'/right_hand_controller/state/desired/positions[1]', u'/right_hand_controller/state/desired/positions[0]', u'/right_hand_controller/state/actual/positions[2]', u'/right_hand_controller/state/actual/positions[1]', u'/right_hand_controller/state/actual/positions[0]']"
                 }
               }, 
               "groups": {}
@@ -90,7 +90,7 @@
                 }, 
                 "topics": {
                   "type": "repr", 
-                  "repr": "[u'/joint_states/effort[8]', u'/joint_states/effort[7]', u'/joint_states/effort[10]', u'/joint_states/effort[9]']"
+                  "repr": "[u'/joint_states/effort[83]', u'/joint_states/effort[72]', u'/joint_states/effort[54]']"
                 }
               }, 
               "groups": {}
