@@ -2,6 +2,11 @@
 Changelog for package reemc_motion_tutorials
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+* Fix joint limits for arm 6, thumb, index and mrl joints
+* Contributors: Luca Marchionni
+
 0.0.7 (2015-06-13)
 ------------------
 * Install missing scripts
