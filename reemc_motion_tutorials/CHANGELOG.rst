@@ -2,8 +2,8 @@
 Changelog for package reemc_motion_tutorials
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+0.0.9 (2015-06-14)
+------------------
 * Add open_both_hands after fist for fixing planning error
 * Contributors: Luca Marchionni
 
