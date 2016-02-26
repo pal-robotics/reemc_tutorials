@@ -19,6 +19,7 @@ include_directories(
 )
 
 add_library(reemc_wbc src/reemc_stack_boths_hands_head.cpp
+                      src/reemc_weighted_stack_boths_hands_head.cpp
                       src/reemc_stack_joints.cpp
                       src/reemc_stack_ball_grasping.cpp
                       src/reemc_stack_humanoids_dance.cpp)

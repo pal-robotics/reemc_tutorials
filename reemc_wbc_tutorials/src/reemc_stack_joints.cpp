@@ -92,12 +92,13 @@ public:
         stack->pushTask(com_constraint);
 
         //Avoid self collision
-        SelfCollisionSafetyKinematicTask::SelfCollisionSafetyParameters sc_params;
+        SelfCollisionSafetyParameters sc_params;
         sc_params.min_distance = 0.08;
         sc_params.influence_distance = 0.08;
         sc_params.epsison = 0.02;
         sc_params.safety_distance = 0;
         sc_params.number_collisions = 10;
+
         SelfCollisionSafetyKinematicTaskPtr self_collision(new SelfCollisionSafetyKinematicTask);
         self_collision->setUpTask(sc_params, *stack.get(), nh);
         self_collision->setDamping(0.1);

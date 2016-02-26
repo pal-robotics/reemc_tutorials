@@ -6,6 +6,12 @@
     </description>
   </class>
 
+  <class name="reemc_weighted_stack_both_hands_head" type="reemc_weighted_stack_both_hands_head" base_class_type="StackConfigurationKinematic">
+    <description>
+      WBC stack plugin for reemc that moves both hands and gaze
+    </description>
+  </class>
+
   <class name="reemc_stack_both_hands_head_stabilized" type="reemc_stack_both_hands_head_stabilized" base_class_type="StackConfigurationKinematic">
     <description>
       WBC stack plugin for reemc that moves both hands and gaze with stabilization

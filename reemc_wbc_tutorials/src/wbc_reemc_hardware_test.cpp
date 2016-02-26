@@ -85,7 +85,7 @@ void publishGoal(eVector3 head, eVector3 left_arm, eVector3 right_arm){
   right_arm_pub.publish(right_arm_target);
 
   visualization_msgs::MarkerArray marray;
-  marray.markers.resize(3);
+  marray.markers.reserve(3);
   unsigned int index = 0;
   Eigen::Vector3d red(1, 0, 0);
 
@@ -94,6 +94,7 @@ void publishGoal(eVector3 head, eVector3 left_arm, eVector3 right_arm){
   publish_sphere(right_arm, red, 0.05, "world", "right_arm_target", ros::Time::now(), marray, index);
 
   marker_pub.publish(marray);
+  marray.markers.clear();
 
 }
 
