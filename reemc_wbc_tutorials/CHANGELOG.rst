@@ -2,8 +2,8 @@
 Changelog for package reemc_wbc_tutorials
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+0.1.0 (2016-04-04)
+------------------
 * Updated examples wbc reemc
 * Contributors: Hilario Tome
 
