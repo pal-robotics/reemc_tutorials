@@ -2,6 +2,11 @@
 Changelog for package reemc_walking_tutorials
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+* Fixed enum compilation issue
+* Contributors: Hilario Tome
+
 0.0.10 (2015-06-14)
 -------------------
 

@@ -2,6 +2,11 @@
 Changelog for package reemc_vision_tutorials
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+* Removed opencv2 dependency
+* Contributors: Hilario Tome
+
 0.0.10 (2015-06-14)
 -------------------
 
