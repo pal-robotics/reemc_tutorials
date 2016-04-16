@@ -2,6 +2,11 @@
 Changelog for package reemc_wbc_tutorials
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+* Changed humanois dance config file to use new api for parsign ft and imu in wbc
+* Contributors: Hilario Tome
+
 0.1.0 (2016-04-04)
 ------------------
 * Updated examples wbc reemc
