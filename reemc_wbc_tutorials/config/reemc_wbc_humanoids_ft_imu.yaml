@@ -2,9 +2,15 @@ whole_body_kinematic_controler:
   type: wbc/WholeBodyControlKinematicController
   
   useFT: True  
-  left_ft_sensor: left_ankle_ft
-  right_ft_sensor: right_ankle_ft
-  base_imu_sensor: base_imu
+
+  force_torque:
+    left_ankle_ft:
+      frame: left_sole_link
+    right_ankle_ft:
+      frame: right_sole_link    
+  imu:
+    base_imu:
+      frame: base_link
 
   dt: 0.005
   floating_base: True
@@ -15,8 +21,8 @@ whole_body_kinematic_controler:
   robot_model_chains:
     [arm_right_tool_link,
      arm_left_tool_link,
-     leg_left_6_link,
-     leg_right_6_link,
+     left_sole_link,
+     right_sole_link,
      stereo_optical_frame]
   
   default_configuration:
