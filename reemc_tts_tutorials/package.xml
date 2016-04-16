@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <package>
   <name>reemc_tts_tutorials</name>
-  <version>0.1.0</version>
+  <version>0.1.1</version>
   <description>ROS based tutorials for the REEM-C robot</description>
 
   <maintainer email="jordi.adell@pal-robotics.com">Jordi Adell</maintainer>
