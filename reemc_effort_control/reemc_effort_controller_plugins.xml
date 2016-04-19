@@ -1,0 +1,10 @@
+<library path="lib/libreemc_effort_control">
+
+  <class name="reemc_effort_control/SimpleEffortController" type="reemc_effort_control::SimpleEffortController" base_class_type="controller_interface::ControllerBase">
+    <description>
+       The simple effort controller shows a reference implementation for controlling in effort
+    </description>
+  </class>
+
+</library>
+

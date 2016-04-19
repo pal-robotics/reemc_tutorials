@@ -1,0 +1,12 @@
+<launch>
+
+  <!-- Configure controller -->
+  <rosparam command="load"
+    file="$(find force_control_reemc)/config/reemc_controller_config.yaml" />
+  
+  <!-- Spawn controller -->
+  <node name="force_control_spawner"
+        pkg="controller_manager" type="spawner" output="screen"
+        args="gravity_compensation_upper_body" />
+              
+</launch>
