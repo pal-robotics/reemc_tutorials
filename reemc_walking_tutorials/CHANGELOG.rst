@@ -2,6 +2,9 @@
 Changelog for package reemc_walking_tutorials
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+
 0.1.1 (2016-04-16)
 ------------------
 

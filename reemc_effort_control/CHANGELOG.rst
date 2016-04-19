@@ -4,6 +4,12 @@ Changelog for package reemc_effort_control
 
 Forthcoming
 -----------
+* Updated changelog
+* cleanup
+* Working effort control tutorial
+* Initial implementation of effort control
+* Contributors: Hilario Tome
+
 * cleanup
 * Working effort control tutorial
 * Initial implementation of effort control
