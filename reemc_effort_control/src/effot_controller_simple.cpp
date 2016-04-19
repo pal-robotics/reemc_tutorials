@@ -65,11 +65,15 @@ public:
             // XmlRpc::XmlRpcValue joint_torque_constants = joint_torque_param["torque_constant"];
             XmlRpc::XmlRpcValue joint_torque_constants = joint_torque_param;
 
-            for(unsigned int i=0; i<joints_.size(); ++i){
+            std::cerr<<"Joints size: "<<joints_.size()<<std::endl<<std::endl;
+
+            for(size_t i=0; i<joints_.size(); ++i){
+                std::cerr<<"Iteration: "<<i<<"- "<<joints_.size()<<std::endl;
                 bool found = false;
                 for(XmlRpc::XmlRpcValue::ValueStruct::iterator it = joint_torque_constants.begin(); it != joint_torque_constants.end() && !found; ++it )
                 {
                     std::string joint_name = static_cast<std::string>(it->first);
+                    std::cerr<<"Joint name in torque constans: "<<joint_name<<std::endl;
                     if(joint_name == joints_[i].getName()){
                         double torque_constant = static_cast<double>(it->second);
                         torqueConversions_(i) = torque_constant;
@@ -87,14 +91,6 @@ public:
             ROS_ERROR_STREAM("Exception message: " + exception.getMessage());
             return false;
         }
-
-
-        ddReconfigure_.reset(new DDynamicReconfigure(ros::NodeHandle(root_nh, "controller_params")) );
-        for(size_t i=0; i<torqueConversions_.rows(); ++i){
-            std::string joint_name = joints_[i].getName();
-            ddReconfigure_->RegisterVariable(&torqueCommand_(i), "torque_comand_" + joint_name, 20, 20);
-        }
-        ddReconfigure_->PublishServicesTopics();
 
         return true;
     }
@@ -218,6 +214,22 @@ public:
             return false;
         }
 
+        Q_act_.resize(joints_.size());
+        Qd_act_.resize(joints_.size());
+        Tau_cmd_.resize(joints_.size());
+
+        Q_act_.setZero();
+        Qd_act_.setZero();
+        Tau_cmd_.setZero();
+
+        std::cerr<<"torque conversion rows: "<<torqueConversions_.rows()<<std::endl;
+        ddReconfigure_.reset(new DDynamicReconfigure(ros::NodeHandle(root_nh, "controller_params")) );
+        for(size_t i=0; i<torqueConversions_.rows(); ++i){
+            std::string joint_name = joints_[i].getName();
+            ddReconfigure_->RegisterVariable(&Tau_cmd_(i), "torque_comand_" + joint_name, -20, 20);
+        }
+        ddReconfigure_->PublishServicesTopics();
+
         // success
         state_ = INITIALIZED;
         return true;
@@ -234,7 +246,7 @@ public:
 
     void stopping(const ros::Time& time) {
         for(size_t j = 0; j<joints_.size(); ++j){
-            torqueCommand_(j) = 0.0;
+            Tau_cmd_(j) = 0.0;
         }
         writeJoints();
     }
@@ -314,8 +326,7 @@ protected:
     Eigen::VectorXd Qd_act_;
     Eigen::VectorXd Tau_cmd_;
 
-    Eigen::Vector3d torqueCommand_;
-    Eigen::Vector3d torqueConversions_;
+    Eigen::VectorXd torqueConversions_;
     std::vector<hardware_interface::JointHandle> joints_;
     std::vector<std::string> controllerJointNames_;
     boost::shared_ptr<DDynamicReconfigure> ddReconfigure_;

@@ -1,0 +1,51 @@
+torque_constant:
+
+   arm_left_1_joint: 0.0735
+   arm_left_2_joint: 0.1149
+   arm_left_3_joint: 0.1436
+   arm_left_4_joint: -0.1436
+   arm_left_5_joint: 0.0 # 0.0487
+   arm_left_6_joint: 0.0 # 0.0487
+   arm_left_7_joint: 0.0 # 0.0487
+   
+   arm_right_1_joint: 0.0735
+   arm_right_2_joint: 0.1149
+   arm_right_3_joint: 0.1436
+   arm_right_4_joint: -0.1436
+   arm_right_5_joint: 0.0 # 0.0487
+   arm_right_6_joint: 0.0 # 0.0487
+   arm_right_7_joint: 0.0 # 0.0487
+   
+   torso_1_joint: 0.0735
+   torso_2_joint: 0.0735
+   
+   head_1_joint: 0.0 #0.0995
+   head_2_joint: 0.0 #0.05969
+   
+   leg_left_1_joint: 0.07637
+   leg_left_2_joint: 0.05896
+   leg_left_3_joint: 0.086805
+   leg_left_4_joint: 0.07462
+   leg_left_5_joint: 0.09827
+   leg_left_6_joint: 0.03472
+   
+   leg_right_1_joint: 0.07637
+   leg_right_2_joint: 0.05896
+   leg_right_3_joint: 0.086805
+   leg_right_4_joint: 0.07462
+   leg_right_5_joint: 0.09827
+   leg_right_6_joint: 0.03472
+
+simple_torque_control:
+  
+  type: "reemc_effort_control/SimpleEffortController"
+  joints:
+    - arm_right_1_joint
+    - arm_right_2_joint
+    - arm_right_3_joint
+    - arm_right_4_joint
+  
+  hardware: False
+  dt: 0.005
+   
+
