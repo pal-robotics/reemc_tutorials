@@ -65,15 +65,11 @@ public:
             // XmlRpc::XmlRpcValue joint_torque_constants = joint_torque_param["torque_constant"];
             XmlRpc::XmlRpcValue joint_torque_constants = joint_torque_param;
 
-            std::cerr<<"Joints size: "<<joints_.size()<<std::endl<<std::endl;
-
             for(size_t i=0; i<joints_.size(); ++i){
-                std::cerr<<"Iteration: "<<i<<"- "<<joints_.size()<<std::endl;
                 bool found = false;
                 for(XmlRpc::XmlRpcValue::ValueStruct::iterator it = joint_torque_constants.begin(); it != joint_torque_constants.end() && !found; ++it )
                 {
                     std::string joint_name = static_cast<std::string>(it->first);
-                    std::cerr<<"Joint name in torque constans: "<<joint_name<<std::endl;
                     if(joint_name == joints_[i].getName()){
                         double torque_constant = static_cast<double>(it->second);
                         torqueConversions_(i) = torque_constant;
@@ -201,7 +197,6 @@ public:
                   controller_nh))
         {
             ROS_ERROR("Failed to initialize the controller");
-            std::cerr  << "Falided to load effort interfaces" << std::endl;
             return false;
         }
         claimed_resources = eff_iface->getClaims();
@@ -222,7 +217,6 @@ public:
         Qd_act_.setZero();
         Tau_cmd_.setZero();
 
-        std::cerr<<"torque conversion rows: "<<torqueConversions_.rows()<<std::endl;
         ddReconfigure_.reset(new DDynamicReconfigure(ros::NodeHandle(root_nh, "controller_params")) );
         for(size_t i=0; i<torqueConversions_.rows(); ++i){
             std::string joint_name = joints_[i].getName();
