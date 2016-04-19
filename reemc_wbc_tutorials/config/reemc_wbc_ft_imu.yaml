@@ -2,14 +2,18 @@ whole_body_kinematic_controler:
   type: wbc/WholeBodyControlKinematicController
 
   useFT: True  
-  left_ft_sensor: left_ankle_ft
-  right_ft_sensor: right_ankle_ft
-  base_imu_sensor: base_imu
+    force_torque:
+    left_ankle_ft:
+      frame: left_sole_link
+    right_ankle_ft:
+      frame: right_sole_link    
+  imu:
+    base_imu:
+      frame: base_link
 
   dt: 0.005
   floating_base: True
   formulation: velocity
-  force_torque: True
   stack_configuration: reemc_stack_both_hands_head_stabilized
   solver: QpReductionuEqualitiesQuadprogHeapAllocation
 
