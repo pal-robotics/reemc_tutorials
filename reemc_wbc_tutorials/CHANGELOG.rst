@@ -2,8 +2,8 @@
 Changelog for package reemc_wbc_tutorials
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+0.1.2 (2016-04-19)
+------------------
 * Updated reemc controller tutorials config to use new config file
 * Contributors: Hilario Tome
 
