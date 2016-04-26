@@ -2,8 +2,8 @@
 Changelog for package reemc_wbc_tutorials
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+0.1.3 (2016-04-26)
+------------------
 * Updated reemc wbc tutorials cfg to use imu paramter
 * Contributors: Hilario Tome
 
