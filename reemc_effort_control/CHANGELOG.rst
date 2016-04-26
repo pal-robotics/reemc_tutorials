@@ -2,6 +2,9 @@
 Changelog for package reemc_effort_control
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+
 0.1.2 (2016-04-19)
 ------------------
 * Updated changelog
