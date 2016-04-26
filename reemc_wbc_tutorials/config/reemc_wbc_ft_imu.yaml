@@ -1,8 +1,10 @@
 whole_body_kinematic_controler:
   type: wbc/WholeBodyControlKinematicController
 
-  useFT: True  
-    force_torque:
+  useFT: True
+  useIMU: False
+  
+  force_torque:
     left_ankle_ft:
       frame: left_sole_link
     right_ankle_ft:

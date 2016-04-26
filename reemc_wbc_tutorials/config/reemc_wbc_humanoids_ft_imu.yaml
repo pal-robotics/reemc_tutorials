@@ -2,6 +2,7 @@ whole_body_kinematic_controler:
   type: wbc/WholeBodyControlKinematicController
   
   useFT: True  
+  useIMU: True
 
   force_torque:
     left_ankle_ft:
