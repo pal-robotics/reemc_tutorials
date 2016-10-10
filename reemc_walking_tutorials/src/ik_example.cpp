@@ -41,6 +41,28 @@
 #include <walking_controller/ik/pair_ik_leg_analytic_kajita.h>
 #include <walking_controller/reemc_definitions.h>
 
+namespace pal{
+
+const double HIP_SPACING = (0.145 / 2.0);
+
+const double FEMUR_LENGTH = 0.300;
+const double TIBIA_LENGTH = 0.300;
+const double FOOT_HEIGHT  = 0.110;
+const eVector3 ankle_to_foot_center_left(   0,  0, -FOOT_HEIGHT);
+const eVector3 ankle_to_foot_center_right(  0,  0, -FOOT_HEIGHT);
+
+const eVector3 ankle_to_foot_center[2] = {ankle_to_foot_center_left, ankle_to_foot_center_right};
+
+const eVector3 foot_center_to_calcaneus_left(-0.075,-0.06,0);
+const eVector3 foot_center_to_calcaneus_right(-0.075,0.06,0);
+const eVector3 ankle_to_foot_calcaneus[2] = {foot_center_to_calcaneus_left, foot_center_to_calcaneus_right};
+
+const eMatrixHom center_to_left_matrix  =  initMatrixHom(  eMatrixRot::Identity(), eVector3(0,  HIP_SPACING, 0) );
+const eMatrixHom center_to_right_matrix =  initMatrixHom(  eMatrixRot::Identity(), eVector3(0, -HIP_SPACING, 0) );
+
+}
+
+
 int main(int argc, char **argv)
 {
 

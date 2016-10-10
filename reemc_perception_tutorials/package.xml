@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <package>
   <name>reemc_perception_tutorials</name>
-  <version>0.0.10</version>
+  <version>0.1.3</version>
   <description>ROS based tutorials for perception application on REEM-C robot</description>
 
   <maintainer email="jordi.pages@pal-robotics.com">Jordi Pages</maintainer>
@@ -15,7 +15,6 @@
   <build_depend>cv_bridge</build_depend>
   <build_depend>image_transport</build_depend>
   <build_depend>message_filters</build_depend>
-  <build_depend>opencv2</build_depend>
   <build_depend>pal_camera_client</build_depend>
   <build_depend>pal_detection_msgs</build_depend>
   <build_depend>roscpp</build_depend>
@@ -27,7 +26,6 @@
   <run_depend>cv_bridge</run_depend>
   <run_depend>image_transport</run_depend>
   <run_depend>message_filters</run_depend>
-  <run_depend>opencv2</run_depend>
   <run_depend>pal_camera_client</run_depend>
   <run_depend>pal_detection_msgs</run_depend>
   <run_depend>roscpp</run_depend>

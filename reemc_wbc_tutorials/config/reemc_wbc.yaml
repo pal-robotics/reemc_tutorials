@@ -1,7 +1,8 @@
 whole_body_kinematic_controller:
   type: wbc/WholeBodyControlKinematicController
 
-  useFT: False  
+  useFT: False
+  useIMU: False
   dt: 0.005
   floating_base: True
   formulation: velocity

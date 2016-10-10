@@ -86,8 +86,12 @@ int main(int argc, char **argv)
   humanoid_nav_msgs::StepTarget foot;
   for(unsigned int i=0; i <= nsteps; ++i){
 
-    foot.leg = foot.leg == humanoid_nav_msgs::StepTarget::right?
-          humanoid_nav_msgs::StepTarget::left : humanoid_nav_msgs::StepTarget::right;
+    if(foot.leg == humanoid_nav_msgs::StepTarget::right){
+      foot.leg  = humanoid_nav_msgs::StepTarget::left;
+    }
+    else{
+      foot.leg  = humanoid_nav_msgs::StepTarget::right;
+     }
 
     if(i < nsteps )
     {
