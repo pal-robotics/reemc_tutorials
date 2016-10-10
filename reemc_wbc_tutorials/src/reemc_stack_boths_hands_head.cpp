@@ -44,7 +44,6 @@
 #include <wbc_tasks/constraint_kinematic_task.h>
 #include <wbc_tasks/go_to_kinematic_task.h>
 #include <wbc_tasks/go_to_spline_kinematic_task.h>
-#include <wbc_tasks/go_to_relative_kinematic_task.h>
 #include <wbc_tasks/com_kinematic_task.h>
 #include <wbc_tasks/com_stabilizer_kinematic_task.h>
 #include <wbc_tasks/momentum_kinematic_task.h>
