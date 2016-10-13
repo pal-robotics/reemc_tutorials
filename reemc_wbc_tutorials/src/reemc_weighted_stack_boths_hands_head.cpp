@@ -61,6 +61,8 @@
  * topics and the commands to the task should be sent through the topics.
  */
 
+using namespace pal_wbc;
+
 class reemc_weighted_stack_both_hands_head: public StackConfigurationKinematic{
 public:
 
@@ -127,7 +129,7 @@ public:
     constraint_tasks.push_back(joint_position_limit_task);
     constraint_tasks.push_back(com_constraint);
     constraint_tasks.push_back(self_collision);
-    GenericMetaTaskPtr constraint_metatask(new GenericMetaTask(constraint_tasks, stack->getNumberVariables()));
+    GenericMetaTaskPtr constraint_metatask(new GenericMetaTask(constraint_tasks, stack->getStateSize()));
     stack->pushTask(constraint_metatask);
 
     GazePointKinematicMetaTaskPtr gaze_task(new GazePointKinematicMetaTask(*stack.get(), "stereo_optical_frame", "interactive_marker", nh));
@@ -158,7 +160,7 @@ public:
     objective_tasks.push_back(base_link_orientation);
     objective_tasks.push_back(torso_link_orientation);
     objective_tasks.push_back(reference);
-    GenericMetaTaskPtr objective_metatask(new GenericMetaTask(objective_tasks, stack->getNumberVariables()));
+    GenericMetaTaskPtr objective_metatask(new GenericMetaTask(objective_tasks, stack->getStateSize()));
     stack->pushTask(objective_metatask);
   }
 };

@@ -61,6 +61,8 @@
  * avoid self collision
  */
 
+using namespace pal_wbc;
+
 class reemc_stack_joints: public StackConfigurationKinematic{
 public:
 
@@ -85,7 +87,7 @@ public:
         constraint_tasks.push_back(left_foot_constraint);
         constraint_tasks.push_back(right_foot_constraint);
         //Constraint both feet
-        GenericMetaTaskPtr constraint_metatask(new GenericMetaTask(constraint_tasks, stack->getNumberVariables()));
+        GenericMetaTaskPtr constraint_metatask(new GenericMetaTask(constraint_tasks, stack->getStateSize()));
         stack->pushTask(TaskAbstractPtr(constraint_metatask));
         //Constraint the X-Y coordinates of the COM
         ConstraintFIXC0MMetaTaskPtr com_constraint (new ConstraintFIXC0MMetaTask(*stack.get(), nh) );

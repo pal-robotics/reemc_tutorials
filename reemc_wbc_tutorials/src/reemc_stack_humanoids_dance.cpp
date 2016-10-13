@@ -60,6 +60,8 @@
  * to generate smooth trajectories every time a new target is set.
  */
 
+using namespace pal_wbc;
+
 class humanoids_dance: public StackConfigurationKinematic{
 public:
 
@@ -136,7 +138,7 @@ public:
     std::vector<TaskAbstractPtr> constraint_tasks;
     constraint_tasks.push_back(left_foot_constraint);
     constraint_tasks.push_back(right_foot_constraint);
-    GenericMetaTaskPtr constraint_metatask(new GenericMetaTask(constraint_tasks, stack->getNumberVariables()));
+    GenericMetaTaskPtr constraint_metatask(new GenericMetaTask(constraint_tasks, stack->getStateSize()));
     stack->pushTask(TaskAbstractPtr(constraint_metatask));
 
     //Constraint the COM
@@ -174,7 +176,7 @@ public:
     std::vector<TaskAbstractPtr> go_to_position_tasks;
     go_to_position_tasks.push_back(go_to_position_left_arm);
     go_to_position_tasks.push_back(go_to_position_right_arm);
-    GenericMetaTaskPtr go_to_position_metatasks(new GenericMetaTask(go_to_position_tasks, stack->getNumberVariables()));
+    GenericMetaTaskPtr go_to_position_metatasks(new GenericMetaTask(go_to_position_tasks, stack->getStateSize()));
     go_to_position_metatasks->setDamping(0.1);
     stack->pushTask(TaskAbstractPtr(go_to_position_metatasks));
 
@@ -286,7 +288,7 @@ public:
     std::vector<TaskAbstractPtr> constraint_tasks;
     constraint_tasks.push_back(left_foot_constraint);
     constraint_tasks.push_back(right_foot_constraint);
-    GenericMetaTaskPtr constraint_metatask(new GenericMetaTask(constraint_tasks, stack->getNumberVariables()));
+    GenericMetaTaskPtr constraint_metatask(new GenericMetaTask(constraint_tasks, stack->getStateSize()));
     stack->pushTask(TaskAbstractPtr(constraint_metatask));
 
     assert(fts_.size() == 2);
@@ -324,7 +326,7 @@ public:
     std::vector<TaskAbstractPtr> go_to_position_tasks;
     go_to_position_tasks.push_back(go_to_position_left_arm);
     go_to_position_tasks.push_back(go_to_position_right_arm);
-    GenericMetaTaskPtr go_to_position_metatasks(new GenericMetaTask(go_to_position_tasks, stack->getNumberVariables()));
+    GenericMetaTaskPtr go_to_position_metatasks(new GenericMetaTask(go_to_position_tasks, stack->getStateSize()));
     go_to_position_metatasks->setDamping(0.1);
     stack->pushTask(TaskAbstractPtr(go_to_position_metatasks));
 
