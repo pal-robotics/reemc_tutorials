@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <package>
   <name>reemc_effort_control</name>
-  <version>0.1.3</version>
+  <version>0.1.4</version>
   <description>The reemc_effort_control package</description>
 
   <maintainer email="hilario.tome@pal-robotics.com">Hilario Tome</maintainer> 
