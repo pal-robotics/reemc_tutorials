@@ -16,6 +16,19 @@ Changelog for package reemc_perception_tutorials
 * Removed opencv2 dependency
 * Contributors: Hilario Tome
 
+Forthcoming
+-----------
+* 0.1.3
+* Updated changelog
+* 0.1.2
+* Updated changelog
+* 0.1.1
+* Updated changelog
+* 0.1.0
+* Updated changelog
+* Removed opencv2 dependency
+* Contributors: Hilario Tome
+
 0.0.10 (2015-06-14)
 -------------------
 

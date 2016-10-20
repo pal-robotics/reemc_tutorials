@@ -27,6 +27,21 @@ Changelog for package reemc_effort_control
 0.1.0 (2016-04-04)
 ------------------
 
+Forthcoming
+-----------
+* 0.1.3
+* Updated changelog
+* 0.1.2
+* Updated changelog
+* Updated changelog
+* Updated changelog
+* cleanup
+* Working effort control tutorial
+* Initial implementation of effort control
+* Temporaly removed reemc_effor_control
+* Changed humanois dance config file to use new api for parsign ft and imu in wbc
+* Contributors: Hilario Tome
+
 0.0.10 (2015-06-14 13:38)
 -------------------------
 

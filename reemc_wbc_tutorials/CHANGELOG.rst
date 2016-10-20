@@ -22,6 +22,25 @@ Changelog for package reemc_wbc_tutorials
 * Updated examples wbc reemc
 * Contributors: Hilario Tome
 
+Forthcoming
+-----------
+* Fixed api
+* Fixed api
+* Fixed api
+* 0.1.3
+* Updated changelog
+* Updated reemc wbc tutorials cfg to use imu paramter
+* 0.1.2
+* Updated changelog
+* Updated reemc controller tutorials config to use new config file
+* 0.1.1
+* Updated changelog
+* Changed humanois dance config file to use new api for parsign ft and imu in wbc
+* 0.1.0
+* Updated changelog
+* Updated examples wbc reemc
+* Contributors: Hilario Tome
+
 0.0.10 (2015-06-14)
 -------------------
 

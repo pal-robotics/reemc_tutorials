@@ -14,6 +14,18 @@ Changelog for package reemc_motion_tutorials
 0.1.0 (2016-04-04)
 ------------------
 
+Forthcoming
+-----------
+* 0.1.3
+* Updated changelog
+* 0.1.2
+* Updated changelog
+* 0.1.1
+* Updated changelog
+* 0.1.0
+* Updated changelog
+* Contributors: Hilario Tome
+
 0.0.10 (2015-06-14)
 -------------------
 * Modify plotted variables for right hand

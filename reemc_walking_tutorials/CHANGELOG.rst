@@ -16,6 +16,20 @@ Changelog for package reemc_walking_tutorials
 * Fixed enum compilation issue
 * Contributors: Hilario Tome
 
+Forthcoming
+-----------
+* Added rostest to test the robot walking
+* 0.1.3
+* Updated changelog
+* 0.1.2
+* Updated changelog
+* 0.1.1
+* Updated changelog
+* 0.1.0
+* Updated changelog
+* Fixed enum compilation issue
+* Contributors: Adria Roig, Hilario Tome
+
 0.0.10 (2015-06-14)
 -------------------
 
