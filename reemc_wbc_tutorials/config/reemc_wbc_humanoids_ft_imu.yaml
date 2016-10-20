@@ -1,8 +1,8 @@
 whole_body_kinematic_controler:
-  type: wbc/WholeBodyControlKinematicController
+  type: pal_wbc/WholeBodyControlKinematicController
   
   useFT: True  
-  useIMU: True
+  useIMU: False
 
   force_torque:
     left_ankle_ft:
@@ -14,7 +14,7 @@ whole_body_kinematic_controler:
       frame: base_link
 
   dt: 0.005
-  floating_base: True
+  floating_base: XYZ_Quaternion
   formulation: velocity
   stack_configuration: humanoids_dance_stabilized
   solver: QpReductionuEqualitiesQuadprogHeapAllocation

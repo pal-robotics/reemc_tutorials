@@ -1,10 +1,10 @@
 whole_body_kinematic_controller:
-  type: wbc/WholeBodyControlKinematicController
+  type: pal_wbc/WholeBodyControlKinematicController
 
   useFT: False
   useIMU: False
   dt: 0.005
-  floating_base: True
+  floating_base: XYZ_Quaternion
   formulation: velocity
   stack_configuration: reemc_stack_both_hands_head
   solver: QpReductionuEqualitiesQuadprogHeapAllocation

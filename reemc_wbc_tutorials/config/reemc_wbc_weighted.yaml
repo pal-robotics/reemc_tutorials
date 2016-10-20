@@ -1,5 +1,5 @@
 whole_body_kinematic_controller:
-  type: wbc/WholeBodyControlKinematicController
+  type: pal_wbc/WholeBodyControlKinematicController
 
   useFT: False
   useIMU: False
