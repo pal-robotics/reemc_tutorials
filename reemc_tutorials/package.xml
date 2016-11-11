@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <package>
   <name>reemc_tutorials</name>
-  <version>0.1.6</version>
+  <version>0.1.7</version>
   <description>REEM-C tutorials metapackage</description>
   <maintainer email="luca.marchionni@pal-robotics.com">Luca Marchionni</maintainer>
   <license>BSD</license>
