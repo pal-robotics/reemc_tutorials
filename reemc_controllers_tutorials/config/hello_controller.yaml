@@ -1,2 +1,0 @@
-hello_controller:
-  type: "reemc_controllers_tutorials/HelloController"

@@ -1,2 +1,0 @@
-joint_controller:
-  type: "reemc_controllers_tutorials/JointController"
