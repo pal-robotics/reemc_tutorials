@@ -1,6 +1,0 @@
-<launch>
-      <include file="$(find reemc_gazebo)/launch/reemc_gazebo.launch"/>
-      <include file="$(find reemc_controller_configuration)/launch/default_controllers.launch"/>    
-
-      <test test-name="test_service_walking" pkg="reemc_walking_tutorials" type="test_walking_service" name="test_walking_service" time-limit="300"/>
-</launch>

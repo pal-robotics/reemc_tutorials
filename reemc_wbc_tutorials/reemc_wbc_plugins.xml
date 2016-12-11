@@ -42,6 +42,24 @@
       WBC stack plugin
     </description>
   </class>
+  
+  <class name="reemc_admitance" type="reemc_admitance" base_class_type="StackConfigurationKinematic">
+    <description>
+      WBC stack plugin for admitance
+    </description>
+  </class>
+  
+  <class name="reemc_admitance_lower_body" type="reemc_admitance_lower_body" base_class_type="StackConfigurationKinematic">
+    <description>
+      WBC stack plugin for admitance lower body
+    </description>
+  </class>
+  
+  <class name="reemc_admitance_upper_body" type="reemc_admitance_upper_body" base_class_type="StackConfigurationKinematic">
+    <description>
+      WBC stack plugin for admitance upper body
+  </description>
+
 
 </library>
 
