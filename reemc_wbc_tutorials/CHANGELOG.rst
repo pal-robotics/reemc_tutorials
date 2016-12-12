@@ -22,8 +22,8 @@ Changelog for package reemc_wbc_tutorials
 * Updated examples wbc reemc
 * Contributors: Hilario Tome
 
-Forthcoming
------------
+0.1.8 (2016-12-12)
+------------------
 * Added launch files for admitance demo
 * Moved reemc_walking_tutorial to generic walking tutorial and added back admitance stacks
 * Contributors: Hilario Tome
