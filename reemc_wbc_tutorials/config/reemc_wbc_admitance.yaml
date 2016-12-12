@@ -1,0 +1,83 @@
+whole_body_kinematic_controler:
+  type: pal_wbc/WholeBodyControlKinematicController
+
+  useFT: True  
+  useIMU: True
+
+  force_torque:
+    left_ankle_ft:
+      frame: left_sole_link
+    right_ankle_ft:
+      frame: right_sole_link
+    left_wrist_ft:
+      frame: wrist_left_ft_link
+    right_wrist_ft:
+      frame: wrist_right_ft_link
+
+  imu:
+    base_imu:
+      frame: base_link
+
+  dt: 0.005
+  floating_base: XYZ_Quaternion
+  formulation: velocity
+  stack_configuration: reemc_admitance
+  solver: QpReductionuEqualitiesQuadprogHeapAllocation
+
+  robot_model_chains:
+    [wrist_left_ft_link,
+     wrist_right_ft_link,
+     left_sole_link,
+     right_sole_link]
+
+  default_configuration:
+    leg_left_3_joint: -0.4
+    leg_right_3_joint: -0.4
+    leg_left_4_joint: 0.8
+    leg_right_4_joint: 0.8
+    leg_left_5_joint: -0.4
+    leg_right_5_joint: -0.4
+    arm_left_2_joint: 0.3
+    arm_right_2_joint: 0.3
+    arm_left_4_joint: 0.8
+    arm_right_4_joint: 0.8
+
+  stabilizer:
+    ds_min_weight: 300.0
+    ds_x_p: 0.4
+    ds_y_p: 0.4
+    dead_zone: 0.01
+    hip_offset_x_clamp: 0.02
+    hip_offset_y_clamp: 0.04
+    hip_offset_decay: 0.98
+
+  go_to_admitance_wrist_right_ft_link_XYZ:
+    proportional_position_e_gain: 2.5
+    force_admitance_scaling: 0.06
+    force_admitance_deadband: 20.0
+    error_clamp: 0.1
+    ft_smoothing_factor: 0.01
+    used_smoothed_FT: True
+
+  # go_to_admitance_wrist_left_ft_link_XYZ:
+  #   proportional_position_e_gain: 2.5
+  #   force_admitance_scaling: 0.02
+  #   force_admitance_deadband: 4.0
+  #   ft_smoothing_factor: 0.01
+  #   used_smoothed_FT: True
+
+  go_to_admitance_wrist_right_ft_link_RollPitchYaw:
+    proportional_orientation_e_gain: 1.0
+    torque_admitance_scaling: 0.1
+    torque_admitance_deadband: 1.0
+    ft_smoothing_factor: 0.03
+    used_smoothed_FT: True
+
+  # go_to_admitance_wrist_left_link_RollPitchYaw:
+  #   proportional_orientation_e_gain: 2.0
+  #   torque_admitance_scaling: 3.0
+  #   torque_admitance_deadband: 0.1
+  #   ft_smoothing_factor: 0.03
+  #   used_smoothed_FT: True
+
+
