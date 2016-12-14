@@ -209,6 +209,7 @@ int main(int argc, char** argv){
 
   ros::Duration(5.).sleep();
   closeHand(RightHandAction);
+  ros::Duration(10.).sleep();
 
   ROS_INFO_STREAM("Goal: 3");
   publishGoalRightArm(eVector3(0.452, -0.0, 0.35),
