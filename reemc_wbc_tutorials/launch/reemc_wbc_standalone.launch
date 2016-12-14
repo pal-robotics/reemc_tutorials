@@ -1,8 +1,13 @@
 <launch>
 
+  <arg name="debug" default="false"/>
+
   <include file="$(find reemc_description)/robots/upload_reemc.launch" />
 
-  <include file="$(find pal_dynamics)/launch/KinematicSimulatorRosControl.launch" />
+  <include file="$(find pal_dynamics)/launch/KinematicSimulatorRosControl.launch">
+    <arg name="debug" value="$(arg debug)"/>
+    <arg name="parameters" value="--cycle_time 0.005"/> 
+  </include>
 
   <include file="$(find reemc_wbc_tutorials)/launch/reemc_wbc.launch" />
 

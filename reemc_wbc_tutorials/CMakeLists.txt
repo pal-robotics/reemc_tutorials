@@ -6,6 +6,8 @@ find_package(catkin REQUIRED COMPONENTS
   wbc_tasks
   pluginlib
   pal_robot_tools
+  actionlib
+  control_msgs
 )
 
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++0x")
@@ -29,6 +31,10 @@ target_link_libraries(reemc_wbc ${catkin_LIBRARIES})
 
 add_executable(wbc_reemc_hardware_test src/wbc_reemc_hardware_test.cpp)
 target_link_libraries(wbc_reemc_hardware_test ${catkin_LIBRARIES})
+
+add_executable(wbc_grasping_hardware_test src/wbc_grasping_hardware_test.cpp)
+target_link_libraries(wbc_grasping_hardware_test ${catkin_LIBRARIES})
+
 
 if(CATKIN_ENABLE_TESTING)
 

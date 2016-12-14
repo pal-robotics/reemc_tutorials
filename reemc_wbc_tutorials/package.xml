@@ -13,11 +13,15 @@
   <build_depend>wbc_tasks</build_depend>
   <build_depend>pluginlib</build_depend>
   <build_depend>pal_robot_tools</build_depend>
+  <build_depend>control_msgs</build_depend>
+  <build_depend>actionlib</build_depend>
 
   <run_depend>pal_wbc_controller</run_depend>
   <run_depend>wbc_tasks</run_depend>
   <run_depend>pluginlib</run_depend>
   <run_depend>pal_robot_tools</run_depend>
+  <run_depend>control_msgs</run_depend>
+  <run_depend>actionlib</run_depend>
 
   <export>
     <pal_wbc_controller plugin="${prefix}/reemc_wbc_plugins.xml" />
