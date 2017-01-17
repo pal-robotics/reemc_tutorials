@@ -47,7 +47,6 @@
 #include <wbc_tasks/go_to_relative_kinematic_task.h>
 #include <wbc_tasks/com_kinematic_task.h>
 #include <wbc_tasks/com_stabilizer_kinematic_task.h>
-#include <wbc_tasks/momentum_kinematic_task.h>
 #include <wbc_tasks/reference_kinematic_task.h>
 #include <wbc_tasks/gaze_kinematic_task.h>
 #include <wbc_tasks/gaze_spline_kinematic_task.h>
@@ -66,84 +65,85 @@ using namespace pal_wbc;
 class reemc_stack_joints: public StackConfigurationKinematic{
 public:
 
-    void setupStack(StackOfTasksKinematicPtr stack, ros::NodeHandle &nh){
+  bool setupStack(StackOfTasksKinematicPtr stack, ros::NodeHandle &nh){
 
+    //Joint and velocity limits
+    JointPositionLimitKinematicAllJointsMetaTaskPtr joint_position_limit_task(
+          new JointPositionLimitKinematicAllJointsMetaTask(*stack.get(),
+                                                           stack->getJointPositionLimitMin(), stack->getJointPositionLimitMax(),
+                                                           stack->getJointVelocityLimitMin(), stack->getJointVelocityLimitMax(),
+                                                           stack->getJointNames(),
+                                                           1.0,
+                                                           false,
+                                                           nh));
+    stack->pushTask(joint_position_limit_task);
 
-        //Joint and velocity limits
-        JointPositionLimitKinematicAllJointsMetaTaskPtr joint_position_limit_task(
-                    new JointPositionLimitKinematicAllJointsMetaTask(*stack.get(),
-                                                                     stack->getJointPositionLimitMin(), stack->getJointPositionLimitMax(),
-                                                                     stack->getJointVelocityLimitMin(), stack->getJointVelocityLimitMax(),
-                                                                     stack->getJointNames(),
-                                                                     1.0,
-                                                                     false,
-                                                                     nh));
-        stack->pushTask(joint_position_limit_task);
+    GoToPoseMetaTaskPtr left_foot_constraint (new GoToPoseMetaTask(*stack.get(), "leg_left_6_link", "none", nh));
+    GoToPoseMetaTaskPtr right_foot_constraint (new GoToPoseMetaTask(*stack.get(), "leg_right_6_link", "none", nh));
 
-        GoToPoseMetaTaskPtr left_foot_constraint (new GoToPoseMetaTask(*stack.get(), "leg_left_6_link", "none", nh));
-        GoToPoseMetaTaskPtr right_foot_constraint (new GoToPoseMetaTask(*stack.get(), "leg_right_6_link", "none", nh));
+    std::vector<TaskAbstractPtr> constraint_tasks;
+    constraint_tasks.push_back(left_foot_constraint);
+    constraint_tasks.push_back(right_foot_constraint);
+    //Constraint both feet
+    GenericMetaTaskPtr constraint_metatask(new GenericMetaTask(constraint_tasks, stack->getStateSize()));
+    stack->pushTask(TaskAbstractPtr(constraint_metatask));
+    //Constraint the X-Y coordinates of the COM
+    ConstraintFIXC0MMetaTaskPtr com_constraint (new ConstraintFIXC0MMetaTask(*stack.get(), nh) );
+    stack->pushTask(com_constraint);
 
-        std::vector<TaskAbstractPtr> constraint_tasks;
-        constraint_tasks.push_back(left_foot_constraint);
-        constraint_tasks.push_back(right_foot_constraint);
-        //Constraint both feet
-        GenericMetaTaskPtr constraint_metatask(new GenericMetaTask(constraint_tasks, stack->getStateSize()));
-        stack->pushTask(TaskAbstractPtr(constraint_metatask));
-        //Constraint the X-Y coordinates of the COM
-        ConstraintFIXC0MMetaTaskPtr com_constraint (new ConstraintFIXC0MMetaTask(*stack.get(), nh) );
-        stack->pushTask(com_constraint);
+    //Avoid self collision
+    SelfCollisionSafetyParameters sc_params;
+    sc_params.min_distance = 0.08;
+    sc_params.influence_distance = 0.08;
+    sc_params.epsison = 0.02;
+    sc_params.safety_distance = 0;
+    sc_params.number_collisions = 10;
 
-        //Avoid self collision
-        SelfCollisionSafetyParameters sc_params;
-        sc_params.min_distance = 0.08;
-        sc_params.influence_distance = 0.08;
-        sc_params.epsison = 0.02;
-        sc_params.safety_distance = 0;
-        sc_params.number_collisions = 10;
+    SelfCollisionSafetyKinematicTaskPtr self_collision(new SelfCollisionSafetyKinematicTask);
+    self_collision->setUpTask(sc_params, *stack.get(), nh);
+    self_collision->setDamping(0.1);
+    stack->pushTask(self_collision);
 
-        SelfCollisionSafetyKinematicTaskPtr self_collision(new SelfCollisionSafetyKinematicTask);
-        self_collision->setUpTask(sc_params, *stack.get(), nh);
-        self_collision->setDamping(0.1);
-        stack->pushTask(self_collision);
+    std::vector<std::string> default_reference_joints;
+    default_reference_joints.push_back("arm_left_1_joint");
+    default_reference_joints.push_back("arm_left_2_joint");
+    default_reference_joints.push_back("arm_left_3_joint");
+    default_reference_joints.push_back("arm_left_4_joint");
+    default_reference_joints.push_back("arm_left_5_joint");
+    default_reference_joints.push_back("arm_left_6_joint");
+    default_reference_joints.push_back("arm_left_7_joint");
+    default_reference_joints.push_back("arm_right_1_joint");
+    default_reference_joints.push_back("arm_right_2_joint");
+    default_reference_joints.push_back("arm_right_3_joint");
+    default_reference_joints.push_back("arm_right_4_joint");
+    default_reference_joints.push_back("arm_right_5_joint");
+    default_reference_joints.push_back("arm_right_6_joint");
+    default_reference_joints.push_back("arm_right_7_joint");
+    default_reference_joints.push_back("leg_left_4_joint");
+    default_reference_joints.push_back("leg_right_4_joint");
+    default_reference_joints.push_back("torso_1_joint");
+    default_reference_joints.push_back("torso_2_joint");
 
-        std::vector<std::string> default_reference_joints;
-        default_reference_joints.push_back("arm_left_1_joint");
-        default_reference_joints.push_back("arm_left_2_joint");
-        default_reference_joints.push_back("arm_left_3_joint");
-        default_reference_joints.push_back("arm_left_4_joint");
-        default_reference_joints.push_back("arm_left_5_joint");
-        default_reference_joints.push_back("arm_left_6_joint");
-        default_reference_joints.push_back("arm_left_7_joint");
-        default_reference_joints.push_back("arm_right_1_joint");
-        default_reference_joints.push_back("arm_right_2_joint");
-        default_reference_joints.push_back("arm_right_3_joint");
-        default_reference_joints.push_back("arm_right_4_joint");
-        default_reference_joints.push_back("arm_right_5_joint");
-        default_reference_joints.push_back("arm_right_6_joint");
-        default_reference_joints.push_back("arm_right_7_joint");
-        default_reference_joints.push_back("leg_left_4_joint");
-        default_reference_joints.push_back("leg_right_4_joint");
-        default_reference_joints.push_back("torso_1_joint");
-        default_reference_joints.push_back("torso_2_joint");
+    Eigen::VectorXd default_reference_posture(default_reference_joints.size());
+    default_reference_posture.setZero();
+    default_reference_posture(3) = 0.5;
+    default_reference_posture(10) = 0.5;
+    default_reference_posture(1) = 0.5;
+    default_reference_posture(8) = 0.5;
+    default_reference_posture(14) = 0.8;
+    default_reference_posture(15) = 0.8;
+    default_reference_posture(16) = 0.0;
+    default_reference_posture(17) = 0.0;
+    //Create the last task with to achieve a reference posture
+    ReferenceKinematicTaskAllJointsMetaTaskPtr default_reference(
+          new ReferenceKinematicTaskAllJointsMetaTask(*stack.get(),
+                                                      default_reference_joints,
+                                                      default_reference_posture,
+                                                      nh, 2.));
+    stack->pushTask(default_reference);
 
-        Eigen::VectorXd default_reference_posture(default_reference_joints.size());
-        default_reference_posture.setZero();
-        default_reference_posture(3) = 0.5;
-        default_reference_posture(10) = 0.5;
-        default_reference_posture(1) = 0.5;
-        default_reference_posture(8) = 0.5;
-        default_reference_posture(14) = 0.8;
-        default_reference_posture(15) = 0.8;
-        default_reference_posture(16) = 0.0;
-        default_reference_posture(17) = 0.0;
-        //Create the last task with to achieve a reference posture
-        ReferenceKinematicTaskAllJointsMetaTaskPtr default_reference(new ReferenceKinematicTaskAllJointsMetaTask(*stack.get(),
-                                                                                                                 default_reference_joints,
-                                                                                                                 default_reference_posture,
-                                                                                                                 nh));
-        stack->pushTask(default_reference);
-
-    }
+    return true;
+  }
 };
 
 PLUGINLIB_EXPORT_CLASS(reemc_stack_joints, StackConfigurationKinematic);

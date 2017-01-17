@@ -46,7 +46,6 @@
 #include <wbc_tasks/go_to_spline_kinematic_task.h>
 #include <wbc_tasks/com_kinematic_task.h>
 #include <wbc_tasks/com_stabilizer_kinematic_task.h>
-#include <wbc_tasks/momentum_kinematic_task.h>
 #include <wbc_tasks/reference_kinematic_task.h>
 #include <wbc_tasks/gaze_kinematic_task.h>
 #include <wbc_tasks/gaze_spline_kinematic_task.h>
@@ -66,7 +65,7 @@ using namespace pal_wbc;
 class reemc_weighted_stack_both_hands_head: public StackConfigurationKinematic{
 public:
 
-  void setupStack(StackOfTasksKinematicPtr stack, ros::NodeHandle &nh){
+  bool setupStack(StackOfTasksKinematicPtr stack, ros::NodeHandle &nh){
 
     std::vector<std::string> default_reference_joints;
     default_reference_joints.push_back("arm_left_1_joint");
@@ -148,10 +147,11 @@ public:
     torso_link_orientation->setDamping(0.02);
 
     //Reference posture
-    ReferenceKinematicTaskAllJointsMetaTaskPtr reference(new ReferenceKinematicTaskAllJointsMetaTask(*stack.get(),
-                                                                                                     default_reference_joints,
-                                                                                                     default_reference_posture,
-                                                                                                     nh));
+    ReferenceKinematicTaskAllJointsMetaTaskPtr reference(
+          new ReferenceKinematicTaskAllJointsMetaTask(*stack.get(),
+                                                      default_reference_joints,
+                                                      default_reference_posture,
+                                                      nh, 2.));
 
     std::vector<TaskAbstractPtr> objective_tasks;
     objective_tasks.push_back(gaze_task);
@@ -162,6 +162,8 @@ public:
     objective_tasks.push_back(reference);
     GenericMetaTaskPtr objective_metatask(new GenericMetaTask(objective_tasks, stack->getStateSize()));
     stack->pushTask(objective_metatask);
+
+    return true;
   }
 };
 

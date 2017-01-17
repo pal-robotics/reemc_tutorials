@@ -46,7 +46,6 @@
 #include <wbc_tasks/go_to_spline_kinematic_task.h>
 #include <wbc_tasks/com_kinematic_task.h>
 #include <wbc_tasks/com_stabilizer_kinematic_task.h>
-#include <wbc_tasks/momentum_kinematic_task.h>
 #include <wbc_tasks/reference_kinematic_task.h>
 #include <wbc_tasks/gaze_kinematic_task.h>
 #include <wbc_tasks/gaze_spline_kinematic_task.h>
@@ -66,7 +65,7 @@ using namespace pal_wbc;
 class reemc_stack_both_hands_head: public StackConfigurationKinematic{
 public:
 
-  void setupStack(StackOfTasksKinematicPtr stack, ros::NodeHandle &nh){
+  bool setupStack(StackOfTasksKinematicPtr stack, ros::NodeHandle &nh){
 
     std::vector<std::string> default_reference_joints;
     default_reference_joints.push_back("arm_left_1_joint");
@@ -161,9 +160,12 @@ public:
           new ReferenceKinematicTaskAllJointsMetaTask(*stack.get(),
                                                       default_reference_joints,
                                                       default_reference_posture,
-                                                      nh));
+                                                      nh, 2.));
     stack->pushTask(reference);
+
+    return true;
   }
+
 };
 
 PLUGINLIB_EXPORT_CLASS(reemc_stack_both_hands_head, StackConfigurationKinematic);
@@ -175,7 +177,7 @@ PLUGINLIB_EXPORT_CLASS(reemc_stack_both_hands_head, StackConfigurationKinematic)
 class reemc_stack_both_hands_head_stabilized: public StackConfigurationKinematic{
 public:
 
-  void setupStack(StackOfTasksKinematicPtr stack, ros::NodeHandle &nh){
+  bool setupStack(StackOfTasksKinematicPtr stack, ros::NodeHandle &nh){
 
     std::vector<std::string> default_reference_joints;
     default_reference_joints.push_back("arm_left_1_joint");
@@ -267,8 +269,10 @@ public:
           new ReferenceKinematicTaskAllJointsMetaTask(*stack.get(),
                                                       default_reference_joints,
                                                       default_reference_posture,
-                                                      nh));
+                                                      nh, 2.));
     stack->pushTask(reference);
+
+    return true;
   }
 };
 

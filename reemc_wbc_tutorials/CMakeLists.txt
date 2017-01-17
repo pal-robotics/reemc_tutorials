@@ -8,6 +8,7 @@ find_package(catkin REQUIRED COMPONENTS
   pal_robot_tools
   actionlib
   control_msgs
+  reemc_description
 )
 
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++0x")

@@ -47,7 +47,6 @@
 #include <wbc_tasks/go_to_relative_kinematic_task.h>
 #include <wbc_tasks/com_kinematic_task.h>
 #include <wbc_tasks/com_stabilizer_kinematic_task.h>
-#include <wbc_tasks/momentum_kinematic_task.h>
 #include <wbc_tasks/reference_kinematic_task.h>
 #include <wbc_tasks/gaze_kinematic_task.h>
 #include <wbc_tasks/gaze_spline_kinematic_task.h>
@@ -65,7 +64,7 @@ using namespace pal_wbc;
 class humanoids_dance: public StackConfigurationKinematic{
 public:
 
-  void setupStack(StackOfTasksKinematicPtr stack, ros::NodeHandle &nh){
+  bool setupStack(StackOfTasksKinematicPtr stack, ros::NodeHandle &nh){
 
     std::vector<std::string> default_reference_joints;
     default_reference_joints.push_back("arm_left_1_joint");
@@ -188,20 +187,23 @@ public:
     Eigen::VectorXd torso_posture(torso_reference_joints.size());
     torso_posture.setZero();
 
-    ReferenceKinematicTaskAllJointsMetaTaskPtr torso_reference(new ReferenceKinematicTaskAllJointsMetaTask(*stack.get(),
-                                                                                                           torso_reference_joints,
-                                                                                                           torso_posture,
-                                                                                                           nh));
+    ReferenceKinematicTaskAllJointsMetaTaskPtr torso_reference(
+          new ReferenceKinematicTaskAllJointsMetaTask(*stack.get(),
+                                                      torso_reference_joints,
+                                                      torso_posture,
+                                                      nh, 2.));
     torso_reference->setDamping(1.0);
     stack->pushTask(torso_reference);
 
-    ReferenceKinematicTaskAllJointsMetaTaskPtr default_reference(new ReferenceKinematicTaskAllJointsMetaTask(*stack.get(),
-                                                                                                             default_reference_joints,
-                                                                                                             default_reference_posture,
-                                                                                                             nh));
+    ReferenceKinematicTaskAllJointsMetaTaskPtr default_reference(
+          new ReferenceKinematicTaskAllJointsMetaTask(*stack.get(),
+                                                      default_reference_joints,
+                                                      default_reference_posture,
+                                                      nh, 2.));
     default_reference->setDamping(1.0);
     stack->pushTask(default_reference);
 
+    return true;
   }
 };
 
@@ -214,7 +216,7 @@ PLUGINLIB_EXPORT_CLASS(humanoids_dance, StackConfigurationKinematic);
 class humanoids_dance_stabilized: public StackConfigurationKinematic{
 public:
   EIGEN_MAKE_ALIGNED_OPERATOR_NEW
-  void setupStack(StackOfTasksKinematicPtr stack, ros::NodeHandle &nh){
+  bool setupStack(StackOfTasksKinematicPtr stack, ros::NodeHandle &nh){
 
     std::vector<std::string> default_reference_joints;
     default_reference_joints.push_back("arm_left_1_joint");
@@ -295,8 +297,8 @@ public:
     ConstraintStabilizedFIXC0MMetaTaskPtr com_constraint (
           new ConstraintStabilizedFIXC0MMetaTask(*stack.get(),
                                                  fts_[0],
-                                                 fts_[1],
-                                                 nh) );
+          fts_[1],
+        nh) );
 
     stack->pushTask(com_constraint);
 
@@ -337,20 +339,23 @@ public:
     Eigen::VectorXd torso_posture(torso_reference_joints.size());
     torso_posture.setZero();
 
-    ReferenceKinematicTaskAllJointsMetaTaskPtr torso_reference(new ReferenceKinematicTaskAllJointsMetaTask(*stack.get(),
-                                                                                                           torso_reference_joints,
-                                                                                                           torso_posture,
-                                                                                                           nh));
+    ReferenceKinematicTaskAllJointsMetaTaskPtr torso_reference(
+          new ReferenceKinematicTaskAllJointsMetaTask(*stack.get(),
+                                                      torso_reference_joints,
+                                                      torso_posture,
+                                                      nh, 2.));
     torso_reference->setDamping(1.0);
     stack->pushTask(torso_reference);
 
-    ReferenceKinematicTaskAllJointsMetaTaskPtr default_reference(new ReferenceKinematicTaskAllJointsMetaTask(*stack.get(),
-                                                                                                             default_reference_joints,
-                                                                                                             default_reference_posture,
-                                                                                                             nh));
+    ReferenceKinematicTaskAllJointsMetaTaskPtr default_reference(
+          new ReferenceKinematicTaskAllJointsMetaTask(*stack.get(),
+                                                      default_reference_joints,
+                                                      default_reference_posture,
+                                                      nh, 2.));
     default_reference->setDamping(1.0);
     stack->pushTask(default_reference);
 
+    return true;
   }
 
 };
@@ -362,7 +367,8 @@ class humanoids_dance_stabilized_right_arm_only: public StackConfigurationKinema
 
 public:
   EIGEN_MAKE_ALIGNED_OPERATOR_NEW
-  void setupStack(StackOfTasksKinematicPtr stack, ros::NodeHandle &nh){
+
+  bool setupStack(StackOfTasksKinematicPtr stack, ros::NodeHandle &nh){
     std::vector<std::string> default_reference_joints;
     default_reference_joints.push_back("arm_left_1_joint");
     default_reference_joints.push_back("arm_left_2_joint");
@@ -430,9 +436,7 @@ public:
     assert(fts_.size() == 2);
     ConstraintStabilizedFIXC0MMetaTaskPtr com_constraint (
           new ConstraintStabilizedFIXC0MMetaTask(*stack.get(),
-                                                 fts_[0],
-                                                 fts_[1],
-                                                 nh) );
+                                                 fts_[0], fts_[1], nh) );
     stack->pushTask(com_constraint);
     SelfCollisionSafetyParameters sc_params;
     sc_params.min_distance = 0.08;
@@ -462,18 +466,22 @@ public:
     torso_reference_joints.push_back("torso_2_joint");
     Eigen::VectorXd torso_posture(torso_reference_joints.size());
     torso_posture.setZero();
-    ReferenceKinematicTaskAllJointsMetaTaskPtr torso_reference(new ReferenceKinematicTaskAllJointsMetaTask(*stack.get(),
-                                                                                                           torso_reference_joints,
-                                                                                                           torso_posture,
-                                                                                                           nh));
+    ReferenceKinematicTaskAllJointsMetaTaskPtr torso_reference(
+          new ReferenceKinematicTaskAllJointsMetaTask(*stack.get(),
+                                                      torso_reference_joints,
+                                                      torso_posture,
+                                                      nh, 2.));
     torso_reference->setDamping(1.0);
     stack->pushTask(torso_reference);
-    ReferenceKinematicTaskAllJointsMetaTaskPtr default_reference(new ReferenceKinematicTaskAllJointsMetaTask(*stack.get(),
-                                                                                                             default_reference_joints,
-                                                                                                             default_reference_posture,
-                                                                                                             nh));
+    ReferenceKinematicTaskAllJointsMetaTaskPtr default_reference(
+          new ReferenceKinematicTaskAllJointsMetaTask(*stack.get(),
+                                                      default_reference_joints,
+                                                      default_reference_posture,
+                                                      nh, 2.));
     default_reference->setDamping(1.0);
     stack->pushTask(default_reference);
+
+    return true;
   }
 };
 PLUGINLIB_EXPORT_CLASS(humanoids_dance_stabilized_right_arm_only, StackConfigurationKinematic);

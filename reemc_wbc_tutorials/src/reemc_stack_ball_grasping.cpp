@@ -47,7 +47,6 @@
 #include <wbc_tasks/go_to_relative_kinematic_task.h>
 #include <wbc_tasks/com_kinematic_task.h>
 #include <wbc_tasks/com_stabilizer_kinematic_task.h>
-#include <wbc_tasks/momentum_kinematic_task.h>
 #include <wbc_tasks/reference_kinematic_task.h>
 #include <wbc_tasks/gaze_kinematic_task.h>
 #include <wbc_tasks/gaze_spline_kinematic_task.h>
@@ -65,7 +64,7 @@ using namespace pal_wbc;
 class reemc_ball_grasping_stack: public StackConfigurationKinematic{
 public:
 
-  void setupStack(StackOfTasksKinematicPtr stack, ros::NodeHandle &nh){
+  bool setupStack(StackOfTasksKinematicPtr stack, ros::NodeHandle &nh){
 
     std::vector<std::string> default_reference_joints;
     default_reference_joints.push_back("arm_left_1_joint");
@@ -182,10 +181,11 @@ public:
     Eigen::VectorXd default_reference_left_arm_posture(default_reference_left_arm.size()); default_reference_left_arm_posture.setZero();
     default_reference_left_arm_posture(1) = 0.5;
     default_reference_left_arm_posture(3) = 0.5;
-    ReferenceKinematicTaskAllJointsMetaTaskPtr left_arm_reference_posture(new ReferenceKinematicTaskAllJointsMetaTask(*stack.get(),
+    ReferenceKinematicTaskAllJointsMetaTaskPtr left_arm_reference_posture(
+          new ReferenceKinematicTaskAllJointsMetaTask(*stack.get(),
                                                                                                                       default_reference_left_arm,
                                                                                                                       default_reference_left_arm_posture,
-                                                                                                                      nh));
+                                                                                                                      nh, 2.));
     left_arm_reference_posture->setDamping(0.1);
 
     GoToSplinePositionMetaTaskPtr go_to_position_right_arm(
@@ -213,7 +213,7 @@ public:
           new ReferenceKinematicTaskAllJointsMetaTask(*stack.get(),
                                                       torso_reference_joints,
                                                       torso_posture,
-                                                      nh));
+                                                      nh, 2.0));
     torso_reference_task->setDamping(5.0);
 
     stack->pushTask(torso_reference_task);
@@ -223,10 +223,11 @@ public:
           new ReferenceKinematicTaskAllJointsMetaTask(*stack.get(),
                                                       default_reference_joints,
                                                       default_reference_posture,
-                                                      nh));
+                                                      nh, 2.0));
     default_reference->setDamping(5.0);
     stack->pushTask(default_reference);
 
+    return true;
   }
 };
 
