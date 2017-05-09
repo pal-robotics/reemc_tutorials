@@ -45,7 +45,6 @@
 #include <wbc_tasks/constraint_kinematic_task.h>
 #include <wbc_tasks/go_to_kinematic_task.h>
 #include <wbc_tasks/go_to_spline_kinematic_task.h>
-#include <wbc_tasks/go_to_relative_kinematic_task.h>
 #include <wbc_tasks/go_to_admitance_kinematic_task.h>
 #include <wbc_tasks/com_kinematic_task.h>
 #include <wbc_tasks/com_stabilizer_kinematic_task.h>
@@ -131,17 +130,17 @@ public:
                                                            0.2,
                                                            false,
                                                            nh));
-    stack->pushTask(joint_position_limit_task);
+    stack->pushTask("joint_limits", joint_position_limit_task);
 
     GoToPoseMetaTaskPtr left_foot_constraint (new GoToPoseMetaTask(*stack.get(), "leg_left_6_link", "topic", nh));
     GoToPoseMetaTaskPtr right_foot_constraint (new GoToPoseMetaTask(*stack.get(), "leg_right_6_link", "topic", nh));
 
 
-    std::vector<TaskAbstractPtr> constraint_tasks;
-    constraint_tasks.push_back(left_foot_constraint);
-    constraint_tasks.push_back(right_foot_constraint);
+    task_container_vector constraint_tasks;
+    constraint_tasks.push_back({"left_foot_constraint", left_foot_constraint});
+    constraint_tasks.push_back({"right_foot_constraint", right_foot_constraint});
     GenericMetaTaskPtr constraint_metatask(new GenericMetaTask(constraint_tasks, stack->getStateSize()));
-    stack->pushTask(TaskAbstractPtr(constraint_metatask));
+    stack->pushTask("constraints", constraint_metatask);
 
     assert(fts_.size() == 4);
     ConstraintStabilizedFIXC0MMetaTaskPtr com_constraint (
@@ -150,7 +149,7 @@ public:
           fts_[1],
         nh) );
 
-    stack->pushTask(com_constraint);
+    stack->pushTask("com_xy", com_constraint);
 
     SelfCollisionSafetyParameters sc_params;
     sc_params.min_distance = 0.08;
@@ -161,16 +160,16 @@ public:
     SelfCollisionSafetyKinematicTaskPtr self_collision(new SelfCollisionSafetyKinematicTask());
     self_collision->setUpTask(sc_params, *stack.get(), nh);
     self_collision->setDamping(0.1);
-    stack->pushTask(self_collision);
+    stack->pushTask("selft_collision", self_collision);
 
     //    GazeSplinePointKinematicMetaTaskPtr gaze_task(
     //          new GazeSplinePointKinematicMetaTask(*stack.get(), "stereo_optical_frame", "topic", nh)); //topic / interactive_marker for rviz or playing
     //    gaze_task->setDamping(0.1);
-    //    stack->pushTask(gaze_task);
+    //    stack->pushTask("gaze", gaze_task);
 
     GoToOrientationMetaTaskPtr base_link_orientation(new GoToOrientationMetaTask(*stack.get(), "base_link", "topic", nh));
     base_link_orientation->setDamping(0.1);
-    stack->pushTask(base_link_orientation);
+    stack->pushTask("base_orientation", base_link_orientation);
 
     /* We probably don't want splines */
     //    GoToSplinePositionMetaTaskPtr go_to_position_left_arm(new GoToSplinePositionMetaTask(*stack.get(), "arm_left_7_link", "topic", nh));
@@ -206,20 +205,19 @@ public:
     //    go_to_orientation_left_arm->setDamping(0.1);
     //stack->pushTask(TaskAbstractPtr(go_to_orientation_left_arm));
 
-    std::vector<TaskAbstractPtr> go_to_position_tasks;
-    go_to_position_tasks.push_back(go_to_position_right_arm);
+    task_container_vector go_to_position_tasks;
+    go_to_position_tasks.push_back({"go_to_position_right_arm", go_to_position_right_arm});
     //    go_to_position_tasks.push_back(go_to_position_left_arm);
     GenericMetaTaskPtr go_to_position_metatasks(new GenericMetaTask(go_to_position_tasks, stack->getStateSize()));
     go_to_position_metatasks->setDamping(0.1);
-    stack->pushTask(TaskAbstractPtr(go_to_position_metatasks));
+    stack->pushTask("go_to_position", go_to_position_metatasks);
 
-    std::vector<TaskAbstractPtr> go_to_orientation_tasks;
-    go_to_orientation_tasks.push_back(go_to_orientation_right_arm);
+    task_container_vector go_to_orientation_tasks;
+    go_to_orientation_tasks.push_back({"go_to_orientation_right_arm", go_to_orientation_right_arm});
     //    go_to_orientation_tasks.push_back(go_to_orientation_left_arm);
     GenericMetaTaskPtr go_to_orientation_metatasks(new GenericMetaTask(go_to_orientation_tasks, stack->getStateSize()));
     go_to_orientation_metatasks->setDamping(0.1);
-    stack->pushTask(TaskAbstractPtr(go_to_orientation_metatasks));
-
+    stack->pushTask("go_to_orientation", go_to_orientation_metatasks);
 
     std::vector<std::string> torso_reference_joints;
     torso_reference_joints.push_back("torso_1_joint");
@@ -242,13 +240,13 @@ public:
                                                       nh, 2.));
     default_reference->setDamping(2.0);
 
-    std::vector<TaskAbstractPtr> reference_metatasks;
-    reference_metatasks.push_back(torso_reference);
-    reference_metatasks.push_back(default_reference);
+    task_container_vector reference_metatasks;
+    reference_metatasks.push_back({"torso_joint_refernce", torso_reference});
+    reference_metatasks.push_back({"joints_reference", default_reference});
 
     GenericMetaTaskPtr reference_metatask(new GenericMetaTask(reference_metatasks, stack->getStateSize()));
     reference_metatask->setDamping(4.0);
-    stack->pushTask(reference_metatask);
+    stack->pushTask("joint_reference", reference_metatask);
 
     return true;
   }
@@ -286,7 +284,7 @@ public:
                                                            0.2,
                                                            false,
                                                            nh));
-    stack->pushTask(joint_position_limit_task);
+    stack->pushTask("joint_limits", joint_position_limit_task);
 
     assert(fts_.size() == 2);
 
@@ -322,21 +320,21 @@ public:
     go_to_orientation_right_foot->setDamping(0.1);
 
 
-    std::vector<TaskAbstractPtr> go_to_position_tasks;
-    go_to_position_tasks.push_back(go_to_position_right_foot);
-    go_to_position_tasks.push_back(go_to_position_left_foot);
+    task_container_vector go_to_position_tasks;
+    go_to_position_tasks.push_back({"go_to_position_right_foot", go_to_position_right_foot});
+    go_to_position_tasks.push_back({"got_to_position_left_foot", go_to_position_left_foot});
 
     GenericMetaTaskPtr go_to_position_metatasks(new GenericMetaTask(go_to_position_tasks, stack->getStateSize()));
     go_to_position_metatasks->setDamping(0.1);
-    stack->pushTask(TaskAbstractPtr(go_to_position_metatasks));
+    stack->pushTask("go_to_position", go_to_position_metatasks);
 
-    std::vector<TaskAbstractPtr> go_to_orientation_tasks;
-    go_to_orientation_tasks.push_back(go_to_orientation_right_foot);
-    go_to_orientation_tasks.push_back(go_to_orientation_left_foot);
+    task_container_vector go_to_orientation_tasks;
+    go_to_orientation_tasks.push_back({"go_to_orientation_right_foot", go_to_orientation_right_foot});
+    go_to_orientation_tasks.push_back({"go_to_orientation_left_foot", go_to_orientation_left_foot});
 
     GenericMetaTaskPtr go_to_orientation_metatasks(new GenericMetaTask(go_to_orientation_tasks, stack->getStateSize()));
     go_to_orientation_metatasks->setDamping(0.1);
-    stack->pushTask(TaskAbstractPtr(go_to_orientation_metatasks));
+    stack->pushTask("go_to_orientation", go_to_orientation_metatasks);
 
     return true;
 
@@ -398,7 +396,7 @@ public:
                                                            stack->getJointVelocityLimitMin(), stack->getJointVelocityLimitMax(),
                                                            stack->getJointNames(),
                                                            0.2, false, nh));
-    stack->pushTask(joint_position_limit_task);
+    stack->pushTask("joint_limits", joint_position_limit_task);
 
     SelfCollisionSafetyParameters sc_params;
     sc_params.min_distance = 0.08;
@@ -409,7 +407,7 @@ public:
     SelfCollisionSafetyKinematicTaskPtr self_collision(new SelfCollisionSafetyKinematicTask());
     self_collision->setUpTask(sc_params, *stack.get(), nh);
     self_collision->setDamping(0.1);
-    stack->pushTask(self_collision);
+    stack->pushTask("selft_collision", self_collision);
 
     assert(fts_.size() == 2);
 
@@ -437,20 +435,19 @@ public:
     go_to_orientation_right_arm->setDamping(0.1);
 
 
-    std::vector<TaskAbstractPtr> go_to_position_tasks;
-    go_to_position_tasks.push_back(go_to_position_left_arm);
-    go_to_position_tasks.push_back(go_to_position_right_arm);
+    task_container_vector go_to_position_tasks;
+    go_to_position_tasks.push_back({"go_to_position_left_arm", go_to_position_left_arm});
+    go_to_position_tasks.push_back({"go_to_position_righ_arm", go_to_position_right_arm});
     GenericMetaTaskPtr go_to_position_metatasks(new GenericMetaTask(go_to_position_tasks, stack->getStateSize()));
     go_to_position_metatasks->setDamping(0.1);
-    stack->pushTask(TaskAbstractPtr(go_to_position_metatasks));
+    stack->pushTask("go_to_position", go_to_position_metatasks);
 
-    std::vector<TaskAbstractPtr> go_to_orientation_tasks;
-    go_to_orientation_tasks.push_back(go_to_orientation_left_arm);
-    go_to_orientation_tasks.push_back(go_to_orientation_right_arm);
+    task_container_vector go_to_orientation_tasks;
+    go_to_orientation_tasks.push_back({"go_to_orientation_left_arm", go_to_orientation_left_arm});
+    go_to_orientation_tasks.push_back({"go_to_orientation_right_arm", go_to_orientation_right_arm});
     GenericMetaTaskPtr go_to_orientation_metatasks(new GenericMetaTask(go_to_orientation_tasks, stack->getStateSize()));
     go_to_orientation_metatasks->setDamping(0.1);
-    stack->pushTask(TaskAbstractPtr(go_to_orientation_metatasks));
-
+    stack->pushTask("go_to_orientation", go_to_orientation_metatasks);
 
     std::vector<std::string> torso_reference_joints;
     torso_reference_joints.push_back("torso_1_joint");
@@ -465,7 +462,7 @@ public:
                                                       torso_posture,
                                                       nh, 2.));
     torso_reference->setDamping(1.0);
-    stack->pushTask(torso_reference);
+    stack->pushTask("torso_joint_reference", torso_reference);
 
     ReferenceKinematicTaskAllJointsMetaTaskPtr default_reference(
           new ReferenceKinematicTaskAllJointsMetaTask(*stack.get(),
@@ -473,7 +470,7 @@ public:
                                                       default_reference_posture,
                                                       nh, 2.));
     default_reference->setDamping(1.0);
-    stack->pushTask(default_reference);
+    stack->pushTask("joint_reference", default_reference);
 
     return true;
   }

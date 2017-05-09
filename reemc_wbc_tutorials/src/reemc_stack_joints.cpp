@@ -44,7 +44,6 @@
 #include <wbc_tasks/constraint_kinematic_task.h>
 #include <wbc_tasks/go_to_kinematic_task.h>
 #include <wbc_tasks/go_to_spline_kinematic_task.h>
-#include <wbc_tasks/go_to_relative_kinematic_task.h>
 #include <wbc_tasks/com_kinematic_task.h>
 #include <wbc_tasks/com_stabilizer_kinematic_task.h>
 #include <wbc_tasks/reference_kinematic_task.h>
@@ -76,20 +75,20 @@ public:
                                                            1.0,
                                                            false,
                                                            nh));
-    stack->pushTask(joint_position_limit_task);
+    stack->pushTask("joint_limits", joint_position_limit_task);
 
     GoToPoseMetaTaskPtr left_foot_constraint (new GoToPoseMetaTask(*stack.get(), "leg_left_6_link", "none", nh));
     GoToPoseMetaTaskPtr right_foot_constraint (new GoToPoseMetaTask(*stack.get(), "leg_right_6_link", "none", nh));
 
-    std::vector<TaskAbstractPtr> constraint_tasks;
-    constraint_tasks.push_back(left_foot_constraint);
-    constraint_tasks.push_back(right_foot_constraint);
+    task_container_vector constraint_tasks;
+    constraint_tasks.push_back({"left_foot_constraint", left_foot_constraint});
+    constraint_tasks.push_back({"right_foot_constraint", right_foot_constraint});
     //Constraint both feet
     GenericMetaTaskPtr constraint_metatask(new GenericMetaTask(constraint_tasks, stack->getStateSize()));
-    stack->pushTask(TaskAbstractPtr(constraint_metatask));
+    stack->pushTask("constraints", constraint_metatask);
     //Constraint the X-Y coordinates of the COM
     ConstraintFIXC0MMetaTaskPtr com_constraint (new ConstraintFIXC0MMetaTask(*stack.get(), nh) );
-    stack->pushTask(com_constraint);
+    stack->pushTask("com_xy", com_constraint);
 
     //Avoid self collision
     SelfCollisionSafetyParameters sc_params;
@@ -102,7 +101,7 @@ public:
     SelfCollisionSafetyKinematicTaskPtr self_collision(new SelfCollisionSafetyKinematicTask);
     self_collision->setUpTask(sc_params, *stack.get(), nh);
     self_collision->setDamping(0.1);
-    stack->pushTask(self_collision);
+    stack->pushTask("selft_collision", self_collision);
 
     std::vector<std::string> default_reference_joints;
     default_reference_joints.push_back("arm_left_1_joint");
@@ -140,7 +139,7 @@ public:
                                                       default_reference_joints,
                                                       default_reference_posture,
                                                       nh, 2.));
-    stack->pushTask(default_reference);
+    stack->pushTask("default_reference", default_reference);
 
     return true;
   }

@@ -103,21 +103,21 @@ public:
                                                            1.0,
                                                            false,
                                                            nh));
-    stack->pushTask(joint_position_limit_task);
+    stack->pushTask("joint_limits", joint_position_limit_task);
 
     //Constraint left, right foot
     GoToPoseMetaTaskPtr left_foot_constraint (new GoToPoseMetaTask(*stack.get(), "leg_left_6_link", "none", nh) );
     GoToPoseMetaTaskPtr right_foot_constraint (new GoToPoseMetaTask(*stack.get(), "leg_right_6_link", "none", nh) );
 
-    std::vector<TaskAbstractPtr> constraint_tasks;
-    constraint_tasks.push_back(left_foot_constraint);
-    constraint_tasks.push_back(right_foot_constraint);
+    task_container_vector constraint_tasks;
+    constraint_tasks.push_back({"left_foot_constraint", left_foot_constraint});
+    constraint_tasks.push_back({"right_foot_constraint", right_foot_constraint});
     GenericMetaTaskPtr constraint_metatask(new GenericMetaTask(constraint_tasks, stack->getStateSize()));
-    stack->pushTask(TaskAbstractPtr(constraint_metatask));
+    stack->pushTask("constraints", constraint_metatask);
 
     //Constraint the COM
     ConstraintFIXC0MMetaTaskPtr com_constraint (new ConstraintFIXC0MMetaTask(*stack.get(), nh));
-    stack->pushTask(com_constraint);
+    stack->pushTask("com_xy", com_constraint);
 
     //Self collision
     SelfCollisionSafetyParameters sc_params;
@@ -129,31 +129,31 @@ public:
     SelfCollisionSafetyKinematicTaskPtr self_collision(new SelfCollisionSafetyKinematicTask() );
     self_collision->setUpTask(sc_params, *stack.get(), nh);
     self_collision->setDamping(0.1);
-    stack->pushTask(self_collision);
+    stack->pushTask("selft_collision", self_collision);
 
     GazePointKinematicMetaTaskPtr gaze_task(new GazePointKinematicMetaTask(*stack.get(), "stereo_optical_frame", "interactive_marker", nh));
     gaze_task->setDamping(0.02);
-    stack->pushTask(gaze_task);
+    stack->pushTask("gaze", gaze_task);
 
     //Position Target Reference for right and left arm
     GoToPositionMetaTaskPtr go_to_position_left_arm(new GoToPositionMetaTask(*stack.get(), "arm_left_7_link", "interactive_marker", nh));
     GoToPositionMetaTaskPtr go_to_position_right_arm(new GoToPositionMetaTask(*stack.get(), "arm_right_7_link", "interactive_marker", nh));
-    std::vector<TaskAbstractPtr> go_to_position_tasks;
-    go_to_position_tasks.push_back(go_to_position_left_arm);
-    go_to_position_tasks.push_back(go_to_position_right_arm);
+    task_container_vector go_to_position_tasks;
+    go_to_position_tasks.push_back({"go_to_position_left_arm", go_to_position_left_arm});
+    go_to_position_tasks.push_back({"go_to_position_right_arm", go_to_position_right_arm});
     GenericMetaTaskPtr go_to_position_metatasks(new GenericMetaTask(go_to_position_tasks, stack->getStateSize()));
     go_to_position_metatasks->setDamping(0.1);
-    stack->pushTask(TaskAbstractPtr(go_to_position_metatasks));
+    stack->pushTask("go_to_pose", go_to_position_metatasks);
 
     //Try to keep base orientation
     GoToOrientationMetaTaskPtr base_link_orientation(new GoToOrientationMetaTask(*stack.get(), "base_link", "interactive_marker", nh));
     base_link_orientation->setDamping(0.02);
-    stack->pushTask(base_link_orientation);
+    stack->pushTask("base_orientation", base_link_orientation);
 
     //Try to keep torso orientation
     GoToOrientationMetaTaskPtr torso_link_orientation(new GoToOrientationMetaTask(*stack.get(), "torso_2_link", "interactive_marker", nh));
     torso_link_orientation->setDamping(0.02);
-    stack->pushTask(torso_link_orientation);
+    stack->pushTask("torso_orientation", torso_link_orientation);
 
     //Reference posture
     ReferenceKinematicTaskAllJointsMetaTaskPtr reference(
@@ -161,7 +161,7 @@ public:
                                                       default_reference_joints,
                                                       default_reference_posture,
                                                       nh, 2.));
-    stack->pushTask(reference);
+    stack->pushTask("joint_reference", reference);
 
     return true;
   }
@@ -214,16 +214,16 @@ public:
                                                            1.0,
                                                            false,
                                                            nh));
-    stack->pushTask(joint_position_limit_task);
+    stack->pushTask("joint_limits", joint_position_limit_task);
 
     GoToPoseMetaTaskPtr left_foot_constraint (new GoToPoseMetaTask(*stack.get(), "leg_left_6_link", "none", nh) );
     GoToPoseMetaTaskPtr right_foot_constraint (new GoToPoseMetaTask(*stack.get(), "leg_right_6_link", "none", nh) );
 
-    std::vector<TaskAbstractPtr> constraint_tasks;
-    constraint_tasks.push_back(left_foot_constraint);
-    constraint_tasks.push_back(right_foot_constraint);
+    task_container_vector constraint_tasks;
+    constraint_tasks.push_back({"left_foot_constraint", left_foot_constraint});
+    constraint_tasks.push_back({"right_foot_constraint", right_foot_constraint});
     GenericMetaTaskPtr constraint_metatask(new GenericMetaTask(constraint_tasks, stack->getStateSize()));
-    stack->pushTask(TaskAbstractPtr(constraint_metatask));
+    stack->pushTask("constraints", constraint_metatask);
 
     assert(fts_.size() == 2);
     ConstraintStabilizedFIXC0MMetaTaskPtr com_constraint (
@@ -231,7 +231,7 @@ public:
                                                  fts_[0],
                                                  fts_[1],
                                                  nh));
-    stack->pushTask(com_constraint);
+    stack->pushTask("com_xy", com_constraint);
 
     SelfCollisionSafetyParameters sc_params;
     sc_params.min_distance = 0.08;
@@ -242,35 +242,36 @@ public:
     SelfCollisionSafetyKinematicTaskPtr self_collision(new SelfCollisionSafetyKinematicTask() );
     self_collision->setUpTask(sc_params, *stack.get(), nh);
     self_collision->setDamping(0.1);
-    stack->pushTask(self_collision);
+    stack->pushTask("selft_collision", self_collision);
 
     GazePointKinematicMetaTaskPtr gaze_task(new GazePointKinematicMetaTask(*stack.get(), "stereo_optical_frame", "interactive_marker", nh));
     gaze_task->setDamping(0.02);
-    stack->pushTask(gaze_task);
+    stack->pushTask("gaze", gaze_task);
 
     GoToPositionMetaTaskPtr go_to_position_left_arm(new GoToPositionMetaTask(*stack.get(), "arm_left_7_link", "interactive_marker", nh));
     GoToPositionMetaTaskPtr go_to_position_right_arm(new GoToPositionMetaTask(*stack.get(), "arm_right_7_link", "interactive_marker", nh));
-    std::vector<TaskAbstractPtr> go_to_position_tasks;
-    go_to_position_tasks.push_back(go_to_position_left_arm);
-    go_to_position_tasks.push_back(go_to_position_right_arm);
-    GenericMetaTaskPtr go_to_position_metatasks(new GenericMetaTask(go_to_position_tasks, stack->getStateSize()));
+    task_container_vector go_to_position_tasks;
+    go_to_position_tasks.push_back({"go_to_position_left_arm", go_to_position_left_arm});
+    go_to_position_tasks.push_back({"go_to_position_right_arm", go_to_position_right_arm});
+    GenericMetaTaskPtr go_to_position_metatasks(
+          new GenericMetaTask(go_to_position_tasks, stack->getStateSize()));
     go_to_position_metatasks->setDamping(0.1);
-    stack->pushTask(TaskAbstractPtr(go_to_position_metatasks));
+    stack->pushTask("go_to_position", go_to_position_metatasks);
 
     GoToOrientationMetaTaskPtr base_link_orientation(new GoToOrientationMetaTask(*stack.get(), "base_link", "interactive_marker", nh));
     base_link_orientation->setDamping(0.02);
-    stack->pushTask(base_link_orientation);
+    stack->pushTask("base_orientation", base_link_orientation);
 
     GoToOrientationMetaTaskPtr torso_link_orientation(new GoToOrientationMetaTask(*stack.get(), "torso_2_link", "interactive_marker", nh));
     torso_link_orientation->setDamping(0.02);
-    stack->pushTask(torso_link_orientation);
+    stack->pushTask("torso_orientation", torso_link_orientation);
 
     ReferenceKinematicTaskAllJointsMetaTaskPtr reference(
           new ReferenceKinematicTaskAllJointsMetaTask(*stack.get(),
                                                       default_reference_joints,
                                                       default_reference_posture,
                                                       nh, 2.));
-    stack->pushTask(reference);
+    stack->pushTask("joint_reference", reference);
 
     return true;
   }

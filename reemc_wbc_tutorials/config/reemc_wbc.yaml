@@ -7,7 +7,8 @@ whole_body_kinematic_controller:
   floating_base: XYZ_Quaternion
   formulation: velocity
   stack_configuration: reemc_stack_both_hands_head
-  solver: QpReductionuEqualitiesQuadprogHeapAllocation
+  solver_type: QpReductionuEqualitiesQuadprogHeapAllocation
+  real_hardware: False
 
   robot_model_chains:
     [arm_left_tool_link,
@@ -28,3 +29,35 @@ whole_body_kinematic_controller:
     arm_left_4_joint: 0.8
     arm_right_4_joint: 0.8
 
+  position_joints:
+    - leg_left_1_joint
+    - leg_left_2_joint
+    - leg_left_3_joint
+    - leg_left_4_joint
+    - leg_left_5_joint
+    - leg_left_6_joint
+    - leg_right_1_joint
+    - leg_right_2_joint
+    - leg_right_3_joint
+    - leg_right_4_joint
+    - leg_right_5_joint
+    - leg_right_6_joint
+    - arm_left_1_joint
+    - arm_left_2_joint
+    - arm_left_3_joint
+    - arm_left_4_joint
+    - arm_left_5_joint
+    - arm_left_6_joint
+    - arm_left_7_joint
+    - arm_right_1_joint
+    - arm_right_2_joint
+    - arm_right_3_joint
+    - arm_right_4_joint
+    - arm_right_5_joint
+    - arm_right_6_joint
+    - arm_right_7_joint
+    - head_1_joint
+    - head_2_joint
+    - torso_1_joint
+    - torso_2_joint
+    
