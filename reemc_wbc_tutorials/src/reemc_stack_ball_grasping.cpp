@@ -43,12 +43,10 @@
 #include <wbc_tasks/joint_pos_limit_kinematic_task.h>
 #include <wbc_tasks/constraint_kinematic_task.h>
 #include <wbc_tasks/go_to_kinematic_task.h>
-#include <wbc_tasks/go_to_spline_kinematic_task.h>
 #include <wbc_tasks/com_kinematic_task.h>
 #include <wbc_tasks/com_stabilizer_kinematic_task.h>
 #include <wbc_tasks/reference_kinematic_task.h>
 #include <wbc_tasks/gaze_kinematic_task.h>
-#include <wbc_tasks/gaze_spline_kinematic_task.h>
 #include <wbc_tasks/self_collision_kinematic_task.h>
 #include <wbc_tasks/self_collision_safety_kinematic_task.h>
 #include <pluginlib/class_list_macros.h>
@@ -163,8 +161,8 @@ public:
     base_link_orientation->setDamping(0.1);
     stack->pushTask("base_orientation", base_link_orientation);
 
-    GazeSplinePointKinematicMetaTaskPtr gaze_task(
-          new GazeSplinePointKinematicMetaTask(*stack.get(), "stereo_optical_frame", "topic", nh));
+    GazePointKinematicMetaTaskPtr gaze_task(
+          new GazePointKinematicMetaTask(*stack.get(), "stereo_optical_frame", "topic_reflexxes_typeII", nh));
     gaze_task->setDamping(0.1);
     stack->pushTask("gaze", gaze_task);
 
@@ -186,8 +184,8 @@ public:
                                                       nh, 2.));
     left_arm_reference_posture->setDamping(0.1);
 
-    GoToSplinePositionMetaTaskPtr go_to_position_right_arm(
-          new GoToSplinePositionMetaTask(*stack.get(), "arm_right_7_link", "topic", nh));
+    GoToPositionMetaTaskPtr go_to_position_right_arm(
+          new GoToPositionMetaTask(*stack.get(), "arm_right_7_link", "topic_reflexxes_typeII", nh));
 
     task_container_vector go_to_position_tasks;
     go_to_position_tasks.push_back({"go_to_position_right_arm", go_to_position_right_arm});

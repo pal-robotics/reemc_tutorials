@@ -43,12 +43,10 @@
 #include <wbc_tasks/joint_pos_limit_kinematic_task.h>
 #include <wbc_tasks/constraint_kinematic_task.h>
 #include <wbc_tasks/go_to_kinematic_task.h>
-#include <wbc_tasks/go_to_spline_kinematic_task.h>
 #include <wbc_tasks/com_kinematic_task.h>
 #include <wbc_tasks/com_stabilizer_kinematic_task.h>
 #include <wbc_tasks/reference_kinematic_task.h>
 #include <wbc_tasks/gaze_kinematic_task.h>
-#include <wbc_tasks/gaze_spline_kinematic_task.h>
 #include <wbc_tasks/self_collision_kinematic_task.h>
 #include <wbc_tasks/self_collision_safety_kinematic_task.h>
 #include <pluginlib/class_list_macros.h>
