@@ -57,6 +57,7 @@
 // OpenCV headers
 #include <opencv2/core/core.hpp>
 #include <opencv2/highgui/highgui.hpp>
+#include <opencv2/imgproc/imgproc.hpp>
 
 /**
  * @brief callback callback function when a pair of synchronized image and person detections
