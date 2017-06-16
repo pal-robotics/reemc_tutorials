@@ -22,7 +22,8 @@ whole_body_kinematic_controler:
   floating_base: XYZ_Quaternion
   formulation: velocity
   stack_configuration: reemc_admitance
-  solver: QpReductionuEqualitiesQuadprogHeapAllocation
+  solver_type: QpReductionuEqualitiesQuadprogHeapAllocation
+  real_hardware: False
 
   robot_model_chains:
     [wrist_left_ft_link,
@@ -79,5 +80,35 @@ whole_body_kinematic_controler:
   #   torque_admitance_deadband: 0.1
   #   ft_smoothing_factor: 0.03
   #   used_smoothed_FT: True
+
+  position_joints:
+    - leg_left_1_joint
+    - leg_left_2_joint
+    - leg_left_3_joint
+    - leg_left_4_joint
+    - leg_left_5_joint
+    - leg_left_6_joint
+    - leg_right_1_joint
+    - leg_right_2_joint
+    - leg_right_3_joint
+    - leg_right_4_joint
+    - leg_right_5_joint
+    - leg_right_6_joint
+    - arm_left_1_joint
+    - arm_left_2_joint
+    - arm_left_3_joint
+    - arm_left_4_joint
+    - arm_left_5_joint
+    - arm_left_6_joint
+    - arm_left_7_joint
+    - arm_right_1_joint
+    - arm_right_2_joint
+    - arm_right_3_joint
+    - arm_right_4_joint
+    - arm_right_5_joint
+    - arm_right_6_joint
+    - arm_right_7_joint
+    - torso_1_joint
+    - torso_2_joint
 
 

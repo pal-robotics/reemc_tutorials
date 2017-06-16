@@ -173,7 +173,7 @@ public:
     bool initRequest(hardware_interface::RobotHW* robot_hw,
                      ros::NodeHandle&             root_nh,
                      ros::NodeHandle &            controller_nh,
-                     std::set<std::string>&       claimed_resources){
+                     ClaimedResources&       claimed_resources){
 
         // Check if construction finished cleanly
         if (state_ != CONSTRUCTED){
@@ -199,7 +199,8 @@ public:
             ROS_ERROR("Failed to initialize the controller");
             return false;
         }
-        claimed_resources = eff_iface->getClaims();
+        claimed_resources.push_back(hardware_interface::InterfaceResources(hardware_interface::internal::demangledTypeName<hardware_interface::EffortJointInterface>(),
+                                        eff_iface->getClaims()));
         eff_iface->clearClaims();
 
 
