@@ -103,8 +103,8 @@ public:
                                                            nh));
 
     //Constraint left, right foot
-    GoToPoseMetaTaskPtr left_foot_constraint (new GoToPoseMetaTask(*stack.get(), "leg_left_6_link", "none", nh) );
-    GoToPoseMetaTaskPtr right_foot_constraint (new GoToPoseMetaTask(*stack.get(), "leg_right_6_link", "none", nh) );
+    GoToPoseMetaTaskPtr left_foot_constraint (new GoToPoseMetaTask(*stack.get(), "leg_left_6_link", "pointer", nh) );
+    GoToPoseMetaTaskPtr right_foot_constraint (new GoToPoseMetaTask(*stack.get(), "leg_right_6_link", "pointer", nh) );
 
     //Constraint the COM
     ConstraintFIXC0MMetaTaskPtr com_constraint (new ConstraintFIXC0MMetaTask(*stack.get(), nh));
@@ -214,8 +214,8 @@ public:
                                                                      nh));
         stack->pushTask(joint_position_limit_task);
 
-        GoToPoseMetaTaskPtr left_foot_constraint (new GoToPoseMetaTask(*stack.get(), "leg_left_6_link", "none", nh) );
-        GoToPoseMetaTaskPtr right_foot_constraint (new GoToPoseMetaTask(*stack.get(), "leg_right_6_link", "none", nh) );
+        GoToPoseMetaTaskPtr left_foot_constraint (new GoToPoseMetaTask(*stack.get(), "leg_left_6_link", "pointer", nh) );
+        GoToPoseMetaTaskPtr right_foot_constraint (new GoToPoseMetaTask(*stack.get(), "leg_right_6_link", "pointer", nh) );
 
         std::vector<TaskAbstractPtr> constraint_tasks;
         constraint_tasks.push_back(left_foot_constraint);

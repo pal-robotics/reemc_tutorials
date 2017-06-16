@@ -104,8 +104,8 @@ public:
     stack->pushTask("joint_limits", joint_position_limit_task);
 
     //Constraint left, right foot
-    GoToPoseMetaTaskPtr left_foot_constraint (new GoToPoseMetaTask(*stack.get(), "leg_left_6_link", "none", nh) );
-    GoToPoseMetaTaskPtr right_foot_constraint (new GoToPoseMetaTask(*stack.get(), "leg_right_6_link", "none", nh) );
+    GoToPoseMetaTaskPtr left_foot_constraint (new GoToPoseMetaTask(*stack.get(), "leg_left_6_link", "pointer", nh) );
+    GoToPoseMetaTaskPtr right_foot_constraint (new GoToPoseMetaTask(*stack.get(), "leg_right_6_link", "pointer", nh) );
 
     task_container_vector constraint_tasks;
     constraint_tasks.push_back({"left_foot_constraint", left_foot_constraint});
@@ -140,7 +140,8 @@ public:
     go_to_position_tasks.push_back({"go_to_position_left_arm", go_to_position_left_arm});
     go_to_position_tasks.push_back({"go_to_position_right_arm", go_to_position_right_arm});
     GenericMetaTaskPtr go_to_position_metatasks(new GenericMetaTask(go_to_position_tasks, stack->getStateSize()));
-    go_to_position_metatasks->setDamping(0.1);
+    go_to_position_left_arm->setDamping(0.1);
+    go_to_position_right_arm->setDamping(0.1);
     stack->pushTask("go_to_pose", go_to_position_metatasks);
 
     //Try to keep base orientation
@@ -214,8 +215,8 @@ public:
                                                            nh));
     stack->pushTask("joint_limits", joint_position_limit_task);
 
-    GoToPoseMetaTaskPtr left_foot_constraint (new GoToPoseMetaTask(*stack.get(), "leg_left_6_link", "none", nh) );
-    GoToPoseMetaTaskPtr right_foot_constraint (new GoToPoseMetaTask(*stack.get(), "leg_right_6_link", "none", nh) );
+    GoToPoseMetaTaskPtr left_foot_constraint (new GoToPoseMetaTask(*stack.get(), "leg_left_6_link", "pointer", nh) );
+    GoToPoseMetaTaskPtr right_foot_constraint (new GoToPoseMetaTask(*stack.get(), "leg_right_6_link", "pointer", nh) );
 
     task_container_vector constraint_tasks;
     constraint_tasks.push_back({"left_foot_constraint", left_foot_constraint});
