@@ -1,0 +1,61 @@
+joints:
+   leg_left_1_joint:
+      type: pal_local_joint_control::DirectPositionControl
+   leg_left_2_joint:
+      type: pal_local_joint_control::DirectPositionControl
+   leg_left_3_joint:
+      type: pal_local_joint_control::DirectPositionControl
+   leg_left_4_joint:
+      type: pal_local_joint_control::DirectPositionControl
+   leg_left_5_joint:
+      type: pal_local_joint_control::DirectPositionControl
+   leg_left_6_joint:
+      type: pal_local_joint_control::DirectPositionControl
+   leg_right_1_joint:
+      type: pal_local_joint_control::DirectPositionControl
+   leg_right_2_joint:
+      type: pal_local_joint_control::DirectPositionControl
+   leg_right_3_joint:
+      type: pal_local_joint_control::DirectPositionControl
+   leg_right_4_joint:
+      type: pal_local_joint_control::DirectPositionControl
+   leg_right_5_joint:
+      type: pal_local_joint_control::DirectPositionControl
+   leg_right_6_joint:
+      type: pal_local_joint_control::DirectPositionControl
+   head_1_joint:
+      type: pal_local_joint_control::DirectPositionControl
+   head_2_joint:
+      type: pal_local_joint_control::DirectPositionControl
+   torso_1_joint:
+      type: pal_local_joint_control::DirectPositionControl
+   torso_2_joint:
+      type: pal_local_joint_control::DirectPositionControl
+   arm_left_1_joint:
+      type: pal_local_joint_control::DirectPositionControl
+   arm_left_2_joint:
+      type: pal_local_joint_control::DirectPositionControl
+   arm_left_3_joint:
+      type: pal_local_joint_control::DirectPositionControl
+   arm_left_4_joint:
+      type: pal_local_joint_control::DirectPositionControl
+   arm_left_5_joint:
+      type: pal_local_joint_control::DirectPositionControl
+   arm_left_6_joint:
+      type: pal_local_joint_control::DirectPositionControl
+   arm_left_7_joint:
+      type: pal_local_joint_control::DirectPositionControl
+   arm_right_1_joint:
+      type: pal_local_joint_control::DirectPositionControl
+   arm_right_2_joint:
+      type: pal_local_joint_control::DirectPositionControl
+   arm_right_3_joint:
+      type: pal_local_joint_control::DirectPositionControl
+   arm_right_4_joint:
+      type: pal_local_joint_control::DirectPositionControl
+   arm_right_5_joint:
+      type: pal_local_joint_control::DirectPositionControl
+   arm_right_6_joint:
+      type: pal_local_joint_control::DirectPositionControl
+   arm_right_7_joint:
+      type: pal_local_joint_control::DirectPositionControl
