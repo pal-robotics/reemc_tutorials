@@ -82,7 +82,7 @@ public:
     constraint_tasks.push_back({"left_foot_constraint", left_foot_constraint});
     constraint_tasks.push_back({"right_foot_constraint", right_foot_constraint});
     //Constraint both feet
-    GenericMetaTaskPtr constraint_metatask(new GenericMetaTask(constraint_tasks, stack->getStateSize()));
+    GenericMetaTaskPtr constraint_metatask(new GenericMetaTask(nh, stack.get(), constraint_tasks, stack->getStateSize()));
     stack->pushTask("constraints", constraint_metatask);
     //Constraint the X-Y coordinates of the COM
     ConstraintFIXC0MMetaTaskPtr com_constraint (new ConstraintFIXC0MMetaTask(*stack.get(), nh) );

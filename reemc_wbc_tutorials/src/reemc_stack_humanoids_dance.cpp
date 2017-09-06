@@ -134,7 +134,7 @@ public:
     task_container_vector constraint_tasks;
     constraint_tasks.push_back({"left_foot_constraint", left_foot_constraint});
     constraint_tasks.push_back({"right_foot_constraint", right_foot_constraint});
-    GenericMetaTaskPtr constraint_metatask(new GenericMetaTask(constraint_tasks, stack->getStateSize()));
+    GenericMetaTaskPtr constraint_metatask(new GenericMetaTask(nh, stack.get(), constraint_tasks, stack->getStateSize()));
     stack->pushTask("costraints", constraint_metatask);
 
     //Constraint the COM
@@ -171,7 +171,7 @@ public:
     task_container_vector go_to_position_tasks;
     go_to_position_tasks.push_back({"go_to_position_left_arm", go_to_position_left_arm});
     go_to_position_tasks.push_back({"go_to_position_right_arm", go_to_position_right_arm});
-    GenericMetaTaskPtr go_to_position_metatasks(new GenericMetaTask(go_to_position_tasks, stack->getStateSize()));
+    GenericMetaTaskPtr go_to_position_metatasks(new GenericMetaTask(nh, stack.get(), go_to_position_tasks, stack->getStateSize()));
     go_to_position_metatasks->setDamping(0.1);
     stack->pushTask("go_to_position", go_to_position_metatasks);
 
@@ -285,7 +285,7 @@ public:
     task_container_vector constraint_tasks;
     constraint_tasks.push_back({"left_foot_constraint", left_foot_constraint});
     constraint_tasks.push_back({"right_foot_constraint", right_foot_constraint});
-    GenericMetaTaskPtr constraint_metatask(new GenericMetaTask(constraint_tasks, stack->getStateSize()));
+    GenericMetaTaskPtr constraint_metatask(new GenericMetaTask(nh, stack.get(), constraint_tasks, stack->getStateSize()));
     stack->pushTask("constraints", constraint_metatask);
 
     assert(fts_.size() == 2);
@@ -323,7 +323,7 @@ public:
     task_container_vector go_to_position_tasks;
     go_to_position_tasks.push_back({"go_to_position_left_arm", go_to_position_left_arm});
     go_to_position_tasks.push_back({"go_to_positoin_right_arm", go_to_position_right_arm});
-    GenericMetaTaskPtr go_to_position_metatasks(new GenericMetaTask(go_to_position_tasks, stack->getStateSize()));
+    GenericMetaTaskPtr go_to_position_metatasks(new GenericMetaTask(nh, stack.get(), go_to_position_tasks, stack->getStateSize()));
     go_to_position_metatasks->setDamping(0.1);
     stack->pushTask("go_to_position", go_to_position_metatasks);
 
@@ -426,7 +426,7 @@ public:
     task_container_vector constraint_tasks;
     constraint_tasks.push_back({"left_foot_constraint", left_foot_constraint});
     constraint_tasks.push_back({"right_foot_constraint", right_foot_constraint});
-    GenericMetaTaskPtr constraint_metatask(new GenericMetaTask(constraint_tasks, stack->getStateSize()));
+    GenericMetaTaskPtr constraint_metatask(new GenericMetaTask(nh, stack.get(), constraint_tasks, stack->getStateSize()));
     stack->pushTask("constraints", constraint_metatask);
     assert(fts_.size() == 2);
     ConstraintStabilizedFIXC0MMetaTaskPtr com_constraint (

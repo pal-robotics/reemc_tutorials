@@ -126,7 +126,7 @@ public:
     constraint_tasks.push_back({"joint_limits", joint_position_limit_task});
     constraint_tasks.push_back({"com_xy", com_constraint});
     constraint_tasks.push_back({"sefl_collision", self_collision});
-    GenericMetaTaskPtr constraint_metatask(new GenericMetaTask(constraint_tasks, stack->getStateSize()));
+    GenericMetaTaskPtr constraint_metatask(new GenericMetaTask(nh, stack.get(), constraint_tasks, stack->getStateSize()));
     stack->pushTask("constraints", constraint_metatask);
 
     GazePointKinematicMetaTaskPtr gaze_task(new GazePointKinematicMetaTask(*stack.get(), "stereo_optical_frame", "interactive_marker", nh));
@@ -158,7 +158,7 @@ public:
     objective_tasks.push_back({"base_orieentation", base_link_orientation});
     objective_tasks.push_back({"torso_orientation", torso_link_orientation});
     objective_tasks.push_back({"joint_reference", reference});
-    GenericMetaTaskPtr objective_metatask(new GenericMetaTask(objective_tasks, stack->getStateSize()));
+    GenericMetaTaskPtr objective_metatask(new GenericMetaTask(nh, stack.get(), objective_tasks, stack->getStateSize()));
     stack->pushTask("objectives", objective_metatask);
 
     return true;

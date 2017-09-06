@@ -137,7 +137,7 @@ public:
     task_container_vector constraint_tasks;
     constraint_tasks.push_back({"left_foot_constraint", left_foot_constraint});
     constraint_tasks.push_back({"right_foot_constraint", right_foot_constraint});
-    GenericMetaTaskPtr constraint_metatask(new GenericMetaTask(constraint_tasks, stack->getStateSize()));
+    GenericMetaTaskPtr constraint_metatask(new GenericMetaTask(nh, stack.get(), constraint_tasks, stack->getStateSize()));
     stack->pushTask("constraints", constraint_metatask);
 
     assert(fts_.size() == 4);
@@ -206,14 +206,14 @@ public:
     task_container_vector go_to_position_tasks;
     go_to_position_tasks.push_back({"go_to_position_right_arm", go_to_position_right_arm});
     //    go_to_position_tasks.push_back(go_to_position_left_arm);
-    GenericMetaTaskPtr go_to_position_metatasks(new GenericMetaTask(go_to_position_tasks, stack->getStateSize()));
+    GenericMetaTaskPtr go_to_position_metatasks(new GenericMetaTask(nh, stack.get(), go_to_position_tasks, stack->getStateSize()));
     go_to_position_metatasks->setDamping(0.1);
     stack->pushTask("go_to_position", go_to_position_metatasks);
 
     task_container_vector go_to_orientation_tasks;
     go_to_orientation_tasks.push_back({"go_to_orientation_right_arm", go_to_orientation_right_arm});
     //    go_to_orientation_tasks.push_back(go_to_orientation_left_arm);
-    GenericMetaTaskPtr go_to_orientation_metatasks(new GenericMetaTask(go_to_orientation_tasks, stack->getStateSize()));
+    GenericMetaTaskPtr go_to_orientation_metatasks(new GenericMetaTask(nh, stack.get(), go_to_orientation_tasks, stack->getStateSize()));
     go_to_orientation_metatasks->setDamping(0.1);
     stack->pushTask("go_to_orientation", go_to_orientation_metatasks);
 
@@ -242,7 +242,7 @@ public:
     reference_metatasks.push_back({"torso_joint_refernce", torso_reference});
     reference_metatasks.push_back({"joints_reference", default_reference});
 
-    GenericMetaTaskPtr reference_metatask(new GenericMetaTask(reference_metatasks, stack->getStateSize()));
+    GenericMetaTaskPtr reference_metatask(new GenericMetaTask(nh, stack.get(), reference_metatasks, stack->getStateSize()));
     reference_metatask->setDamping(4.0);
     stack->pushTask("joint_reference", reference_metatask);
 
@@ -322,7 +322,7 @@ public:
     go_to_position_tasks.push_back({"go_to_position_right_foot", go_to_position_right_foot});
     go_to_position_tasks.push_back({"got_to_position_left_foot", go_to_position_left_foot});
 
-    GenericMetaTaskPtr go_to_position_metatasks(new GenericMetaTask(go_to_position_tasks, stack->getStateSize()));
+    GenericMetaTaskPtr go_to_position_metatasks(new GenericMetaTask(nh, stack.get(), go_to_position_tasks, stack->getStateSize()));
     go_to_position_metatasks->setDamping(0.1);
     stack->pushTask("go_to_position", go_to_position_metatasks);
 
@@ -330,7 +330,7 @@ public:
     go_to_orientation_tasks.push_back({"go_to_orientation_right_foot", go_to_orientation_right_foot});
     go_to_orientation_tasks.push_back({"go_to_orientation_left_foot", go_to_orientation_left_foot});
 
-    GenericMetaTaskPtr go_to_orientation_metatasks(new GenericMetaTask(go_to_orientation_tasks, stack->getStateSize()));
+    GenericMetaTaskPtr go_to_orientation_metatasks(new GenericMetaTask(nh, stack.get(), go_to_orientation_tasks, stack->getStateSize()));
     go_to_orientation_metatasks->setDamping(0.1);
     stack->pushTask("go_to_orientation", go_to_orientation_metatasks);
 
@@ -436,14 +436,14 @@ public:
     task_container_vector go_to_position_tasks;
     go_to_position_tasks.push_back({"go_to_position_left_arm", go_to_position_left_arm});
     go_to_position_tasks.push_back({"go_to_position_righ_arm", go_to_position_right_arm});
-    GenericMetaTaskPtr go_to_position_metatasks(new GenericMetaTask(go_to_position_tasks, stack->getStateSize()));
+    GenericMetaTaskPtr go_to_position_metatasks(new GenericMetaTask(nh, stack.get(), go_to_position_tasks, stack->getStateSize()));
     go_to_position_metatasks->setDamping(0.1);
     stack->pushTask("go_to_position", go_to_position_metatasks);
 
     task_container_vector go_to_orientation_tasks;
     go_to_orientation_tasks.push_back({"go_to_orientation_left_arm", go_to_orientation_left_arm});
     go_to_orientation_tasks.push_back({"go_to_orientation_right_arm", go_to_orientation_right_arm});
-    GenericMetaTaskPtr go_to_orientation_metatasks(new GenericMetaTask(go_to_orientation_tasks, stack->getStateSize()));
+    GenericMetaTaskPtr go_to_orientation_metatasks(new GenericMetaTask(nh, stack.get(), go_to_orientation_tasks, stack->getStateSize()));
     go_to_orientation_metatasks->setDamping(0.1);
     stack->pushTask("go_to_orientation", go_to_orientation_metatasks);
 
