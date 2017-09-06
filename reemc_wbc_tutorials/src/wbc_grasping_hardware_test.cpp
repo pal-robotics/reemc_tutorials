@@ -51,6 +51,8 @@
  * robot the whole body controller
  */
 
+using namespace pal_robot_tools;
+
 typedef actionlib::SimpleActionClient<control_msgs::FollowJointTrajectoryAction> TrajClient;
 
 ros::Publisher head_goal_pub;

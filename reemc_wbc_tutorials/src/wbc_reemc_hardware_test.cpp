@@ -49,13 +49,14 @@
  * robot the whole body controller
  */
 
+using namespace Eigen;
+using namespace pal_robot_tools;
+
 ros::Publisher head_goal_pub;
 ros::Publisher left_arm_pub;
 ros::Publisher right_arm_pub;
 
 ros::Publisher marker_pub;
-
-using namespace Eigen;
 
 void publishGoal(eVector3 head, eVector3 left_arm, eVector3 right_arm){
 
