@@ -207,14 +207,14 @@ public:
     go_to_position_tasks.push_back({"go_to_position_right_arm", go_to_position_right_arm});
     //    go_to_position_tasks.push_back(go_to_position_left_arm);
     GenericMetaTaskPtr go_to_position_metatasks(new GenericMetaTask(nh, stack.get(), go_to_position_tasks, stack->getStateSize()));
-    go_to_position_metatasks->setDamping(0.1);
+
     stack->pushTask("go_to_position", go_to_position_metatasks);
 
     task_container_vector go_to_orientation_tasks;
     go_to_orientation_tasks.push_back({"go_to_orientation_right_arm", go_to_orientation_right_arm});
     //    go_to_orientation_tasks.push_back(go_to_orientation_left_arm);
     GenericMetaTaskPtr go_to_orientation_metatasks(new GenericMetaTask(nh, stack.get(), go_to_orientation_tasks, stack->getStateSize()));
-    go_to_orientation_metatasks->setDamping(0.1);
+
     stack->pushTask("go_to_orientation", go_to_orientation_metatasks);
 
     std::vector<std::string> torso_reference_joints;
@@ -229,21 +229,20 @@ public:
                                                       torso_reference_joints,
                                                       torso_posture,
                                                       nh, 2.));
-    torso_reference->setDamping(2.0);
+    torso_reference->setDamping(4.0);
     torso_reference->setWeight(1);
     ReferenceKinematicTaskAllJointsMetaTaskPtr default_reference(
           new ReferenceKinematicTaskAllJointsMetaTask(*stack.get(),
                                                       default_reference_joints,
                                                       default_reference_posture,
                                                       nh, 2.));
-    default_reference->setDamping(2.0);
+    default_reference->setDamping(4.0);
 
     task_container_vector reference_metatasks;
     reference_metatasks.push_back({"torso_joint_refernce", torso_reference});
     reference_metatasks.push_back({"joints_reference", default_reference});
 
     GenericMetaTaskPtr reference_metatask(new GenericMetaTask(nh, stack.get(), reference_metatasks, stack->getStateSize()));
-    reference_metatask->setDamping(4.0);
     stack->pushTask("joint_reference", reference_metatask);
 
     return true;

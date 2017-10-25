@@ -18,6 +18,8 @@ whole_body_kinematic_controler:
     base_imu:
       frame: base_link
 
+  use_home_posture: True
+
   dt: 0.005
   floating_base: XYZ_Quaternion
   formulation: velocity
