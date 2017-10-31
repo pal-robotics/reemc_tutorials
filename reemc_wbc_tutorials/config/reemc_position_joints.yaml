@@ -23,10 +23,6 @@ joints:
       type: pal_local_joint_control::DirectPositionControl
    leg_right_6_joint:
       type: pal_local_joint_control::DirectPositionControl
-   head_1_joint:
-      type: pal_local_joint_control::DirectPositionControl
-   head_2_joint:
-      type: pal_local_joint_control::DirectPositionControl
    torso_1_joint:
       type: pal_local_joint_control::DirectPositionControl
    torso_2_joint:
