@@ -9,6 +9,8 @@ whole_body_kinematic_controller:
   stack_configuration: reemc_stack_both_hands_head
   solver_type: QpReductionuEqualitiesQuadprogHeapAllocation
 
+  use_home_posture: True
+
   robot_model_chains:
     [arm_left_tool_link,
      arm_right_tool_link,
