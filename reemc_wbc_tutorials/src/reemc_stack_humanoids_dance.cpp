@@ -288,12 +288,20 @@ public:
     GenericMetaTaskPtr constraint_metatask(new GenericMetaTask(nh, stack.get(), constraint_tasks, stack->getStateSize()));
     stack->pushTask("constraints", constraint_metatask);
 
+
+    pal_base_ros_controller::FTSensorDefinitionPtr left_ft;
+    if(!getFT("left_ankle_ft", left_ft)){
+      return false;
+    }
+
+    pal_base_ros_controller::FTSensorDefinitionPtr right_ft;
+    if(!getFT("left_ankle_ft", right_ft)){
+      return false;
+    }
+
     assert(fts_.size() == 2);
     ConstraintStabilizedFIXC0MMetaTaskPtr com_constraint (
-          new ConstraintStabilizedFIXC0MMetaTask(*stack.get(),
-                                                 fts_[0],
-          fts_[1],
-        nh) );
+          new ConstraintStabilizedFIXC0MMetaTask(*stack.get(), left_ft, right_ft, nh));
 
     stack->pushTask("com_xy", com_constraint);
 
@@ -429,9 +437,19 @@ public:
     GenericMetaTaskPtr constraint_metatask(new GenericMetaTask(nh, stack.get(), constraint_tasks, stack->getStateSize()));
     stack->pushTask("constraints", constraint_metatask);
     assert(fts_.size() == 2);
+
+    pal_base_ros_controller::FTSensorDefinitionPtr left_ft;
+    if(!getFT("left_ankle_ft", left_ft)){
+      return false;
+    }
+
+    pal_base_ros_controller::FTSensorDefinitionPtr right_ft;
+    if(!getFT("left_right_ft", right_ft)){
+      return false;
+    }
+
     ConstraintStabilizedFIXC0MMetaTaskPtr com_constraint (
-          new ConstraintStabilizedFIXC0MMetaTask(*stack.get(),
-                                                 fts_[0], fts_[1], nh) );
+          new ConstraintStabilizedFIXC0MMetaTask(*stack.get(), left_ft, right_ft, nh));
     stack->pushTask("com_xy", com_constraint);
     SelfCollisionSafetyParameters sc_params;
     sc_params.min_distance = 0.08;

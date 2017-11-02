@@ -140,12 +140,18 @@ public:
     GenericMetaTaskPtr constraint_metatask(new GenericMetaTask(nh, stack.get(), constraint_tasks, stack->getStateSize()));
     stack->pushTask("constraints", constraint_metatask);
 
-    assert(fts_.size() == 4);
+    pal_base_ros_controller::FTSensorDefinitionPtr left_ankle_ft;
+    if(!getFT("left_ankle_ft", left_ankle_ft)){
+      return false;
+    }
+
+    pal_base_ros_controller::FTSensorDefinitionPtr right_ankle_ft;
+    if(!getFT("right_ankle_ft", right_ankle_ft)){
+      return false;
+    }
+
     ConstraintStabilizedFIXC0MMetaTaskPtr com_constraint (
-          new ConstraintStabilizedFIXC0MMetaTask(*stack.get(),
-                                                 fts_[0],
-          fts_[1],
-        nh) );
+          new ConstraintStabilizedFIXC0MMetaTask(*stack.get(), left_ankle_ft, right_ankle_ft, nh));
 
     stack->pushTask("com_xy", com_constraint);
 
@@ -173,12 +179,16 @@ public:
     //    GoToSplinePositionMetaTaskPtr go_to_position_left_arm(new GoToSplinePositionMetaTask(*stack.get(), "arm_left_7_link", "topic", nh));
     //    GoToSplinePositionMetaTaskPtr go_to_position_right_arm(new GoToSplinePositionMetaTask(*stack.get(), "arm_right_7_link", "topic", nh));
     /* Instead we want admitance control */
-    ROS_ERROR_STREAM("Number of ft: "<< fts_.size());
     /* Positions */
+
+    pal_base_ros_controller::FTSensorDefinitionPtr right_wrist_ft;
+    if(!getFT("right_wrist_ft", right_wrist_ft)){
+      return false;
+    }
+
     GoToAdmitancePositionMetaTaskPtr go_to_position_right_arm(
           new GoToAdmitancePositionMetaTask(*stack.get(), "wrist_right_ft_link",
-                                            fts_[3],
-          "topic", nh));
+                                            right_wrist_ft, "topic", nh));
     go_to_position_right_arm->setDamping(0.1);
     // stack->pushTask(TaskAbstractPtr(go_to_position_right_arm));
 
@@ -191,11 +201,11 @@ public:
     // stack->pushTask(TaskAbstractPtr(go_to_position_left_arm));
 
     /* Orientations */
-    GoToAdmitanceOrientationMetaTaskPtr go_to_orientation_right_arm(new GoToAdmitanceOrientationMetaTask(*stack.get(),
-                                                                                                         "wrist_right_ft_link",
-                                                                                                         fts_[3],
-                                                                    "topic",
-                                                                    nh));
+    GoToAdmitanceOrientationMetaTaskPtr go_to_orientation_right_arm(
+          new GoToAdmitanceOrientationMetaTask(*stack.get(),
+                                               "wrist_right_ft_link",
+                                               right_wrist_ft, "topic", nh));
+
     go_to_orientation_right_arm->setDamping(0.1);
     //stack->pushTask(TaskAbstractPtr(go_to_orientation_right_arm));
 
@@ -287,33 +297,35 @@ public:
 
 
     /* Instead we want admitance control */
-    ROS_ERROR_STREAM("Number of ft: "<< fts_.size());
     /* Positions */
+    pal_base_ros_controller::FTSensorDefinitionPtr left_ankle_ft;
+    if(!getFT("left_ankle_ft", left_ankle_ft)){
+      return false;
+    }
+
     GoToAdmitancePositionMetaTaskPtr go_to_position_left_foot(
-          new GoToAdmitancePositionMetaTask(*stack.get(), "left_sole_link",
-                                            fts_[0],
-          "interactive_marker", nh));
+          new GoToAdmitancePositionMetaTask(*stack.get(), "left_sole_link", left_ankle_ft,
+                                            "interactive_marker", nh));
     go_to_position_left_foot->setDamping(0.1);
 
+    pal_base_ros_controller::FTSensorDefinitionPtr right_ankle_ft;
+    if(!getFT("right_ankle_ft", right_ankle_ft)){
+      return false;
+    }
     GoToAdmitancePositionMetaTaskPtr go_to_position_right_foot(
-          new GoToAdmitancePositionMetaTask(*stack.get(), "right_sole_link",
-                                            fts_[1],
-          "interactive_marker", nh));
+          new GoToAdmitancePositionMetaTask(*stack.get(), "right_sole_link", right_ankle_ft,
+                                            "interactive_marker", nh));
     go_to_position_right_foot->setDamping(0.1);
 
     /* Orientations */
-    GoToAdmitanceOrientationMetaTaskPtr go_to_orientation_left_foot(new GoToAdmitanceOrientationMetaTask(*stack.get(),
-                                                                                                         "left_sole_link",
-                                                                                                         fts_[0],
-                                                                    "interactive_marker",
-                                                                    nh));
+    GoToAdmitanceOrientationMetaTaskPtr go_to_orientation_left_foot(
+          new GoToAdmitanceOrientationMetaTask(*stack.get(), "left_sole_link", left_ankle_ft,
+                                               "interactive_marker", nh));
     go_to_orientation_left_foot->setDamping(0.1);
 
-    GoToAdmitanceOrientationMetaTaskPtr go_to_orientation_right_foot(new GoToAdmitanceOrientationMetaTask(*stack.get(),
-                                                                                                          "right_sole_link",
-                                                                                                          fts_[1],
-                                                                     "interactive_marker",
-                                                                     nh));
+    GoToAdmitanceOrientationMetaTaskPtr go_to_orientation_right_foot(
+          new GoToAdmitanceOrientationMetaTask(*stack.get(), "right_sole_link", right_ankle_ft,
+                                               "interactive_marker", nh));
     go_to_orientation_right_foot->setDamping(0.1);
 
 
@@ -408,27 +420,36 @@ public:
 
     assert(fts_.size() == 2);
 
-    ROS_ERROR_STREAM("Number of ft: "<< fts_.size());
+    pal_base_ros_controller::FTSensorDefinitionPtr left_wrist_ft;
+    if(!getFT("left_wrist_ft", left_wrist_ft)){
+      return false;
+    }
+
+    pal_base_ros_controller::FTSensorDefinitionPtr right_wrist_ft;
+    if(!getFT("right_wrist_ft", right_wrist_ft)){
+      return false;
+    }
+
     /* Positions */
     GoToAdmitancePositionMetaTaskPtr go_to_position_left_arm(
           new GoToAdmitancePositionMetaTask(*stack.get(), "wrist_left_ft_link",
-                                            fts_[0],
-          "interactive_marker", nh));
+                                            left_wrist_ft, "interactive_marker", nh));
     go_to_position_left_arm->setDamping(0.1);
 
     GoToAdmitancePositionMetaTaskPtr go_to_position_right_arm(
           new GoToAdmitancePositionMetaTask(*stack.get(), "wrist_right_ft_link",
-                                            fts_[1],
-          "interactive_marker", nh));
+                                            right_wrist_ft, "interactive_marker", nh));
     go_to_position_right_arm->setDamping(0.1);
 
     /* Orientations */
     GoToAdmitanceOrientationMetaTaskPtr go_to_orientation_left_arm(
-          new GoToAdmitanceOrientationMetaTask(*stack.get(), "wrist_left_ft_link", fts_[0], "interactive_marker", nh));
+          new GoToAdmitanceOrientationMetaTask(*stack.get(), "wrist_left_ft_link", left_wrist_ft,
+          "interactive_marker", nh));
     go_to_orientation_left_arm->setDamping(0.1);
 
     GoToAdmitanceOrientationMetaTaskPtr go_to_orientation_right_arm(
-          new GoToAdmitanceOrientationMetaTask(*stack.get(), "wrist_right_ft_link", fts_[1], "interactive_marker", nh));
+          new GoToAdmitanceOrientationMetaTask(*stack.get(), "wrist_right_ft_link", right_wrist_ft,
+                                               "interactive_marker", nh));
     go_to_orientation_right_arm->setDamping(0.1);
 
 
@@ -456,16 +477,14 @@ public:
     ReferenceKinematicTaskAllJointsMetaTaskPtr torso_reference(
           new ReferenceKinematicTaskAllJointsMetaTask(*stack.get(),
                                                       torso_reference_joints,
-                                                      torso_posture,
-                                                      nh, 2.));
+                                                      torso_posture, nh, 2.));
     torso_reference->setDamping(1.0);
     stack->pushTask("torso_joint_reference", torso_reference);
 
     ReferenceKinematicTaskAllJointsMetaTaskPtr default_reference(
           new ReferenceKinematicTaskAllJointsMetaTask(*stack.get(),
                                                       default_reference_joints,
-                                                      default_reference_posture,
-                                                      nh, 2.));
+                                                      default_reference_posture, nh, 2.));
     default_reference->setDamping(1.0);
     stack->pushTask("joint_reference", default_reference);
 
