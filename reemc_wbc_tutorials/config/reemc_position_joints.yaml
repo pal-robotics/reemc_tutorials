@@ -1,4 +1,8 @@
 joints:
+   head_1_joint:
+      type: pal_local_joint_control::DirectPositionControl
+   head_2_joint:
+      type: pal_local_joint_control::DirectPositionControl
    leg_left_1_joint:
       type: pal_local_joint_control::DirectPositionControl
    leg_left_2_joint:
