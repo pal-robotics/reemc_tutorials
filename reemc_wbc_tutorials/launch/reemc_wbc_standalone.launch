@@ -11,6 +11,10 @@
 
   <include file="$(find reemc_wbc_tutorials)/launch/reemc_wbc.launch" />
 
+  <node name="floating_base_publisher" pkg="pal_wbc_controller" type="floating_base_publisher" >
+    <param name="base_frame" value="odom"/>
+  </node>
+
   <node name="rviz" pkg="rviz" type="rviz" args="-d $(find reemc_wbc_tutorials)/config/rviz/reemc_wbc.rviz" />  
 
 </launch>
