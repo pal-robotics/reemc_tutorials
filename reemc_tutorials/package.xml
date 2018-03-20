@@ -16,7 +16,6 @@
   <run_depend>reemc_tts_tutorials</run_depend>
   <run_depend>reemc_vision_tutorials</run_depend>
   <run_depend>reemc_perception_tutorials</run_depend>
-  <run_depend>reemc_wbc_tutorials</run_depend>
 
   <export>
     <metapackage/>
