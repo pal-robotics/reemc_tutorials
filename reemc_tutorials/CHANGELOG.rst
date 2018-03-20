@@ -14,8 +14,8 @@ Changelog for package reemc_tutorials
 0.1.0 (2016-04-04)
 ------------------
 
-Forthcoming
------------
+1.0.0 (2018-03-20)
+------------------
 * Merge branch 'erbium-validation' into 'erbium-devel'
   Remove reemc_wbc_tutorials
   See merge request apps/reemc_tutorials!4
