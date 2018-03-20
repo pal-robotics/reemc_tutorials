@@ -1,6 +1,0 @@
-<launch>
-
-  <node name="rviz" pkg="rviz" type="rviz" args="-d $(find reemc_wbc_tutorials)/config/rviz/reemc_wbc.rviz" />  
-
-</launch>
-

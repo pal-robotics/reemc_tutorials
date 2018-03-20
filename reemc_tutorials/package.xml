@@ -11,12 +11,12 @@
 
   <run_depend>reemc_basic_tutorials</run_depend>
   <run_depend>reemc_motion_tutorials</run_depend>
-  <run_depend>reemc_walking_tutorials</run_depend>
   <run_depend>reemc_asr_tutorials</run_depend>
   <run_depend>reemc_tts_tutorials</run_depend>
   <run_depend>reemc_vision_tutorials</run_depend>
   <run_depend>reemc_perception_tutorials</run_depend>
-  <run_depend>reemc_wbc_tutorials</run_depend>
+  <run_depend>reemc_effort_control</run_depend>
+  <run_depend>reemc_perception_tutorials</run_depend>
 
   <export>
     <metapackage/>

@@ -12,7 +12,6 @@ find_package(catkin REQUIRED COMPONENTS
   roscpp
   transmission_interface
   ddynamic_reconfigure
-  pal_robot_tools
 )
 
 catkin_package(
