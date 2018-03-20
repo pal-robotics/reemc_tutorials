@@ -27,6 +27,17 @@ Changelog for package reemc_effort_control
 0.1.0 (2016-04-04)
 ------------------
 
+Forthcoming
+-----------
+* Merge branch 'erbium-validation' into 'erbium-devel'
+  Remove reemc_wbc_tutorials
+  See merge request apps/reemc_tutorials!4
+* Remove reemc_wbc_tutorials
+* fixed compilation
+* Merge branch 'erbium-devel' of gitlab:apps/reemc_tutorials into erbium-devel
+* added missing depends in reemc effort control and fixed new ros control api compatibility
+* Contributors: Adria Roig, Hilario Tome, Hilario Tomé
+
 0.1.8 (2016-12-12)
 ------------------
 

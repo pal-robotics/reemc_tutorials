@@ -14,6 +14,14 @@ Changelog for package reemc_motion_tutorials
 0.1.0 (2016-04-04)
 ------------------
 
+Forthcoming
+-----------
+* Merge branch 'erbium-validation' into 'erbium-devel'
+  Remove reemc_wbc_tutorials
+  See merge request apps/reemc_tutorials!4
+* Rm move_joint depend
+* Contributors: Adria Roig
+
 0.1.8 (2016-12-12)
 ------------------
 
