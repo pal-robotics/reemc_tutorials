@@ -16,6 +16,9 @@ Changelog for package reemc_perception_tutorials
 * Removed opencv2 dependency
 * Contributors: Hilario Tome
 
+Forthcoming
+-----------
+
 1.0.0 (2018-03-20)
 ------------------
 * Merge branch 'erbium-devel' of gitlab:apps/reemc_tutorials into erbium-devel

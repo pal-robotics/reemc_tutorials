@@ -27,6 +27,14 @@ Changelog for package reemc_effort_control
 0.1.0 (2016-04-04)
 ------------------
 
+Forthcoming
+-----------
+* Merge branch 'public-depend' into 'erbium-devel'
+  Rm pal_ros_utils dependency
+  See merge request apps/reemc_tutorials!5
+* Rm pal_ros_utils dependency
+* Contributors: Adria Roig, Victor Lopez
+
 1.0.0 (2018-03-20)
 ------------------
 * Merge branch 'erbium-validation' into 'erbium-devel'
