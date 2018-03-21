@@ -8,9 +8,8 @@
 #include <hardware_interface/hardware_interface.h>
 #include <hardware_interface/imu_sensor_interface.h>
 #include <controller_interface/controller_base.h>
-#include <pal_ros_utils/xmlrpc_helpers.h>
 #include <ddynamic_reconfigure/ddynamic_reconfigure.h>
-#include <XmlRpcException.h>
+#include <XmlRpc.h>
 #include <pluginlib/class_list_macros.h>
 
 using namespace ddynamic_reconfigure;
