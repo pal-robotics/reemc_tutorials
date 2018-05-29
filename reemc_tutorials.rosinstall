@@ -17,6 +17,7 @@
 - git: {local-name: dynamic_introspection, uri: 'https://github.com/pal-robotics/dynamic_introspection.git', version: 'kinetic-devel'}
 - git: {local-name: ros_control_monitor, uri: 'https://github.com/pal-robotics/ros_control_monitor.git', version: 'kinetic-devel'}
 - git: {local-name: ddynamic_reconfigure, uri: 'https://github.com/pal-robotics/ddynamic_reconfigure.git', version: 'kinetic-devel'}
+- git: {local-name: pal_camera_client, uri: 'https://github.com/pal-robotics/pal_camera_client.git', version: 'indigo-devel'}
 
 # PAL forks
 - git: {local-name: gazebo_ros_pkgs, uri: 'https://github.com/pal-robotics-forks/gazebo_ros_pkgs.git', version: 'kinetic-devel'}
