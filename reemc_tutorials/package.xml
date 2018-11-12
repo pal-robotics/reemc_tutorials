@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<package>
+<package format="2">
   <name>reemc_tutorials</name>
   <version>1.0.1</version>
   <description>REEM-C tutorials metapackage</description>
@@ -9,14 +9,14 @@
 
   <buildtool_depend>catkin</buildtool_depend>
 
-  <run_depend>reemc_basic_tutorials</run_depend>
-  <run_depend>reemc_motion_tutorials</run_depend>
-  <run_depend>reemc_asr_tutorials</run_depend>
-  <run_depend>reemc_tts_tutorials</run_depend>
-  <run_depend>reemc_vision_tutorials</run_depend>
-  <run_depend>reemc_perception_tutorials</run_depend>
-  <run_depend>reemc_effort_control</run_depend>
-  <run_depend>reemc_perception_tutorials</run_depend>
+  <exec_depend>reemc_basic_tutorials</exec_depend>
+  <exec_depend>reemc_motion_tutorials</exec_depend>
+  <exec_depend>reemc_asr_tutorials</exec_depend>
+  <exec_depend>reemc_tts_tutorials</exec_depend>
+  <exec_depend>reemc_vision_tutorials</exec_depend>
+  <exec_depend>reemc_perception_tutorials</exec_depend>
+  <exec_depend>reemc_effort_control</exec_depend>
+  <exec_depend>reemc_perception_tutorials</exec_depend>
 
   <export>
     <metapackage/>

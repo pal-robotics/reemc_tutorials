@@ -1,10 +1,10 @@
 <?xml version="1.0"?>
-<package>
+<package format="2">
   <name>reemc_effort_control</name>
   <version>1.0.1</version>
   <description>The reemc_effort_control package</description>
 
-  <maintainer email="hilario.tome@pal-robotics.com">Hilario Tome</maintainer> 
+  <maintainer email="hilario.tome@pal-robotics.com">Hilario Tome</maintainer>
 
   <license>BSD</license>
 
@@ -17,12 +17,19 @@
   <build_depend>pluginlib</build_depend>
   <build_depend>ddynamic_reconfigure</build_depend>
 
-  <run_depend>roscpp</run_depend>
-  <run_depend>controller_interface</run_depend>
-  <run_depend>transmission_interface</run_depend>
-  <run_depend>pluginlib</run_depend>
-  <run_depend>cmake_modules</run_depend>
-  <run_depend>ddynamic_reconfigure</run_depend>
+  <build_export_depend>roscpp</build_export_depend>
+  <build_export_depend>cmake_modules</build_export_depend>
+  <build_export_depend>controller_interface</build_export_depend>
+  <build_export_depend>transmission_interface</build_export_depend>
+  <build_export_depend>pluginlib</build_export_depend>
+  <build_export_depend>ddynamic_reconfigure</build_export_depend>
+
+  <exec_depend>roscpp</exec_depend>
+  <exec_depend>controller_interface</exec_depend>
+  <exec_depend>transmission_interface</exec_depend>
+  <exec_depend>pluginlib</exec_depend>
+  <exec_depend>cmake_modules</exec_depend>
+  <exec_depend>ddynamic_reconfigure</exec_depend>
 
   <export>
     <controller_interface plugin="${prefix}/reemc_effort_controller_plugins.xml"/>
