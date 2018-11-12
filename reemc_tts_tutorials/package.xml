@@ -15,6 +15,10 @@
   <build_depend>pal_interaction_msgs</build_depend>
   <build_depend>roscpp</build_depend>
 
+  <build_export_depend>actionlib</build_export_depend>
+  <build_export_depend>pal_interaction_msgs</build_export_depend>
+  <build_export_depend>roscpp</build_export_depend>
+
   <exec_depend>actionlib</exec_depend>
   <exec_depend>pal_interaction_msgs</exec_depend>
   <exec_depend>roscpp</exec_depend>

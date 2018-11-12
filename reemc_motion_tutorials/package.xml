@@ -11,9 +11,14 @@
 
   <buildtool_depend>catkin</buildtool_depend>
 
+
   <build_depend>roscpp</build_depend>
   <build_depend>actionlib</build_depend>
   <build_depend>play_motion_msgs</build_depend>
+
+  <build_export_depend>roscpp</build_export_depend>
+  <build_export_depend>actionlib</build_export_depend>
+  <build_export_depend>play_motion_msgs</build_export_depend>
 
   <exec_depend>axcli</exec_depend>
   <exec_depend>roscpp</exec_depend>
