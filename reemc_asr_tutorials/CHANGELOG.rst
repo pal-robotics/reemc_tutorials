@@ -14,8 +14,8 @@ Changelog for package reemc_asr_tutorials
 0.1.0 (2016-04-04)
 ------------------
 
-Forthcoming
------------
+1.0.2 (2018-11-12)
+------------------
 * Merge branch 'migrate-to-pkg-format-2' into 'erbium-devel'
   Migrate to pkg format 2
   See merge request apps/reemc_tutorials!6
