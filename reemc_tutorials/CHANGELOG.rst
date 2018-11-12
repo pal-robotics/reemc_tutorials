@@ -14,6 +14,14 @@ Changelog for package reemc_tutorials
 0.1.0 (2016-04-04)
 ------------------
 
+Forthcoming
+-----------
+* Merge branch 'migrate-to-pkg-format-2' into 'erbium-devel'
+  Migrate to pkg format 2
+  See merge request apps/reemc_tutorials!6
+* Migrate packages to format 2
+* Contributors: Victor Lopez
+
 1.0.1 (2018-03-21)
 ------------------
 
