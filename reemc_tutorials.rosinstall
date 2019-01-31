@@ -13,7 +13,7 @@
 - git: {local-name: pal_hardware_interfaces, uri: 'https://github.com/pal-robotics/pal_hardware_interfaces.git', version: 'indigo-devel'}
 - git: {local-name: hey5_description, uri: 'https://github.com/pal-robotics/hey5_description.git', version: 'master'}
 - git: {local-name: tf_lookup, uri: 'https://github.com/pal-robotics/tf_lookup.git', version: 'master'}
-- git: {local-name: backward_ros, uri: 'https://github.com/pal-robotics/backward_ros.git', version: 'master'}
+- git: {local-name: backward_ros, uri: 'https://github.com/pal-robotics/backward_ros.git', version: 'kinetic-devel'}
 - git: {local-name: dynamic_introspection, uri: 'https://github.com/pal-robotics/dynamic_introspection.git', version: 'kinetic-devel'}
 - git: {local-name: ros_control_monitor, uri: 'https://github.com/pal-robotics/ros_control_monitor.git', version: 'kinetic-devel'}
 - git: {local-name: ddynamic_reconfigure, uri: 'https://github.com/pal-robotics/ddynamic_reconfigure.git', version: 'kinetic-devel'}
