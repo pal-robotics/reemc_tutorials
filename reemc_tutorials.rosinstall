@@ -19,6 +19,7 @@
 - git: {local-name: ddynamic_reconfigure, uri: 'https://github.com/pal-robotics/ddynamic_reconfigure.git', version: 'kinetic-devel'}
 - git: {local-name: pal_camera_client, uri: 'https://github.com/pal-robotics/pal_camera_client.git', version: 'indigo-devel'}
 - git: {local-name: pal_transmissions, uri: 'https://github.com/pal-robotics/pal_transmissions.git', version: 'indigo-devel'}
+- git: {local-name: realsense_gazebo_plugin, uri: 'https://github.com/pal-robotics/realsense_gazebo_plugin', version: 'master'}
 
 # PAL forks
 - git: {local-name: gazebo_ros_pkgs, uri: 'https://github.com/pal-robotics-forks/gazebo_ros_pkgs.git', version: 'kinetic-devel'}
