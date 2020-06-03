@@ -10,7 +10,7 @@ find_package(catkin REQUIRED COMPONENTS
 catkin_python_setup()
 catkin_package()
 
-include_directories(${catkin_INCLUDE_DIRS})
+include_directories(SYSTEM ${catkin_INCLUDE_DIRS})
 
 set(progs
   move_left_arm_without_planning

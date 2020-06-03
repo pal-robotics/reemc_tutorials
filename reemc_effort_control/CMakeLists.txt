@@ -22,6 +22,7 @@ catkin_package(
 )
 
 include_directories(
+  SYSTEM
   ${Eigen_INCLUDE_DIRS}
   ${catkin_INCLUDE_DIRS}
 )

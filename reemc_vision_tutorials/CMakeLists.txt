@@ -23,6 +23,7 @@ catkin_package()
 ###########
 
 include_directories(
+  SYSTEM
   ${Boost_INCLUDE_DIRS}
   ${OpenCV_INCLUDE_DIRS}
   ${catkin_INCLUDE_DIRS}
