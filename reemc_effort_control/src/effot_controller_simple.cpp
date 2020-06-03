@@ -331,7 +331,7 @@ protected:
 
 };
 
-PLUGINLIB_DECLARE_CLASS(reemc_effort_control, SimpleEffortController, reemc_effort_control::SimpleEffortController, controller_interface::ControllerBase);
+PLUGINLIB_EXPORT_CLASS(reemc_effort_control::SimpleEffortController, controller_interface::ControllerBase);
 
 }
 
