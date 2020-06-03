@@ -163,13 +163,13 @@ bool selectObjectRoi()
     return false;
 }
 
-void imgToMsg(const cv::Mat& img,
+void imgToMsg(const cv::Mat& inputImg,
               sensor_msgs::Image& imgMsg)
 {
   cv_bridge::CvImage cvImg;
   cvImg.encoding = sensor_msgs::image_encodings::BGR8;
 
-  cvImg.image = img.clone();
+  cvImg.image = inputImg.clone();
   cvImg.toImageMsg(imgMsg);
 }
 
