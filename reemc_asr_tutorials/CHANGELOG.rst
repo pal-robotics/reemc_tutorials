@@ -14,8 +14,8 @@ Changelog for package reemc_asr_tutorials
 0.1.0 (2016-04-04)
 ------------------
 
-Forthcoming
------------
+1.0.3 (2020-06-03)
+------------------
 * Merge branch 'melodic_fixes' into 'erbium-devel'
   Melodic fixes
   See merge request apps/reemc_tutorials!10
