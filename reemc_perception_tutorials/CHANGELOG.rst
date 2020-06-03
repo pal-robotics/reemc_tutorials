@@ -16,6 +16,15 @@ Changelog for package reemc_perception_tutorials
 * Removed opencv2 dependency
 * Contributors: Hilario Tome
 
+Forthcoming
+-----------
+* Merge branch 'melodic_fixes' into 'erbium-devel'
+  Melodic fixes
+  See merge request apps/reemc_tutorials!10
+* fix the shadowing variable
+* disable warnings on all included headers
+* Contributors: Sai Kishor Kothakota, jordanpalacios
+
 1.0.2 (2018-11-12)
 ------------------
 * Merge branch 'migrate-to-pkg-format-2' into 'erbium-devel'

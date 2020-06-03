@@ -27,6 +27,16 @@ Changelog for package reemc_effort_control
 0.1.0 (2016-04-04)
 ------------------
 
+Forthcoming
+-----------
+* Merge branch 'melodic_fixes' into 'erbium-devel'
+  Melodic fixes
+  See merge request apps/reemc_tutorials!10
+* added eigen dependency
+* disable warnings on all included headers
+* used PLUGINLIB_EXPORT_CLASS instead of PLUGINLIB_DECLARE_CLASS
+* Contributors: Sai Kishor Kothakota, jordanpalacios
+
 1.0.2 (2018-11-12)
 ------------------
 * Merge branch 'migrate-to-pkg-format-2' into 'erbium-devel'
