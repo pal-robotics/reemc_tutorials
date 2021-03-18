@@ -4,7 +4,7 @@
   <version>1.0.3</version>
   <description>ROS based vision applications tutorials for the REEM-C robot</description>
 
-  <maintainer email="jordi.pages@pal-robotics.com">Jordi Pages</maintainer>
+  <maintainer email="sai.kishor@pal-robotics.com">Sai Kishor</maintainer>
   <license>BSD</license>
 
   <author email="luca.marchionni@pal-robotics.com">Luca Marchionni</author>

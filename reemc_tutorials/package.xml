@@ -3,7 +3,7 @@
   <name>reemc_tutorials</name>
   <version>1.0.3</version>
   <description>REEM-C tutorials metapackage</description>
-  <maintainer email="luca.marchionni@pal-robotics.com">Luca Marchionni</maintainer>
+  <maintainer email="sai.kishor@pal-robotics.com">Sai Kishor</maintainer>
   <license>BSD</license>
   <author email="luca.marchionni@pal-robotics.com">Luca Marchionni</author>
 

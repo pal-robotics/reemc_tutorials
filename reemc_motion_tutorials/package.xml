@@ -4,7 +4,7 @@
   <version>1.0.3</version>
   <description>Motion tutorials for the REEM-C robot</description>
 
-  <maintainer email="adolfo.rodriguez@pal-robotics.com">Adolfo Rodriguez Tsouroukdissian</maintainer>
+  <maintainer email="sai.kishor@pal-robotics.com">Sai Kishor</maintainer>
   <license>BSD</license>
 
   <author email="luca.marchionni@pal-robotics.com">Luca Marchionni</author>

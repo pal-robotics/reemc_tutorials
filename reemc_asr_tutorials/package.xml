@@ -4,7 +4,7 @@
   <version>1.0.3</version>
   <description>ROS based tutorials for REEM-C Automatic Speech Recognition application</description>
 
-  <maintainer email="jordi.adell@pal-robotics.com">Jordi Adell</maintainer>
+  <maintainer email="sai.kishor@pal-robotics.com">Sai Kishor</maintainer>
   <license>BSD</license>
 
   <author email="luca.marchionni@pal-robotics.com">Luca Marchionni</author>
